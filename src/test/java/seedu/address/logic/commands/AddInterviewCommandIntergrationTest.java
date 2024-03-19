@@ -30,9 +30,7 @@ public class AddInterviewCommandIntergrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addInterview(validInterview);
 
-        assertCommandSuccess(new AddInterviewCommand(validInterview.getDescription(),
-                        validInterview.getApplicant().getPhone(), validInterview.getInterviewer().getPhone(),
-                        validInterview.getDate(), validInterview.getStartTime(), validInterview.getEndTime()), model,
+        assertCommandSuccess(new AddInterviewCommand(validInterview), model,
                 String.format(AddInterviewCommand.MESSAGE_SUCCESS, "\n" + Messages.formatInterview(validInterview)),
                 expectedModel);
     }
@@ -43,9 +41,7 @@ public class AddInterviewCommandIntergrationTest {
         model.addInterview(validInterview);
         Interview interviewInList = model.getAddressBook().getInterviewList().get(0);
         System.out.println(interviewInList.equals(validInterview));
-        assertCommandFailure(new AddInterviewCommand(interviewInList.getDescription(),
-                interviewInList.getApplicant().getPhone(), interviewInList.getInterviewer().getPhone(),
-                interviewInList.getDate(), interviewInList.getStartTime(), interviewInList.getEndTime()), model,
+        assertCommandFailure(new AddInterviewCommand(interviewInList), model,
                 AddInterviewCommand.MESSAGE_DUPLICATE_INTERVIEW);
     }
 }

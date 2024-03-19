@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -48,30 +49,13 @@ public class AddInterviewCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New Interview added: %1$s";
     public static final String MESSAGE_DUPLICATE_INTERVIEW = "This Interview already exists in the talent tracker";
-
-    private String description;
-    private Phone applicant;
-    private Phone interviewer;
-
-    // Format YYYY-MM-DD
-    private LocalDate date;
-    // Format HH:mm
-    private LocalTime startTime;
-    private LocalTime endTime;
-
     private Interview interview;
 
     /**
      * Creates an AddInterviewCommand to add the specified {@code Person}
      */
-    public AddInterviewCommand(String description, Phone applicant, Phone interviewer, LocalDate date,
-                               LocalTime startTime, LocalTime endTime) {
-        this.description = description;
-        this.applicant = applicant;
-        this.interviewer = interviewer;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public AddInterviewCommand(Interview interview) {
+        this.interview = interview;
     }
 
     @Override
@@ -83,8 +67,8 @@ public class AddInterviewCommand extends Command {
         boolean isFoundInterviewer = false;
         boolean isCorrectApplicantPhone = true;
         boolean isCorrectInterviewerPhone = true;
-        Phone targetApplicantPhone = applicant;
-        Phone targetInterviewerPhone = interviewer;
+        Phone targetApplicantPhone = interview.getApplicant().getPhone();
+        Phone targetInterviewerPhone = interview.getInterviewer().getPhone();
         Person applicantSearch = null;
         Person interviewerSearch = null;
 
@@ -116,7 +100,7 @@ public class AddInterviewCommand extends Command {
             }
         }
 
-        if (startTime.isAfter(endTime)) {
+        if (interview.getStartTime().isAfter(interview.getEndTime())) {
             throw new CommandException(MESSAGE_INVALID_END_TIME);
         }
 
@@ -133,9 +117,6 @@ public class AddInterviewCommand extends Command {
         if (isCorrectInterviewerPhone) {
             throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER);
         }
-
-
-        this.interview = new Interview(applicantSearch, interviewerSearch, date, startTime, endTime, description);
 
         if (model.hasInterview(interview)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERVIEW);
@@ -164,8 +145,11 @@ public class AddInterviewCommand extends Command {
 
     @Override
     public String toString() {
-        return "Description: " + description + " applicant: " + applicant.toString() + " interviewer: "
-                + interviewer.toString() + " date: " + date.toString() + " start: " + startTime.toString() + " end: "
-                + endTime.toString();
+//        return "Description: " + description + " applicant: " + applicant.toString() + " interviewer: "
+//                + interviewer.toString() + " date: " + date.toString() + " start: " + startTime.toString() + " end: "
+//                + endTime.toString();
+        return new ToStringBuilder(this)
+                .add("interview", interview)
+                .toString();
     }
 }
