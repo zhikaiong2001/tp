@@ -1,0 +1,33 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+Class "{abstract}\nCommand" as Command {
+}
+Class DeleteCommand {
+  -COMMAND_WORD : String = "delete_person"
+  -MESSAGE_USAGE : String
+  -MESSAGE_DELETE_PERSON_SUCCESS : String
+  -targetPhone : Phone
+  +DeleteCommand(targetPhone : Phone)
+  +execute(model : Model) : CommandResult
+  +equals(other : Object) : boolean
+  +toString() : String
+}
+Class DeleteInterviewCommand {
+  -COMMAND_WORD : String = "delete_interview"
+  -MESSAGE_USAGE : String
+  -MESSAGE_DELETE_INTERVIEW_SUCCESS : String
+  -targetInt : Integer
+  +DeleteInterviewCommand(targetInt : Integer)
+  +execute(model : Model) : CommandResult
+  +equals(other : Object) : boolean
+  +toString() : String
+}
+
+
+DeleteCommand -up-|> Command
+
+DeleteInterviewCommand -up-|> Command
+
+@enduml
