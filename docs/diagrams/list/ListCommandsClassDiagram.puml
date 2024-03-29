@@ -1,0 +1,23 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+Class "{abstract}\nCommand" as Command {
+}
+Class ListCommand {
+  -COMMAND_WORD : String = "list_persons"
+  -MESSAGE_SUCCESS : String = "Listed all persons"
+  +execute(model : Model) : CommandResult
+}
+Class ListInterviewCommand {
+  -COMMAND_WORD : String = "list_interviews"
+  -MESSAGE_SUCCESS : String = "Listed all interviews"
+  +execute(model : Model) : CommandResult
+}
+
+
+ListCommand -up-|> Command
+
+ListInterviewCommand -up-|> Command
+
+@enduml

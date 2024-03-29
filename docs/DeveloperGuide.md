@@ -385,6 +385,10 @@ The above `execute` operation utilises `ModelManager#updateFilteredPersonList()`
 
 This change is then reflected in the UI list of persons / Interviews.
 
+The following class diagram summarizes the organisation of the two different list commands:
+<puml src="diagrams/list/ListCommandsClassDiagram.puml" width="250"/>
+
+
 Given below is an example usage scenario for interviews and how the mechanism behaves at each step.
 
 * Step 1. The user launches the application with existing interviewers, applicants, and interviews. The interviews' date are all different.
@@ -412,6 +416,10 @@ Both `DeleteCommand` and `DeleteInterviewsCommand` implements the following oper
 The above `execute` operation utilises `ModelManager#deletePerson()` or `ModelManager#deleteInterview()` respectively implemented from the Model interface,to remove the corresponding person or interview from the list in `Model`.
 
 This change is then reflected in the UI list of persons / Interviews.
+
+The following class diagram summarizes the organisation of the two different delete commands:
+<puml src="diagrams/delete/DeleteCommandsClassDiagram.puml" width="250"/>
+
 
 Note:
 * If the argument entered (phone number or index) references a interview or person that is not in the current list, it will result in a `CommandException` indicating an out of bounds or invalid phone number error.
