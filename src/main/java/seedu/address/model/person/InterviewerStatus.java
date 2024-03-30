@@ -34,7 +34,7 @@ public class InterviewerStatus extends Status {
         Pattern patternFree = Pattern.compile("^free$");
         Matcher matcherFree = patternFree.matcher(status);
 
-        Pattern patternOccupied = Pattern.compile("^interview with .*");
+        Pattern patternOccupied = Pattern.compile("(?s)^interview with .*");
         Matcher matcherOccupied = patternOccupied.matcher(status);
 
         return matcherFree.matches() || matcherOccupied.matches();

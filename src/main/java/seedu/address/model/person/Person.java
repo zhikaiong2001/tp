@@ -27,7 +27,7 @@ public class Person {
     private final Remark remark;
 
     // Type field
-    private Type type = Type.PERSON;
+    private final Type type = Type.PERSON;
 
     /**
      * Every field must be present and not null.
@@ -70,6 +70,9 @@ public class Person {
     }
 
     public void updateCurrentStatusToReflectInterview(Model model) {}
+
+    public void updateCurrentStatusToReflectInterview(Model model, int interviewIndex) {
+    }
 
     public void updateCurrentStatusToReflectInterview(Model model, Person applicantScheduled) {
     }
@@ -136,5 +139,4 @@ public class Person {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

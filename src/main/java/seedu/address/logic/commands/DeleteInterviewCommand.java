@@ -25,7 +25,7 @@ public class DeleteInterviewCommand extends Command {
 
     public static final String MESSAGE_DELETE_INTERVIEW_SUCCESS = "Interview Deleted ";
 
-    private Integer targetInt;
+    private final Integer targetInt;
 
 
     public DeleteInterviewCommand(int targetInt) {
@@ -40,16 +40,15 @@ public class DeleteInterviewCommand extends Command {
         try {
             interview = lastShownList.get(targetInt);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("index wrong");
             throw new CommandException(Messages.MESSAGE_INTERVIEW_NOT_IN_LIST);
         }
 
         model.deleteInterview(interview);
         interview.getApplicant().revertCurrentStatus(model);
-        interview.getInterviewer().updateCurrentStatusToReflectInterview(model);
+        interview.getInterviewer().updateCurrentStatusToReflectInterview(model, targetInt);
 
         return new CommandResult(MESSAGE_DELETE_INTERVIEW_SUCCESS
-                + "\nInformation about delete interview: \n" + Messages.formatInterview(interview));
+                + "\nInformation about deleted interview: \n" + Messages.formatInterview(interview));
     }
 
     @Override
