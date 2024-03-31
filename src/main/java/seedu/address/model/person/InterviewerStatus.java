@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 public class InterviewerStatus extends Status {
     public static final String MESSAGE_CONSTRAINTS =
-            "Status can only be either \"free\" or \"interview with [APPLICANT NAME]\"";
+            "Interviewer status can only be either \"free\" or \"interview with [applicant name]\"";
 
     public final String value;
 
