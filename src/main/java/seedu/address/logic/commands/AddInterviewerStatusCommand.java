@@ -25,9 +25,9 @@ public class AddInterviewerStatusCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the status of the interviewer identified "
             + "by the phone number used in the command. "
             + "Existing status will be overwritten by the input.\n"
-            + "Parameters: PHONE (must be at least 3 digits) "
-            + PREFIX_STATUS + "(must be either \"free\" or \"interview with [APPLICANT NAME]\") [STATUS]\n"
-            + "Example: " + COMMAND_WORD + " 98362254 "
+            + "Parameters: [phone] (must be an existing valid phone) "
+            + PREFIX_STATUS + "[status] (must be either \"free\" or \"interview with [APPLICANT NAME]\")\n"
+            + "Example usage: " + COMMAND_WORD + " 98362254 "
             + PREFIX_STATUS + "free";
 
     public static final String MESSAGE_ADD_STATUS_SUCCESS = "Added status to Interviewer: %1$s";

@@ -42,7 +42,7 @@ public class Applicant extends Person {
      * @param model the location of the applicant to be edited
      */
     @Override
-    public void updateCurrentStatusToReflectInterview(Model model) {
+    public void updateCurrentStatusToReflectScheduledInterview(Model model) {
         previousStatus = currentStatus;
         currentStatus = new ApplicantStatus(ApplicantState.STAGE_TWO.toString());
         /*
@@ -59,7 +59,9 @@ public class Applicant extends Person {
      */
     @Override
     public void revertCurrentStatus(Model model) {
-        currentStatus = previousStatus;
+        currentStatus = previousStatus == null
+                        ? new ApplicantStatus(ApplicantState.STAGE_ONE.toString())
+                        : previousStatus;
         /*
             Need to find this applicant by reference equality and replace them for the change in status to reflect in
             the gui immediately
