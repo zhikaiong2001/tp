@@ -1,17 +1,17 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.person.Applicant;
-import seedu.address.model.person.Interviewer;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.person.Applicant;
+import seedu.address.model.person.Interviewer;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddInterviewCommandTest {
     @Test
