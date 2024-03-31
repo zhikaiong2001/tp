@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 public class InterviewerStatus extends Status {
     public static final String MESSAGE_CONSTRAINTS =
-            "Status can only be either \"free\" or \"interview with [APPLICANT NAME]\"";
+            "Interviewer status can only be either \"free\" or \"interview with [applicant name]\"";
 
     public final String value;
 
@@ -34,7 +34,7 @@ public class InterviewerStatus extends Status {
         Pattern patternFree = Pattern.compile("^free$");
         Matcher matcherFree = patternFree.matcher(status);
 
-        Pattern patternOccupied = Pattern.compile("^interview with .*");
+        Pattern patternOccupied = Pattern.compile("(?s)^interview with .*");
         Matcher matcherOccupied = patternOccupied.matcher(status);
 
         return matcherFree.matches() || matcherOccupied.matches();

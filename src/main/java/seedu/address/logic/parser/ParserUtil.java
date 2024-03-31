@@ -135,6 +135,11 @@ public class ParserUtil {
         if (!InterviewerStatus.isValidStatus(trimmedInterviewerStatus)) {
             throw new ParseException(InterviewerStatus.MESSAGE_CONSTRAINTS);
         }
-        return new InterviewerStatus(trimmedInterviewerStatus);
+        String[] newlineSeparatedStatusArray = trimmedInterviewerStatus.split("\n");
+        StringBuilder newlineSeparatedStatus = new StringBuilder();
+        for (String individualStatus : newlineSeparatedStatusArray) {
+            newlineSeparatedStatus.append(individualStatus);
+        }
+        return new InterviewerStatus(newlineSeparatedStatus.toString());
     }
 }

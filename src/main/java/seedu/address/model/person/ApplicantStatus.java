@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class ApplicantStatus extends Status {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Status can only be one of \"resume review\", \"pending interview\", \"completed interview\"\n"
+            "Applicants status can only be one of \"resume review\", \"pending interview\", \"completed interview\","
                     + "\"waiting list\", \"accepted\", or \"rejected\"";
 
     public final String value;
