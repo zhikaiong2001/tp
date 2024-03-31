@@ -26,6 +26,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInterviewsCommand;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.logic.commands.ViewOverallStatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -105,6 +106,9 @@ public class AddressBookParser {
 
         case FilterPersonsByStatusCommand.COMMAND_WORD:
             return new FilterPersonsByStatusCommandParser().parse(arguments);
+
+        case ViewOverallStatisticsCommand.COMMAND_WORD:
+            return new ViewOverallStatisticsCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
