@@ -24,7 +24,7 @@ public class InterviewerStatus extends Status {
     public InterviewerStatus(String status) {
         requireNonNull(status);
         checkArgument(isValidStatus(status.toLowerCase()), MESSAGE_CONSTRAINTS);
-        value = status.toLowerCase();
+        value = splitByNewLine(status.toLowerCase());
     }
 
     /**
@@ -38,6 +38,15 @@ public class InterviewerStatus extends Status {
         Matcher matcherOccupied = patternOccupied.matcher(status);
 
         return matcherFree.matches() || matcherOccupied.matches();
+    }
+
+    private String splitByNewLine(String status) {
+        String[] newlineSeparatedStatusArray = status.split("\n");
+        StringBuilder newlineSeparatedStatus = new StringBuilder();
+        for (String individualStatus : newlineSeparatedStatusArray) {
+            newlineSeparatedStatus.append(individualStatus);
+        }
+        return newlineSeparatedStatus.toString();
     }
 
     @Override
