@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -78,76 +79,64 @@ public class AddInterviewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-
         boolean isFoundApplicant = false;
         boolean isFoundInterviewer = false;
-        boolean isCorrectApplicantPhone = true;
-        boolean isCorrectInterviewerPhone = true;
-        Phone targetApplicantPhone = applicant;
-        Phone targetInterviewerPhone = interviewer;
+        boolean isIncorrectApplicantPhone = true;
+        boolean isIncorrectInterviewerPhone = true;
         Person applicantSearch = null;
         Person interviewerSearch = null;
-
         for (Person p : lastShownList) {
-            if (p.getPhone().equals(targetApplicantPhone)) {
+            if (p.getPhone().equals(applicant)) {
                 isFoundApplicant = true;
             }
-
             if (isFoundApplicant) {
                 if (p.getPersonType().equals("APPLICANT")) {
-                    isCorrectApplicantPhone = false;
+                    isIncorrectApplicantPhone = false;
                 }
                 applicantSearch = p;
                 break;
             }
-
         }
         for (Person p : lastShownList) {
-            if (p.getPhone().equals(targetInterviewerPhone)) {
+            if (p.getPhone().equals(interviewer)) {
                 isFoundInterviewer = true;
             }
-
             if (isFoundInterviewer) {
                 if (p.getPersonType().equals("INTERVIEWER")) {
-                    isCorrectInterviewerPhone = false;
+                    isIncorrectInterviewerPhone = false;
                 }
                 interviewerSearch = p;
                 break;
             }
         }
-
-        if (startTime.isAfter(endTime)) {
-            throw new CommandException(MESSAGE_INVALID_END_TIME);
-        }
-
-
-        if (!isFoundApplicant || !isFoundInterviewer) {
-            throw new CommandException(Messages.MESSAGE_PERSON_NOT_IN_LIST);
-        }
-        if (isCorrectApplicantPhone && isCorrectInterviewerPhone) {
-            throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_AND_APPLICANT_PHONE_NUMBER);
-        }
-        if (isCorrectApplicantPhone) {
-            throw new CommandException(Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER);
-        }
-        if (isCorrectInterviewerPhone) {
-            throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER);
-        }
-
-
+        phoneNumberCheck(isFoundApplicant, isFoundInterviewer, isIncorrectApplicantPhone, isIncorrectInterviewerPhone);
         this.interview = new Interview(applicantSearch, interviewerSearch, date, startTime, endTime, description);
-
         if (model.hasInterview(interview)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERVIEW);
         }
-
-
         model.addInterview(interview);
         model.sortInterview();
         applicantSearch.updateCurrentStatusToReflectInterview(model);
         interviewerSearch.updateCurrentStatusToReflectInterview(model, applicantSearch);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, "\n" + Messages.formatInterview(interview)));
+    }
+
+    private static void phoneNumberCheck(boolean isFoundApplicant,
+                                         boolean isFoundInterviewer,
+                                         boolean isIncorrectApplicantPhone,
+                                         boolean isIncorrectInterviewerPhone) throws CommandException {
+        if (!isFoundApplicant || !isFoundInterviewer) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_IN_LIST);
+        }
+        if (isIncorrectApplicantPhone && isIncorrectInterviewerPhone) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_AND_APPLICANT_PHONE_NUMBER);
+        }
+        if (isIncorrectApplicantPhone) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER);
+        }
+        if (isIncorrectInterviewerPhone) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER);
+        }
     }
 
     @Override
