@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class Interviewer extends Person {
         super(name, phone, email, remark, tags);
         this.tags.add(new Tag("Interviewer"));
         if (!status.value.equals(InterviewerState.FREE.toString())) {
-            upcomingInterviews.add(status);
+            splitAndAdd(status);
         }
     }
 
@@ -35,13 +36,26 @@ public class Interviewer extends Person {
         return type.toString();
     }
 
+    private void splitAndAdd(InterviewerStatus status) {
+        String[] newlineSeparatedStatus = status.value.split("\n");
+        for (String individualStatus : newlineSeparatedStatus) {
+            upcomingInterviews.add(new InterviewerStatus(individualStatus));
+        }
+    }
+
     /**
      * Changes the status of this interviewer to free only if they had an interview before.
      *
      * @param model the location of the interviewer to be edited.
      */
-    public void updateCurrentStatusToReflectInterview(Model model, int interviewIndex) {
-        upcomingInterviews.remove(interviewIndex);
+    public void updateCurrentStatusToReflectDeletedInterview(Model model, Person applicantScheduled) {
+        String scheduledApplicantName = applicantScheduled.getName().toString().toLowerCase();
+        for (Iterator<InterviewerStatus> iterator = upcomingInterviews.iterator(); iterator.hasNext();) {
+            String status = iterator.next().toString();
+            if (status.contains(scheduledApplicantName)) {
+                iterator.remove();
+            }
+        }
         /*
          * Need to find this interviewer by reference equality and replace them for the change in status to reflect
          * in the gui immediately
@@ -55,7 +69,7 @@ public class Interviewer extends Person {
      * @param model the location of the interviewer to be edited.
      * @param applicantScheduled the applicant whom this interviewer is scheduled with.
      */
-    public void updateCurrentStatusToReflectInterview(Model model, Person applicantScheduled) {
+    public void updateCurrentStatusToReflectScheduledInterview(Model model, Person applicantScheduled) {
         upcomingInterviews.add(new InterviewerStatus(InterviewerState.OCCUPIED + " " + applicantScheduled.getName()));
         /*
             Need to find this interviewer by reference equality and replace them for the change in status to reflect
@@ -69,7 +83,6 @@ public class Interviewer extends Person {
         if (upcomingInterviews.isEmpty()) {
             return InterviewerState.FREE.toString();
         } else {
-            System.out.println(stringifyInterviewStatuses());
             return stringifyInterviewStatuses();
         }
     }
@@ -81,7 +94,7 @@ public class Interviewer extends Person {
             if (i == numberOfScheduledInterviews - 1) {
                 interviewStatusesString.append(upcomingInterviews.get(i));
             } else {
-                interviewStatusesString.append(upcomingInterviews.get(i)).append(",\n");
+                interviewStatusesString.append(upcomingInterviews.get(i)).append("\n");
             }
         }
         return interviewStatusesString.toString();

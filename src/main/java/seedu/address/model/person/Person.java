@@ -69,15 +69,16 @@ public class Person {
         return type.toString();
     }
 
-    public void updateCurrentStatusToReflectInterview(Model model) {}
-
-    public void updateCurrentStatusToReflectInterview(Model model, int interviewIndex) {
-    }
-
-    public void updateCurrentStatusToReflectInterview(Model model, Person applicantScheduled) {
-    }
-
     public void revertCurrentStatus(Model model) {
+    }
+
+    public void updateCurrentStatusToReflectDeletedInterview(Model model, Person applicantScheduled) {
+    }
+
+    public void updateCurrentStatusToReflectScheduledInterview(Model model) {
+    }
+
+    public void updateCurrentStatusToReflectScheduledInterview(Model model, Person applicantScheduled) {
     }
 
     public String getCurrentStatus() {

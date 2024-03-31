@@ -85,11 +85,8 @@ public class Interview {
 
         boolean applicantMatch = otherInterview.applicant.equals(this.applicant);
         boolean interviewerMatch = otherInterview.interviewer.equals(this.interviewer);
-        boolean dateMatch = otherInterview.date.equals(this.date);
-        boolean timeMatch = otherInterview.startTime.equals(this.startTime)
-                && otherInterview.endTime.equals(this.endTime);
 
-        return applicantMatch && interviewerMatch && dateMatch && timeMatch;
+        return applicantMatch && interviewerMatch;
     }
 
     @Override
