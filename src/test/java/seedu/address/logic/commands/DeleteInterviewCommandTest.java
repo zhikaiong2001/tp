@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.DeleteInterviewCommand.MESSAGE_DELETE_INTERVIEW_SUCCESS;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERVIEW;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERVIEW;
 import static seedu.address.testutil.TypicalInterviews.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.interview.Interview;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -31,7 +29,8 @@ public class DeleteInterviewCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Interview interviewToDelete = model.getFilteredInterviewList().get(INDEX_FIRST_INTERVIEW.getZeroBased());
-        DeleteInterviewCommand deleteInterviewCommand = new DeleteInterviewCommand(INDEX_FIRST_INTERVIEW.getZeroBased());
+        DeleteInterviewCommand deleteInterviewCommand = new DeleteInterviewCommand(
+                INDEX_FIRST_INTERVIEW.getZeroBased());
         String expectedMessage = String.format(MESSAGE_DELETE_INTERVIEW_SUCCESS,
                 Messages.formatInterview(interviewToDelete));
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -55,7 +54,8 @@ public class DeleteInterviewCommandTest {
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteInterviewCommand deleteFirstCommandCopy = new DeleteInterviewCommand(INDEX_FIRST_INTERVIEW.getZeroBased());
+        DeleteInterviewCommand deleteFirstCommandCopy = new DeleteInterviewCommand(
+                INDEX_FIRST_INTERVIEW.getZeroBased());
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -72,7 +72,7 @@ public class DeleteInterviewCommandTest {
     public void toStringMethod() {
         int targetINT = INDEX_FIRST_INTERVIEW.getZeroBased();
         DeleteInterviewCommand deleteCommand = new DeleteInterviewCommand(targetINT);
-        String expected = DeleteInterviewCommand.class.getCanonicalName() + "{targetINT=" + targetINT + "}";
+        String expected = DeleteInterviewCommand.class.getCanonicalName() + "{targetInt=" + targetINT + "}";
         assertEquals(expected, deleteCommand.toString());
     }
 }

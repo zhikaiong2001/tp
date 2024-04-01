@@ -67,7 +67,7 @@ public class DeleteInterviewCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetINT", targetInt)
+                .add("targetInt", targetInt)
                 .toString();
     }
 }

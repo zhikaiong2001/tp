@@ -6,9 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteInterviewCommand;
-import seedu.address.model.person.Phone;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -28,6 +26,7 @@ public class DeleteInterviewCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInterviewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteInterviewCommand.MESSAGE_USAGE));
     }
 }

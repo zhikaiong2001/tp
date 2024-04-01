@@ -1,22 +1,16 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.Messages.MESSAGE_NOT_DATE;
 import static seedu.address.storage.JsonAdaptedInterview.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInterviews.TECH_INTERVIEW;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.interview.Interview;
-import seedu.address.model.person.Name;
 
 public class JsonAdaptedInterviewTest {
     private static final String INVALID_DATE = "2024-02-30"; // Invalid date

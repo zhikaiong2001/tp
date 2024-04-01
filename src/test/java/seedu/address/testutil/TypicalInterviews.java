@@ -19,7 +19,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
  */
 public class TypicalInterviews {
 
-    public static final Interview TECH_INTERVIEW = new InterviewBuilder().withApplicant((Applicant)TypicalPersons.ALICE)
+    public static final Interview TECH_INTERVIEW = new InterviewBuilder().withApplicant((Applicant) TypicalPersons.ALICE)
             .withInterviewer((Interviewer) TypicalPersons.CUBE).withDate(LocalDate.of(2024, 01, 01))
             .withStartTime(LocalTime.of(10, 00)).withEndTime(LocalTime.of(12, 00))
             .withDescription("Technical interview for software engineer position").buildInterview();
