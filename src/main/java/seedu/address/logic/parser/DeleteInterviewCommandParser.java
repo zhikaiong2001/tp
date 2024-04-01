@@ -17,7 +17,7 @@ public class DeleteInterviewCommandParser implements Parser<DeleteInterviewComma
      */
     public DeleteInterviewCommand parse(String args) throws ParseException {
         try {
-            Integer x = Integer.valueOf(args.trim());
+            int x = Integer.parseInt(args.trim());
             x -= 1;
             return new DeleteInterviewCommand(x);
         } catch (NumberFormatException e) {

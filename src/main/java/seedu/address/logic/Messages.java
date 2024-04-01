@@ -18,11 +18,12 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSON_NOT_IN_LIST = "The person you are looking for is not on the list";
     public static final String MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER = "The phone number you have keyed is is "
-            + "not an applicant phone number.";
+            + "not an applicant phone number. Please check the input phone number";
     public static final String MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER = "The phone number you have keyed is is "
-            + "not an interviewer phone number.";
+            + "not an interviewer phone number. Please check the input phone number";
     public static final String MESSAGE_INCORRECT_INTERVIEWER_AND_APPLICANT_PHONE_NUMBER =
-            "The phone number you have keyed is is not an applicant nor an interviewer phone number.";
+            "The phone number you have keyed is is not an applicant nor an interviewer phone number. "
+                    + "Please check the input phone numbers";
     public static final String MESSAGE_INCORRECT_STATUS_APPLICANT = "Only applicants can be given this status";
     public static final String MESSAGE_INCORRECT_STATUS_INTERVIEWER = "Only interviewers can be given this status";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";

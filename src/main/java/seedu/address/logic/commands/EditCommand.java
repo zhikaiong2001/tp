@@ -27,8 +27,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
-import seedu.address.model.person.enums.ApplicantState;
-import seedu.address.model.person.enums.InterviewerState;
 import seedu.address.model.person.enums.Type;
 import seedu.address.model.tag.Tag;
 
@@ -103,12 +101,13 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Remark updatedRemark = personToEdit.getRemark(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        String status = editPersonDescriptor.getStatus().orElse(personToEdit.getCurrentStatus());
         if (personToEdit.getPersonType().equals(Type.APPLICANT.toString())) {
             return new Applicant(updatedName, updatedPhone, updatedEmail, updatedRemark,
-                    new ApplicantStatus(ApplicantState.STAGE_ONE.toString()), updatedTags);
+                    new ApplicantStatus(status), updatedTags);
         } else if (personToEdit.getPersonType().equals(Type.INTERVIEWER.toString())) {
             return new Interviewer(updatedName, updatedPhone, updatedEmail, updatedRemark,
-                    new InterviewerStatus(InterviewerState.FREE.toString()), updatedTags);
+                    new InterviewerStatus(status), updatedTags);
         }
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRemark, updatedTags);
@@ -142,6 +141,8 @@ public class EditCommand extends Command {
         private Email email;
         private Set<Tag> tags;
 
+        private String status;
+
         public EditPersonDescriptor() {}
 
         /**
@@ -153,6 +154,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setTags(toCopy.tags);
+            setStatus(toCopy.status);
         }
 
         /**
@@ -201,6 +203,14 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public Optional<String> getStatus() {
+            return Optional.ofNullable(status);
         }
 
         @Override
