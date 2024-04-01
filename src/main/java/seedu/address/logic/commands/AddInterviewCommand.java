@@ -57,8 +57,9 @@ public class AddInterviewCommand extends Command {
     // Format HH:mm
     private LocalTime startTime;
     private LocalTime endTime;
-
     private Interview interview;
+    private Person applicantSearch;
+    private Person interviewerSearch;
 
     /**
      * Creates an AddInterviewCommand to add the specified {@code Person}
@@ -76,13 +77,25 @@ public class AddInterviewCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Result result = getResult(model);
+        phoneNumberCheck(result.isFoundApplicant, result.isFoundInterviewer, result.isIncorrectApplicantPhone, result.isIncorrectInterviewerPhone);
+        this.interview = new Interview(applicantSearch, interviewerSearch, date, startTime, endTime, description);
+        if (model.hasInterview(interview)) {
+            throw new CommandException(MESSAGE_DUPLICATE_INTERVIEW);
+        }
+        model.addInterview(interview);
+        model.sortInterview();
+        applicantSearch.updateCurrentStatusToReflectScheduledInterview(model);
+        interviewerSearch.updateCurrentStatusToReflectScheduledInterview(model, applicantSearch);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, "\n" + Messages.formatInterview(interview)));
+    }
+
+    private Result getResult(Model model) {
         List<Person> lastShownList = model.getFilteredPersonList();
         boolean isFoundApplicant = false;
         boolean isFoundInterviewer = false;
         boolean isIncorrectApplicantPhone = true;
         boolean isIncorrectInterviewerPhone = true;
-        Person applicantSearch = null;
-        Person interviewerSearch = null;
         for (Person p : lastShownList) {
             if (p.getPhone().equals(applicant)) {
                 isFoundApplicant = true;
@@ -107,16 +120,22 @@ public class AddInterviewCommand extends Command {
                 break;
             }
         }
-        phoneNumberCheck(isFoundApplicant, isFoundInterviewer, isIncorrectApplicantPhone, isIncorrectInterviewerPhone);
-        this.interview = new Interview(applicantSearch, interviewerSearch, date, startTime, endTime, description);
-        if (model.hasInterview(interview)) {
-            throw new CommandException(MESSAGE_DUPLICATE_INTERVIEW);
+        Result result = new Result(isFoundApplicant, isFoundInterviewer, isIncorrectApplicantPhone, isIncorrectInterviewerPhone);
+        return result;
+    }
+
+    private static class Result {
+        public final boolean isFoundApplicant;
+        public final boolean isFoundInterviewer;
+        public final boolean isIncorrectApplicantPhone;
+        public final boolean isIncorrectInterviewerPhone;
+
+        public Result(boolean isFoundApplicant, boolean isFoundInterviewer, boolean isIncorrectApplicantPhone, boolean isIncorrectInterviewerPhone) {
+            this.isFoundApplicant = isFoundApplicant;
+            this.isFoundInterviewer = isFoundInterviewer;
+            this.isIncorrectApplicantPhone = isIncorrectApplicantPhone;
+            this.isIncorrectInterviewerPhone = isIncorrectInterviewerPhone;
         }
-        model.addInterview(interview);
-        model.sortInterview();
-        applicantSearch.updateCurrentStatusToReflectScheduledInterview(model);
-        interviewerSearch.updateCurrentStatusToReflectScheduledInterview(model, applicantSearch);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, "\n" + Messages.formatInterview(interview)));
     }
 
     private static void phoneNumberCheck(boolean isFoundApplicant,
@@ -148,21 +167,18 @@ public class AddInterviewCommand extends Command {
             return false;
         }
 
-        if (this.description.equals(((AddInterviewCommand) other).description)) {
-            if (this.applicant.equals(((AddInterviewCommand) other).applicant)) {
-                if (this.interviewer.equals(((AddInterviewCommand) other).interviewer)) {
-                    if (this.date.equals(((AddInterviewCommand) other).date)) {
-                        if (this.startTime.equals(((AddInterviewCommand) other).startTime)) {
-                            if (this.endTime.equals(((AddInterviewCommand) other).endTime)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        if (sameInputs((AddInterviewCommand) other)) return true;
         AddInterviewCommand otherInterviewCommmand = (AddInterviewCommand) other;
         return interview.equals(otherInterviewCommmand.interview);
+    }
+
+    private boolean sameInputs(AddInterviewCommand other) {
+        return this.description.equals((other).description) &&
+                this.applicant.equals((other).applicant) &&
+                this.interviewer.equals((other).interviewer) &&
+                this.date.equals((other).date) &&
+                this.startTime.equals((other).startTime) &&
+                this.endTime.equals((other).endTime);
     }
 
     @Override
