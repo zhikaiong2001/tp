@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddApplicantPersonCommand;
 import seedu.address.logic.commands.AddApplicantStatusCommand;
+import seedu.address.logic.commands.AddInterviewCommand;
 import seedu.address.logic.commands.AddInterviewerPersonCommand;
 import seedu.address.logic.commands.AddInterviewerStatusCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -58,6 +61,20 @@ public class AddressBookParserTest {
         AddApplicantPersonCommand command = (AddApplicantPersonCommand) parser.parseCommand(
                 PersonUtil.getAddApplicantCommand(person));
         assertEquals(new AddApplicantPersonCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_add_interview() throws Exception {
+        Applicant head = new PersonBuilder().withName("head").withPhone("12345678")
+                .withEmail("head@cube.com").withTags("Applicant").build_applicant();
+        Interviewer cube = new PersonBuilder().withName("cube").withPhone("87654321")
+                .withEmail("cube@head.com").withTags("Interviewer").withStatus("free").build_interviewer();
+        AddInterviewCommand addInterviewCommand = new AddInterviewCommand("technical", head.getPhone(),
+                cube.getPhone(), LocalDate.of(2022, 11, 11),
+                LocalTime.of(10, 00), LocalTime.of(11, 00));
+        AddInterviewCommand command = (AddInterviewCommand) parser.parseCommand(
+                "add_interview desc/technical date/2022-11-11 st/10:00 et/11:00 a/12345678 i/87654321");
+        assertEquals(addInterviewCommand, command);
     }
 
     @Test

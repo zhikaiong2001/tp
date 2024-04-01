@@ -27,6 +27,12 @@ public class AddInterviewCommandTest {
         // same object -> returns true
         assertTrue(addInterviewCommand.equals(addInterviewCommand));
 
+        // same values -> returns true
+        AddInterviewCommand addInterviewCommandCopy = new AddInterviewCommand("technical", head.getPhone(),
+                cube.getPhone(), LocalDate.of(2022, 11, 11),
+                LocalTime.of(10, 00), LocalTime.of(11, 00));
+        assertTrue(addInterviewCommand.equals(addInterviewCommandCopy));
+
         // different types -> returns false
         assertFalse(addInterviewCommand.equals(1));
 
