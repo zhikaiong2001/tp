@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -12,20 +14,22 @@ import seedu.address.model.person.Applicant;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
-
 /**
  * A utility class containing a list of {@code Interview} objects to be used in tests.
  */
 public class TypicalInterviews {
 
-    public static final Interview TECH_INTERVIEW = new InterviewBuilder().withApplicant((Applicant) TypicalPersons.ALICE)
-            .withInterviewer((Interviewer) TypicalPersons.CUBE).withDate(LocalDate.of(2024, 01, 01))
+    public static final Interview TECH_INTERVIEW = new InterviewBuilder().withApplicant(
+            (Applicant) TypicalPersons.ALICE)
+            .withInterviewer((Interviewer) TypicalPersons.CUBE).
+            withDate(LocalDate.of(2024, 01, 01))
             .withStartTime(LocalTime.of(10, 00)).withEndTime(LocalTime.of(12, 00))
             .withDescription("Technical interview for software engineer position").buildInterview();
 
-    public static final Interview HR_INTERVIEW = new InterviewBuilder().withApplicant((Applicant) TypicalPersons.BENSON)
-            .withInterviewer((Interviewer) TypicalPersons.CUBE).withDate(LocalDate.of(2024, 01, 02))
+    public static final Interview HR_INTERVIEW = new InterviewBuilder().withApplicant(
+            (Applicant) TypicalPersons.BENSON)
+            .withInterviewer((Interviewer) TypicalPersons.CUBE)
+            .withDate(LocalDate.of(2024, 01, 02))
             .withStartTime(LocalTime.of(13, 00)).withEndTime(LocalTime.of(14, 00))
             .withDescription("HR interview for culture fit assessment").buildInterview();
 

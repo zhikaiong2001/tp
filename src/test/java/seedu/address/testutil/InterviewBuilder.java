@@ -34,20 +34,20 @@ public class InterviewBuilder {
     public static final Email DEFAULT_APPLICANT_EMAIL = new Email("head@cube.com");
     public static final Email DEFAULT_INTERVIWER_EMAIL = new Email("cube@head.com");
     public static final Remark DEFAULT_REMARK = new Remark("");
-    public static final Set<Tag> tags = new HashSet<>();
-    public static final Applicant DEFAULT_APPLICANT = new Applicant(DEFAULT_APPLICANT_NAME, DEFAULT_APPLICANT_PHONE_NUMBER,
-            DEFAULT_APPLICANT_EMAIL, DEFAULT_REMARK, new ApplicantStatus(ApplicantState.STAGE_ONE.toString()), tags);
+    public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
+    public static final Applicant DEFAULT_APPLICANT = new Applicant(DEFAULT_APPLICANT_NAME,
+            DEFAULT_APPLICANT_PHONE_NUMBER, DEFAULT_APPLICANT_EMAIL, DEFAULT_REMARK,
+            new ApplicantStatus(ApplicantState.STAGE_ONE.toString()), DEFAULT_TAGS);
     public static final Interviewer DEFAULT_INTERVIEWER = new Interviewer(DEFAULT_INTERVIEWER_NAME,
             DEFAULT_INTERVIEWER_PHONE_NUMBER, DEFAULT_INTERVIWER_EMAIL, DEFAULT_REMARK,
             new InterviewerStatus(InterviewerState.FREE.toString()),
-            tags);
+            DEFAULT_TAGS);
     private String description;
     private LocalDate date;
     private LocalTime startTime;
     private  LocalTime endTime;
     private Applicant applicant;
     private Interviewer interviewer;
-
 
     /**
      * Initializes the InterviewBuilder.

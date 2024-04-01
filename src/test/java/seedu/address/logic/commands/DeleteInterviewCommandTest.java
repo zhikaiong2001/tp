@@ -70,9 +70,9 @@ public class DeleteInterviewCommandTest {
 
     @Test
     public void toStringMethod() {
-        int targetINT = INDEX_FIRST_INTERVIEW.getZeroBased();
-        DeleteInterviewCommand deleteCommand = new DeleteInterviewCommand(targetINT);
-        String expected = DeleteInterviewCommand.class.getCanonicalName() + "{targetInt=" + targetINT + "}";
+        int targetInt = INDEX_FIRST_INTERVIEW.getZeroBased();
+        DeleteInterviewCommand deleteCommand = new DeleteInterviewCommand(targetInt);
+        String expected = DeleteInterviewCommand.class.getCanonicalName() + "{targetInt=" + targetInt + "}";
         assertEquals(expected, deleteCommand.toString());
     }
 }
