@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.INVALID_DATE;
-import static seedu.address.logic.Messages.INVALID_TIME;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.*;
 import static seedu.address.logic.commands.CommandTestUtil.APPLICANT_PHONE;
 import static seedu.address.logic.commands.CommandTestUtil.END_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.INTERVIEWER_PHONE;
@@ -82,15 +80,15 @@ public class AddInterviewCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid date
         assertParseFailure(parser, INTERVIEW_DESCRIPTION + INTERVIEW_DATE_INVALID + START_TIME + END_TIME
-                + APPLICANT_PHONE + INTERVIEWER_PHONE, INVALID_DATE);
+                + APPLICANT_PHONE + INTERVIEWER_PHONE, MESSAGE_NOT_DATE);
 
         // invalid start time
         assertParseFailure(parser, INTERVIEW_DESCRIPTION + INTERVIEW_DATE
-                + INTERVIEW_START_TIME_INVALID + END_TIME + APPLICANT_PHONE + INTERVIEWER_PHONE, INVALID_TIME);
+                + INTERVIEW_START_TIME_INVALID + END_TIME + APPLICANT_PHONE + INTERVIEWER_PHONE, MESSAGE_NOT_TIME);
 
         // invalid start time
         assertParseFailure(parser, INTERVIEW_DESCRIPTION + INTERVIEW_DATE
-                + START_TIME + INTERVIEW_END_TIME_INVALID + APPLICANT_PHONE + INTERVIEWER_PHONE, INVALID_TIME);
+                + START_TIME + INTERVIEW_END_TIME_INVALID + APPLICANT_PHONE + INTERVIEWER_PHONE, MESSAGE_NOT_TIME);
 
         // invalid applicant phone number
         assertParseFailure(parser, INTERVIEW_DESCRIPTION + INTERVIEW_DATE + START_TIME + END_TIME
