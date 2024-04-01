@@ -29,7 +29,8 @@ public class HelpWindow extends UiPart<Stage> {
             + "\n8. Add and edit statuses for applicants/interviews: [applicant/interviewer]_status [phone] [status]"
             + "\n9. Find person(s) by email/name/phone: find_[email/name/phone] [keyword1] [keyword2]..."
             + "\n10. Filter interview(s) by date: filter_interviews_by_date [date in YYYY-MM-DD]"
-            + "\n11. Filter persons(s) by status: filter_by_status [status]";
+            + "\n11. Filter persons(s) by status: filter_by_status [status]"
+            + "\n12. View overall statistics: view_overall_statistics";
     public static final String HELP_MESSAGE = "Refer to our user guide at " + USERGUIDE_URL + " for detailed info "
             + "on how to use Tether." + COMMON_COMMANDS;
 

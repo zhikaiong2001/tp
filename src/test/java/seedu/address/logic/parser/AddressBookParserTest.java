@@ -17,28 +17,36 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddApplicantPersonCommand;
+import seedu.address.logic.commands.AddApplicantStatusCommand;
 import seedu.address.logic.commands.AddInterviewCommand;
 import seedu.address.logic.commands.AddInterviewerPersonCommand;
+import seedu.address.logic.commands.AddInterviewerStatusCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterPersonsByStatusCommand;
 import seedu.address.logic.commands.FindEmailCommand;
 import seedu.address.logic.commands.FindNameCommand;
 import seedu.address.logic.commands.FindPhoneCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.logic.commands.ViewOverallStatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Applicant;
+import seedu.address.model.person.ApplicantStatus;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.InterviewerStatus;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.enums.ApplicantState;
+import seedu.address.model.person.enums.InterviewerState;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -106,6 +114,24 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addApplicantStatus() throws Exception {
+        String phone = "98362254";
+        String status = ApplicantState.STAGE_ONE.toString();
+        AddApplicantStatusCommand command = (AddApplicantStatusCommand) parser.parseCommand(
+                AddApplicantStatusCommand.COMMAND_WORD + " " + phone + " s/" + status);
+        assertEquals(command, new AddApplicantStatusCommand(new Phone(phone), new ApplicantStatus(status)));
+    }
+
+    @Test
+    public void parseCommand_addInterviewerStatus() throws Exception {
+        String phone = "98362254";
+        String status = InterviewerState.FREE.toString();
+        AddInterviewerStatusCommand command = (AddInterviewerStatusCommand) parser.parseCommand(
+                AddInterviewerStatusCommand.COMMAND_WORD + " " + phone + " s/" + status);
+        assertEquals(command, new AddInterviewerStatusCommand(new Phone(phone), new InterviewerStatus(status)));
+    }
+
+    @Test
     public void parseCommand_find_email() throws Exception {
         List<String> keywords = Arrays.asList("foo@email.com", "bar@email.com", "baz@email.com");
         FindEmailCommand command = (FindEmailCommand) parser.parseCommand(
@@ -130,6 +156,21 @@ public class AddressBookParserTest {
                 FindPhoneCommand.COMMAND_WORD + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindPhoneCommand(new PhoneContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_filterPersonsByStatus() throws Exception {
+        FilterPersonsByStatusCommand command = (FilterPersonsByStatusCommand) parser.parseCommand(
+                FilterPersonsByStatusCommand.COMMAND_WORD + " resume review");
+        assertEquals(command, new FilterPersonsByStatusCommand(
+                new ApplicantStatus(ApplicantState.STAGE_ONE.toString())));
+    }
+
+    @Test
+    public void parseCommand_viewOverallStatistics() throws Exception {
+        ViewOverallStatisticsCommand command = (ViewOverallStatisticsCommand) parser.parseCommand(
+                ViewOverallStatisticsCommand.COMMAND_WORD);
+        assertEquals(new ViewOverallStatisticsCommand(), command);
     }
 
     @Test

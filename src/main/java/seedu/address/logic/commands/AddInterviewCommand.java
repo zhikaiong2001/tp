@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.interview.Interview;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.enums.Type;
 
 /**
  * Adds an Interview to Tether.
@@ -102,7 +103,7 @@ public class AddInterviewCommand extends Command {
                 isFoundApplicant = true;
             }
             if (isFoundApplicant) {
-                if (p.getPersonType().equals("APPLICANT")) {
+                if (p.getPersonType().equals(Type.APPLICANT.toString())) {
                     isIncorrectApplicantPhone = false;
                 }
                 applicantSearch = p;
@@ -114,7 +115,7 @@ public class AddInterviewCommand extends Command {
                 isFoundInterviewer = true;
             }
             if (isFoundInterviewer) {
-                if (p.getPersonType().equals("INTERVIEWER")) {
+                if (p.getPersonType().equals(Type.INTERVIEWER.toString())) {
                     isIncorrectInterviewerPhone = false;
                 }
                 interviewerSearch = p;
