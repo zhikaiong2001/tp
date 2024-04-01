@@ -6,7 +6,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.interview.Interview;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Applicant;
+import seedu.address.model.person.ApplicantStatus;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.InterviewerStatus;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.enums.ApplicantState;
 import seedu.address.model.person.enums.InterviewerState;
 import seedu.address.model.tag.Tag;

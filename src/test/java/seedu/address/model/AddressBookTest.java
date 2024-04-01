@@ -146,8 +146,10 @@ public class AddressBookTest {
 
     @Test
     public void sortInterviews_sortsInterviewsByDateAndTime() {
-        Interview earlierInterview = new InterviewBuilder().withDate(LocalDate.now()).withStartTime(LocalTime.of(9, 0)).buildInterview();
-        Interview laterInterview = new InterviewBuilder().withDate(LocalDate.now()).withStartTime(LocalTime.of(10, 0)).buildInterview();
+        Interview earlierInterview = new InterviewBuilder().withDate(LocalDate.now())
+                .withStartTime(LocalTime.of(9, 0)).buildInterview();
+        Interview laterInterview = new InterviewBuilder().withDate(LocalDate.now())
+                .withStartTime(LocalTime.of(10, 0)).buildInterview();
         addressBook.addInterview(laterInterview);
         addressBook.addInterview(earlierInterview);
         addressBook.sortInterviews();

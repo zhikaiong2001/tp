@@ -1,13 +1,17 @@
 package seedu.address.model.interview;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.InterviewBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class InterviewTest {
 
@@ -97,13 +101,13 @@ public class InterviewTest {
     @Test
     public void toString_correctFormat() {
         Interview baseInterview = interviewBuilder.buildInterview();
-        String expectedString = " ------Interview------\n" +
-                "Applicant: Alice\n" +
-                "Interviewer: Bob\n" +
-                "Date: 2024-01-01\n" +
-                "Start: 10:00 " +
-                "End: 12:59\n" +
-                "Description: technical interview";
+        String expectedString = " ------Interview------\n"
+                + "Applicant: Alice\n"
+                + "Interviewer: Bob\n"
+                + "Date: 2024-01-01\n"
+                + "Start: 10:00 "
+                + "End: 12:59\n"
+                + "Description: technical interview";
 
         assertEquals(expectedString, baseInterview.toString());
     }

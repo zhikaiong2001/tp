@@ -9,13 +9,14 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.interview.exceptions.DuplicateInterviewException;
 import seedu.address.model.interview.exceptions.InterviewNotFoundException;
 import seedu.address.testutil.InterviewBuilder;
+
 
 public class UniqueInterviewListTest {
 
@@ -95,8 +96,10 @@ public class UniqueInterviewListTest {
     @Test
     public void setInterviews_listWithDuplicateInterviews_throwsDuplicateInterviewException() {
         UniqueInterviewList uniqueInterviewList = new UniqueInterviewList();
-        List<Interview> listWithDuplicateInterviews = Arrays.asList(new InterviewBuilder().buildInterview(), new InterviewBuilder().buildInterview());
-        assertThrows(DuplicateInterviewException.class, () -> uniqueInterviewList.setInterviews(listWithDuplicateInterviews));
+        List<Interview> listWithDuplicateInterviews = Arrays.asList(new InterviewBuilder()
+                .buildInterview(), new InterviewBuilder().buildInterview());
+        assertThrows(DuplicateInterviewException.class, () -> uniqueInterviewList
+                .setInterviews(listWithDuplicateInterviews));
     }
 
     @Test
@@ -104,7 +107,8 @@ public class UniqueInterviewListTest {
         UniqueInterviewList uniqueInterviewList = new UniqueInterviewList();
         Interview targetInterview = new InterviewBuilder().buildInterview();
         Interview editedInterview = new InterviewBuilder().withDescription("Edited interview").buildInterview();
-        assertThrows(InterviewNotFoundException.class, () -> uniqueInterviewList.setInterview(targetInterview, editedInterview));
+        assertThrows(InterviewNotFoundException.class, () -> uniqueInterviewList
+                .setInterview(targetInterview, editedInterview));
     }
 
     @Test
