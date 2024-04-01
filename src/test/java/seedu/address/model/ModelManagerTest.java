@@ -10,13 +10,17 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.interview.Interview;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.InterviewBuilder;
 
 public class ModelManagerTest {
 
@@ -92,6 +96,46 @@ public class ModelManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
+
+    @Test
+    public void deletePerson_personIsInModel_deletesPerson() {
+        modelManager.addPerson(ALICE);
+        modelManager.deletePerson(ALICE);
+        ModelManager expectedModel = new ModelManager();
+        assertEquals(expectedModel, modelManager);
+    }
+
+    @Test
+    public void addInterview_nullInterview_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addInterview(null));
+    }
+
+    @Test
+    public void addInterview_validInterview_addsInterview() {
+        Interview interview = new InterviewBuilder().buildInterview();
+        modelManager.addInterview(interview);
+        assertTrue(modelManager.hasInterview(interview));
+    }
+
+    @Test
+    public void deleteInterview_interviewIsInModel_deletesInterview() {
+        Interview interview = new InterviewBuilder().buildInterview();
+        modelManager.addInterview(interview);
+        modelManager.deleteInterview(interview);
+        assertFalse(modelManager.hasInterview(interview));
+    }
+
+    @Test
+    public void sortInterview_interviewsAreInModel_sortsInterviews() {
+        Interview earlierInterview = new InterviewBuilder().withDate(LocalDate.now()).withStartTime(LocalTime.of(9, 0)).buildInterview();
+        Interview laterInterview = new InterviewBuilder().withDate(LocalDate.now()).withStartTime(LocalTime.of(10, 0)).buildInterview();
+        modelManager.addInterview(laterInterview);
+        modelManager.addInterview(earlierInterview);
+        modelManager.sortInterview();
+        assertEquals(Arrays.asList(earlierInterview, laterInterview), modelManager.getFilteredInterviewList());
+    }
+
+
 
     @Test
     public void equals() {
