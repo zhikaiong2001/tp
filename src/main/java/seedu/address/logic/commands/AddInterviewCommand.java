@@ -148,6 +148,19 @@ public class AddInterviewCommand extends Command {
             return false;
         }
 
+        if (this.description.equals(((AddInterviewCommand) other).description)) {
+            if (this.applicant.equals(((AddInterviewCommand) other).applicant)) {
+                if (this.interviewer.equals(((AddInterviewCommand) other).interviewer)) {
+                    if (this.date.equals(((AddInterviewCommand) other).date)) {
+                        if (this.startTime.equals(((AddInterviewCommand) other).startTime)) {
+                            if (this.endTime.equals(((AddInterviewCommand) other).endTime)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         AddInterviewCommand otherInterviewCommmand = (AddInterviewCommand) other;
         return interview.equals(otherInterviewCommmand.interview);
     }
