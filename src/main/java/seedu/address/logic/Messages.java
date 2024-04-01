@@ -36,6 +36,8 @@ public class Messages {
     public static final String MESSAGE_NOT_DATE = "The provided argument is not a valid date";
     public static final String INVALID_DATE = "Invalid date format!";
     public static final String INVALID_TIME = "Invalid time format!";
+    public static final String MESSAGE_NOT_TIME = "The provided argument is not a valid time";
+
 
     /**
      * Returns an error message indicating the duplicate prefixes.
