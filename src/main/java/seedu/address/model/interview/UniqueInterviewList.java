@@ -44,9 +44,9 @@ public class UniqueInterviewList implements Iterable<Interview> {
      */
     public void add(Interview toAdd) {
         requireNonNull(toAdd);
-        //if (contains(toAdd)) {
-        //    throw new DuplicateInterviewException();
-        //}
+        if (contains(toAdd)) {
+            throw new DuplicateInterviewException();
+        }
         internalList.add(toAdd);
     }
 
