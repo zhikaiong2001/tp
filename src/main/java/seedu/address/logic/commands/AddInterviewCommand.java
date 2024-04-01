@@ -78,7 +78,8 @@ public class AddInterviewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Result result = getResult(model);
-        phoneNumberCheck(result.isFoundApplicant, result.isFoundInterviewer, result.isIncorrectApplicantPhone, result.isIncorrectInterviewerPhone);
+        phoneNumberCheck(result.isFoundApplicant, result.isFoundInterviewer, result.isIncorrectApplicantPhone,
+                result.isIncorrectInterviewerPhone);
         this.interview = new Interview(applicantSearch, interviewerSearch, date, startTime, endTime, description);
         if (model.hasInterview(interview)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERVIEW);
@@ -120,7 +121,8 @@ public class AddInterviewCommand extends Command {
                 break;
             }
         }
-        Result result = new Result(isFoundApplicant, isFoundInterviewer, isIncorrectApplicantPhone, isIncorrectInterviewerPhone);
+        Result result = new Result(isFoundApplicant, isFoundInterviewer,
+                isIncorrectApplicantPhone, isIncorrectInterviewerPhone);
         return result;
     }
 
@@ -130,7 +132,8 @@ public class AddInterviewCommand extends Command {
         public final boolean isIncorrectApplicantPhone;
         public final boolean isIncorrectInterviewerPhone;
 
-        public Result(boolean isFoundApplicant, boolean isFoundInterviewer, boolean isIncorrectApplicantPhone, boolean isIncorrectInterviewerPhone) {
+        public Result(boolean isFoundApplicant, boolean isFoundInterviewer, boolean isIncorrectApplicantPhone,
+                      boolean isIncorrectInterviewerPhone) {
             this.isFoundApplicant = isFoundApplicant;
             this.isFoundInterviewer = isFoundInterviewer;
             this.isIncorrectApplicantPhone = isIncorrectApplicantPhone;
@@ -167,18 +170,20 @@ public class AddInterviewCommand extends Command {
             return false;
         }
 
-        if (sameInputs((AddInterviewCommand) other)) return true;
+        if (sameInputs((AddInterviewCommand) other)) {
+            return true;
+        }
         AddInterviewCommand otherInterviewCommmand = (AddInterviewCommand) other;
         return interview.equals(otherInterviewCommmand.interview);
     }
 
     private boolean sameInputs(AddInterviewCommand other) {
-        return this.description.equals((other).description) &&
-                this.applicant.equals((other).applicant) &&
-                this.interviewer.equals((other).interviewer) &&
-                this.date.equals((other).date) &&
-                this.startTime.equals((other).startTime) &&
-                this.endTime.equals((other).endTime);
+        return this.description.equals((other).description)
+                && this.applicant.equals((other).applicant)
+                && this.interviewer.equals((other).interviewer)
+                && this.date.equals((other).date)
+                && this.startTime.equals((other).startTime)
+                && this.endTime.equals((other).endTime);
     }
 
     @Override
