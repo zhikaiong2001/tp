@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.*;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_NOT_DATE;
+import static seedu.address.logic.Messages.MESSAGE_NOT_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.APPLICANT_PHONE;
 import static seedu.address.logic.commands.CommandTestUtil.END_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.INTERVIEWER_PHONE;

@@ -45,7 +45,7 @@ public class InterviewBuilder {
     private String description;
     private LocalDate date;
     private LocalTime startTime;
-    private  LocalTime endTime;
+    private LocalTime endTime;
     private Applicant applicant;
     private Interviewer interviewer;
 
