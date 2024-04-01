@@ -2,9 +2,15 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICANT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -29,8 +35,10 @@ public class CommandTestUtil {
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_NAME_CUBE = "cube";
+    public static final String VALID_NAME_HEAD = "head";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_HEAD = "12345678";
     public static final String VALID_PHONE_CUBE = "87654321";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
@@ -40,6 +48,24 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_INTERVIEW_DESCRIPTION = "technical";
+    public static final String INTERVIEW_DESCRIPTION = " " + PREFIX_DESCRIPTION + VALID_INTERVIEW_DESCRIPTION;
+    public static final String VALID_INTERVIEW_DATE = "2022-11-11";
+    public static final String INVALID_INTERVIEW_DATE = "2022-11-11222";
+    public static final String INTERVIEW_DATE_INVALID = " " + PREFIX_DATE + INVALID_INTERVIEW_DATE;
+    public static final String INTERVIEW_DATE = " " + PREFIX_DATE + VALID_INTERVIEW_DATE;
+    public static final String VALID_INTERVIEW_START_TIME = "10:00";
+    public static final String INVALID_INTERVIEW_START_TIME = "10:00000";
+    public static final String INTERVIEW_START_TIME_INVALID = " " + PREFIX_START_TIME + INVALID_INTERVIEW_START_TIME;
+    public static final String START_TIME = " " + PREFIX_START_TIME + VALID_INTERVIEW_START_TIME;
+    public static final String VALID_INTERVIEW_END_TIME = "11:00";
+    public static final String INVALID_INTERVIEW_END_TIME = "11:000000";
+    public static final String INTERVIEW_END_TIME_INVALID = " " + PREFIX_END_TIME + INVALID_INTERVIEW_END_TIME;
+    public static final String END_TIME = " " + PREFIX_END_TIME + VALID_INTERVIEW_END_TIME;
+    public static final String APPLICANT_PHONE = " " + PREFIX_APPLICANT + VALID_PHONE_HEAD;
+    public static final String INVALID_APPLICANT_PHONE = " " + PREFIX_APPLICANT + "99999999aaa";
+    public static final String INVALID_INTERVIEWER_PHONE = " " + PREFIX_INTERVIEWER + "99999999aaa";
+    public static final String INTERVIEWER_PHONE = " " + PREFIX_INTERVIEWER + VALID_PHONE_CUBE;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NAME_DESC_CUBE = " " + PREFIX_NAME + VALID_NAME_CUBE;
@@ -48,7 +74,6 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_CUBE = " " + PREFIX_PHONE + VALID_PHONE_CUBE;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-
     public static final String EMAIL_DESC_CUBE = " " + PREFIX_EMAIL + VALID_EMAIL_CUBE;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
