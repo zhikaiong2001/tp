@@ -23,7 +23,7 @@ public class DeleteInterviewCommand extends Command {
             + "Parameters: Index\n"
             + "Example: " + COMMAND_WORD + " 2";
 
-    public static final String MESSAGE_DELETE_INTERVIEW_SUCCESS = "Interview Deleted ";
+    public static final String MESSAGE_DELETE_INTERVIEW_SUCCESS = "Interview Deleted: %1$s";
 
     private final Integer targetInt;
 
@@ -46,9 +46,7 @@ public class DeleteInterviewCommand extends Command {
         interview.getApplicant().revertCurrentStatus(model);
         interview.getInterviewer().updateCurrentStatusToReflectDeletedInterview(model, interview.getApplicant());
         model.deleteInterview(interview);
-
-        return new CommandResult(MESSAGE_DELETE_INTERVIEW_SUCCESS
-                + "\nInformation about deleted interview: \n" + Messages.formatInterview(interview));
+        return new CommandResult(String.format(MESSAGE_DELETE_INTERVIEW_SUCCESS, Messages.formatInterview(interview)));
     }
 
     @Override

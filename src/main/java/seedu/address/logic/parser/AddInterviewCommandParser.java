@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_NOT_DATE;
+import static seedu.address.logic.Messages.MESSAGE_NOT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -63,7 +65,7 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
         try {
             return LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Invalid date format!");
+            throw new ParseException(MESSAGE_NOT_DATE);
         }
     }
 
@@ -71,7 +73,7 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
         try {
             return LocalTime.parse(time, DateTimeFormatter.ISO_LOCAL_TIME);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Invalid time format!");
+            throw new ParseException(MESSAGE_NOT_TIME);
         }
     }
 }
