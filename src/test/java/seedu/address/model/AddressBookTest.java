@@ -8,6 +8,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,8 +20,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.interview.Interview;
+import seedu.address.model.interview.exceptions.InterviewNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.testutil.InterviewBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -79,9 +83,79 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasPersonWithSamePhone_personWithSamePhoneInAddressBook_returnsTrue() {
+        addressBook.addPerson(ALICE);
+        Person editedAlice = new PersonBuilder(ALICE).withEmail("alice@example.org").build();
+        assertTrue(addressBook.hasPersonWithSamePhone(editedAlice));
+    }
+
+    @Test
+    public void hasPersonWithSamePhone_personWithDifferentPhoneInAddressBook_returnsFalse() {
+        addressBook.addPerson(ALICE);
+        Person bob = new PersonBuilder().withPhone("11111111").build(); // Use a phone number not used by ALICE
+        assertFalse(addressBook.hasPersonWithSamePhone(bob));
+    }
+
+
+    @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
+
+    @Test
+    public void addInterview_nullInterview_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.addInterview(null));
+    }
+
+    @Test
+    public void addInterview_uniqueInterview_success() {
+        Interview interview = new InterviewBuilder().buildInterview();
+        addressBook.addInterview(interview);
+        assertTrue(addressBook.hasInterview(interview));
+    }
+
+    @Test
+    public void removeInterview_interviewDoesNotExist_throwsInterviewNotFoundException() {
+        Interview interview = new InterviewBuilder().buildInterview();
+        assertThrows(InterviewNotFoundException.class, () -> addressBook.removeInterview(interview));
+    }
+
+    @Test
+    public void removeInterview_existingInterview_removesInterview() {
+        Interview interview = new InterviewBuilder().buildInterview();
+        addressBook.addInterview(interview);
+        addressBook.removeInterview(interview);
+        AddressBook expectedAddressBook = new AddressBook();
+        assertEquals(expectedAddressBook, addressBook);
+    }
+
+    @Test
+    public void setInterviews_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.setInterviews(null));
+    }
+
+    @Test
+    public void setInterviews_list_replacesOwnListWithProvidedList() {
+        Interview interview = new InterviewBuilder().buildInterview();
+        List<Interview> interviewList = Collections.singletonList(interview);
+        addressBook.setInterviews(interviewList);
+        AddressBook expectedAddressBook = new AddressBook();
+        expectedAddressBook.setInterviews(interviewList);
+        assertEquals(expectedAddressBook, addressBook);
+    }
+
+    @Test
+    public void sortInterviews_sortsInterviewsByDateAndTime() {
+        Interview earlierInterview = new InterviewBuilder().withDate(LocalDate.now())
+                .withStartTime(LocalTime.of(9, 0)).buildInterview();
+        Interview laterInterview = new InterviewBuilder().withDate(LocalDate.now())
+                .withStartTime(LocalTime.of(10, 0)).buildInterview();
+        addressBook.addInterview(laterInterview);
+        addressBook.addInterview(earlierInterview);
+        addressBook.sortInterviews();
+        assertEquals(Arrays.asList(earlierInterview, laterInterview), addressBook.getInterviewList());
+    }
+
 
     @Test
     public void toStringMethod() {

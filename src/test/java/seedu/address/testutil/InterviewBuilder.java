@@ -6,20 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.interview.Interview;
-import seedu.address.model.person.Applicant;
-import seedu.address.model.person.ApplicantStatus;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Interviewer;
-import seedu.address.model.person.InterviewerStatus;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Remark;
+import seedu.address.model.person.*;
 import seedu.address.model.person.enums.ApplicantState;
 import seedu.address.model.person.enums.InterviewerState;
 import seedu.address.model.tag.Tag;
 
 /**
- *
+ * A utility class to help with building Interview objects.
  */
 public class InterviewBuilder {
     public static final String DEFAULT_DESCRIPTION = "technical interview";
@@ -76,16 +69,16 @@ public class InterviewBuilder {
     /**
      * Sets the {@code Applicant} of the {@code Interview} that we are building.
      */
-    public InterviewBuilder withApplicant(Applicant applicant) {
-        this.applicant = applicant;
+    public InterviewBuilder withApplicant(Person applicant) {
+        this.applicant = (Applicant) applicant;
         return this;
     }
 
     /**
      * Sets the {@code Interviewer} of the {@code Interview} that we are building.
      */
-    public InterviewBuilder withInterviewer(Interviewer interviewer) {
-        this.interviewer = interviewer;
+    public InterviewBuilder withInterviewer(Person interviewer) {
+        this.interviewer = (Interviewer) interviewer;
         return this;
     }
 
@@ -130,12 +123,9 @@ public class InterviewBuilder {
     }
 
     /**
-     * Builds the {@code Interview} with the given {@code Applicant}, {@code Interviewer}, {@code Date},
-     * {@code StartTime}, {@code EndTime}, {@code Description}
+     * Builds an {@code Interview} with the current properties.
      */
     public Interview buildInterview() {
-        return new Interview(applicant, interviewer, DEFAULT_DATE, DEFAULT_START_TIME,
-                DEFAULT_END_TIME, DEFAULT_DESCRIPTION);
+        return new Interview(applicant, interviewer, date, startTime, endTime, description);
     }
-
 }
