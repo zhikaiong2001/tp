@@ -27,13 +27,20 @@ public class Interviewer extends Person {
         super(name, phone, email, remark, tags);
         this.tags.add(new Tag("Interviewer"));
         if (!status.value.equals(InterviewerState.FREE.toString())) {
-            upcomingInterviews.add(status);
+            parseAndAddStatus(status);
         }
     }
 
     @Override
     public String getPersonType() {
         return type.toString();
+    }
+
+    private void parseAndAddStatus(InterviewerStatus status) {
+        String[] newlineSeparatedStatusArray = status.value.split("\n");
+        for (String individualStatus : newlineSeparatedStatusArray) {
+            upcomingInterviews.add(new InterviewerStatus(individualStatus));
+        }
     }
 
     /**
@@ -47,6 +54,7 @@ public class Interviewer extends Person {
             String status = iterator.next().toString();
             if (status.contains(scheduledApplicantName)) {
                 iterator.remove();
+                break;
             }
         }
         /*
