@@ -89,11 +89,39 @@ Examples:
 
 * `add_interview desc/interview Round 1 date/2024-11-11 st/12:00 et/15:00 a/81239123 i/91238123`
 
-## Listing all the interviews: `list_interviews`
+## Listing all persons:
 
-Lists all the interviews in Tether.
+Now that you have added multiple `Applicants` and `Interviewers` into Tether, it would be nice to view them with their 
+details simultaneously. The list of persons is displayed on the left side of the GUI by default and is updated 
+whenever new persons are added.
 
-Example: `list_interviews` would list all existing interviews.
+Format: `list_persons`
+
+## Listing all the interviews:
+
+Now that you have added multiple `Interviews` into Tether, it would be nice to view them with their details 
+simultaneously. The list of interviews is displayed on the right side of the GUI by default and is updated whenever 
+new interviews are added.
+
+Format: `list_interviews`
+
+## Finding persons:
+
+After adding multiple persons into Tether, you find yourself having to manually scroll to locate specific person entries. 
+The `find` command is useful here to save you time in locating such entries provided you already know at least one of 
+the following 3 details of the person: their email, name or phone number.
+
+Note that email and phone number has to match exactly to locate the person entry if it exists. 
+Full name is not required but name provided should be complete. Otherwise, there will be no matching entries.
+For example, `find_name Ryan` will still display an 
+entry with full name `Ryan Chiang` but `find_name Ry` will result in an error message indicating no matching entries.
+
+`find` can also be used to find multiple entries at once. You can provide multiple keywords after the initial 
+`find_[email/name/phone]` and all entries that match any of the keywords will be displayed. Note that all the keywords 
+provided should be of the same type. For example, `find_phone` should only be followed by valid phone number(s), not 
+emails or names.
+
+Format: `find_[email/name/phone] [keyword 1]...`
 
 ## Deleting an applicant/interviewer : `delete_person`
 
