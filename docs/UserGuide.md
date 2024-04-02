@@ -1,9 +1,10 @@
 
 # Tether User Guide
 
-Tether is a **desktop app for managing contacts, optimized for use via a Line Interface** (CLI)
+Tether is the everyday Hiring Manager's **desktop app** for managing applicants, interviewers and interviews. It's optimized for use via a Command Line Interface (CLI)
 while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, Tether can get your hiring management tasks done faster than traditional GUI apps.
+
+**If you can type fast**, Tether can get your hiring management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -14,7 +15,7 @@ If you can type fast, Tether can get your hiring management tasks done faster th
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `tether.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `tether.jar` from [here](https://github.com/AY2324S2-CS2103T-F11-3/tp/releases/tag/v1.3).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your Tether.
 
@@ -65,18 +66,50 @@ Examples:
 * `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`
 * `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
 
+## Adding a status to an applicant: `applicant_status`
+
+Now that you know how to add an applicant, it would be nice to record their position in your hiring pipeline at any given time for later review. This is where the applicant_status command is handy.
+
+Simply execute `applicant_status PHONE s/STATUS` where PHONE is the applicant's phone and STATUS may be any one of:
+- "Resume review": for when an applicant has only just entered your hiring pool. Note that **this is the default status an applicant receives** when first added.
+- "Pending interview": for when you are satisfied with an applicant's potential and have set up or are in the process of scheduling an interview for them.
+- "Completed interview": as the natural successor to the previous status.
+- "Waiting list": if you - or more specifically the interviewer - are not quite sure about an applicant's future. This status has a <span style="color: orange;">bright orange</span> backing in Tether to remind you to reconcile the respective applicant's fate!
+- "Accepted": in the case that an applicant has impressed their interviewer enough for you to send a happy email <span style="color: green;">as soon as possible</span>.
+- "Rejected": for the <span style="color: red;">unfortunate</span> case....
+
+A simple example usage would therefore be
+`applicant_status 98362254 s/accepted`. Executing this would result in the following display: 
+
+![img.png](images/applicantStatusAddExample.png)
+
+For convenience, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
+
 ## Adding a interviewer: `add_interviewer`
 
 Adds an interviewer to the Tether.
 
 Format: `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]`
 
-
-
 Examples:
 
 * `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com`
 * `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
+
+
+## Adding a status to an interviewer: `interviewer_status`
+
+Now that you know how to add an interviewer, it would be nice to record their availabilities at any given time for subsequent interview scheduling. This is where the `interviewer_status` command is handy.
+
+Simply execute `interviewer_status PHONE s/STATUS` where PHONE is the interviewer's phone and STATUS may be any one of:
+- "Free": for if an interviewer has no interviews scheduled.
+- "Interview with APPLICANT PHONE": for when an interviewer can be matched with a promising applicant. 
+  - Since it may not be pleasant to view a litany of phone numbers as interviewer statuses though, Tether will display "interview with APPLICANT NAME" instead. For this reason, ensure the APPLICANT PHONE is a valid one, so Tether may find the right corresponding name!
+
+(**Note** that Tether is capable of setting an interviewer's status _automatically_ from "free" to "interview with..." when an interview concerning the respective interviewer is added, and vice versa when the interview is removed. Our hope is simply that `interviewer_status` won't need to be invoked manually by you very often!)
+
+A simple example usage for when manually tweaking an interviewer's status is necessary however, would be
+`interviewer_status 98362254 s/interview with 12345678`. As before, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`.
 
 ## Adding a interview: `add_interview`
 
@@ -123,6 +156,16 @@ emails or names.
 
 Format: `find_[email/name/phone] [keyword 1]...`
 
+## Filtering persons by status: `filter_by_status`
+
+What if you have no information about an applicant or interviewer's name, phone or email though? Fret not, for the `filter_by_status` command enables you to narrow down the current list of persons on the basis of their current status.
+
+Simply execute `filter_by_status STATUS` where STATUS may be any one of the valid statuses enumerated in `applicant_status` and `interviewer_status` commands above, and the displayed list will update to show only persons with the required status. 
+- As of now, there is only support for a single status parameter.
+
+A simple example usage would be
+`filter_by_status free`. As you might guess by now, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`.
+
 ## Deleting an applicant/interviewer : `delete_person`
 
 Deletes the specified applicant/interviewer based on their phone number from Tether.
@@ -145,6 +188,19 @@ Format: `delete_interview <interview index>`
 Examples:
 
 * `delete_interview 1` would delete the first interview in Tether.
+
+## View overall statistics: `view_overall_statistics`
+
+Core features such as adding, finding, statuses and deleting are likely going to be your bread and butter as a hiring manager. However often you may be tasked to analyse and report certain statistics that may be tedious to compute manually. 
+
+Tether has some basic support for viewing statistics, particularly: 
+- Total number of applicants as well as applicant numbers by status
+- Total number of interviewers as well as interviewer numbers by status
+- Total number of interviews
+
+A simple example usage would be `view_overall_statistics` to get a result as such: 
+
+![img.png](images/viewOverallStatisticsExample.png)
 
 ## Exiting the program : `exit`
 
