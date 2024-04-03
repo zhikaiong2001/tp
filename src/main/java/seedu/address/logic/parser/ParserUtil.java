@@ -116,7 +116,7 @@ public class ParserUtil {
      */
     public static ApplicantStatus parseApplicantStatus(String applicantStatus) throws ParseException {
         requireNonNull(applicantStatus);
-        String trimmedApplicantStatus = applicantStatus.trim();
+        String trimmedApplicantStatus = applicantStatus.trim().toLowerCase();
         if (!ApplicantStatus.isValidStatus(trimmedApplicantStatus)) {
             throw new ParseException(ApplicantStatus.MESSAGE_CONSTRAINTS);
         }
@@ -131,15 +131,10 @@ public class ParserUtil {
      */
     public static InterviewerStatus parseInterviewerStatus(String interviewerStatus) throws ParseException {
         requireNonNull(interviewerStatus);
-        String trimmedInterviewerStatus = interviewerStatus.trim();
+        String trimmedInterviewerStatus = interviewerStatus.trim().toLowerCase();
         if (!InterviewerStatus.isValidStatus(trimmedInterviewerStatus)) {
             throw new ParseException(InterviewerStatus.MESSAGE_CONSTRAINTS);
         }
-        String[] newlineSeparatedStatusArray = trimmedInterviewerStatus.split("\n");
-        StringBuilder newlineSeparatedStatus = new StringBuilder();
-        for (String individualStatus : newlineSeparatedStatusArray) {
-            newlineSeparatedStatus.append(individualStatus);
-        }
-        return new InterviewerStatus(newlineSeparatedStatus.toString());
+        return new InterviewerStatus(trimmedInterviewerStatus);
     }
 }

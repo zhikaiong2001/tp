@@ -10,10 +10,13 @@ import java.util.NoSuchElementException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Applicant;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.InterviewerStatus;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.enums.InterviewerState;
+import seedu.address.model.person.enums.Type;
 
 /**
  * Parses input arguments and creates a new AddInterviewerCommandStatus object
@@ -22,13 +25,13 @@ public class AddInterviewerStatusCommand extends Command {
 
     public static final String COMMAND_WORD = "interviewer_status";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the status of the interviewer identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Appends to the status of the interviewer identified"
             + "by the phone number used in the command. "
-            + "Existing status will be overwritten by the input.\n"
-            + "Parameters: [phone] (must be an existing valid phone) "
-            + PREFIX_STATUS + "[status] (must be either \"free\" or \"interview with [APPLICANT NAME]\")\n"
+            + "Given status will be added onto existing status.\n"
+            + "Parameters: [INTERVIEWER PHONE] "
+            + PREFIX_STATUS + "[STATUS] (must be either \"free\" or \"interview with [APPLICANT PHONE]\")\n"
             + "Example usage: " + COMMAND_WORD + " 98362254 "
-            + PREFIX_STATUS + "free";
+            + PREFIX_STATUS + "interview with 87376380";
 
     public static final String MESSAGE_ADD_STATUS_SUCCESS = "Added status to Interviewer: %1$s";
 
@@ -49,11 +52,34 @@ public class AddInterviewerStatusCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> persons = model.getAddressBook().getPersonList();
+        Interviewer interviewerScheduled = findInterviewerScheduled(persons);
 
-        Person personToEdit;
+        // Only if the status is of format "interview with [applicant phone]", then find the relevant applicant
+        if (!(status.value.equals(InterviewerState.FREE.toString()))) {
+            Applicant applicantToBeInterviewed = findApplicantScheduled(persons);
+            interviewerScheduled.updateCurrentStatusToReflectScheduledInterview(model, applicantToBeInterviewed);
+        } else {
+            InterviewerStatus storedStatus = new InterviewerStatus(InterviewerState.FREE.toString());
+            Interviewer updatedStatusInterviewer = new Interviewer(
+                    interviewerScheduled.getName(),
+                    interviewerScheduled.getPhone(),
+                    interviewerScheduled.getEmail(),
+                    interviewerScheduled.getRemark(),
+                    storedStatus,
+                    interviewerScheduled.getTags());
+            model.setPerson(interviewerScheduled, updatedStatusInterviewer);
+        }
+
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(generateSuccessMessage(interviewerScheduled));
+    }
+
+    private Interviewer findInterviewerScheduled(List<Person> personList) throws CommandException {
+        Person interviewerScheduled;
         try {
-            personToEdit = lastShownList
+            interviewerScheduled = personList
                     .stream()
                     .parallel()
                     .filter(person -> person.getPhone().equals(phone))
@@ -62,17 +88,37 @@ public class AddInterviewerStatusCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER);
         }
 
-        if (!personToEdit.getPersonType().equals("INTERVIEWER")) {
+        if (!interviewerScheduled.getPersonType().equals(Type.INTERVIEWER.toString())) {
             throw new CommandException(Messages.MESSAGE_INCORRECT_STATUS_INTERVIEWER);
         }
 
-        Interviewer editedPerson = new Interviewer(personToEdit.getName(), personToEdit.getPhone(),
-                personToEdit.getEmail(), personToEdit.getRemark(), status, personToEdit.getTags());
+        return (Interviewer) interviewerScheduled;
+    }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    private Applicant findApplicantScheduled(List<Person> personList) throws CommandException {
+        Phone applicantPhone;
+        try {
+            applicantPhone = new Phone(status.value.substring(14).trim());
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER);
+        }
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
+        Person applicantToBeInterviewed;
+        try {
+            applicantToBeInterviewed = personList
+                    .stream()
+                    .parallel()
+                    .filter(person -> person.getPhone().equals(applicantPhone))
+                    .reduce((person, prev) -> person).get();
+        } catch (NoSuchElementException e) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER);
+        }
+
+        if (!applicantToBeInterviewed.getPersonType().equals(Type.APPLICANT.toString())) {
+            throw new CommandException(Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER);
+        }
+
+        return (Applicant) applicantToBeInterviewed;
     }
 
     /**

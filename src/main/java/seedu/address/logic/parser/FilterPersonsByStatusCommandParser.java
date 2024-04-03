@@ -28,7 +28,7 @@ public class FilterPersonsByStatusCommandParser implements Parser<FilterPersonsB
 
         Status status;
         try {
-            String statusArgument = argMultimap.getPreamble().trim();
+            String statusArgument = argMultimap.getPreamble().trim().toLowerCase();
             if (ApplicantStatus.isValidStatus(statusArgument)) {
                 status = new ApplicantStatus(statusArgument);
             } else if (InterviewerStatus.isValidStatus(statusArgument)) {
