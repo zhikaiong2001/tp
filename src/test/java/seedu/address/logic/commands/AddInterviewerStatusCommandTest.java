@@ -24,12 +24,12 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddInterviewerStatusCommandTest {
     private static final String INTERVIEWER_STATUS_STUB = "free";
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_addStatusUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_LAST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withStatus(INTERVIEWER_STATUS_STUB).build_interviewer();
+        Person editedPerson = new PersonBuilder(firstPerson).withStatus("interview with 98765432").build_interviewer();
         AddInterviewerStatusCommand addInterviewerStatusCommand = new AddInterviewerStatusCommand(
                 firstPerson.getPhone(), new InterviewerStatus(editedPerson.getCurrentStatus()));
         String expectedMessage = String.format(AddInterviewerStatusCommand.MESSAGE_ADD_STATUS_SUCCESS, editedPerson);
