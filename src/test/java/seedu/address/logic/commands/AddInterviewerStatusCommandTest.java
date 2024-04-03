@@ -26,7 +26,7 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddInterviewerStatusCommandTest {
     private static final String INTERVIEWER_FREE_STATUS_STUB = InterviewerState.FREE.toString();
-    private static final String INTERVIEWER_BUSY_STATUS_STUB = InterviewerState.OCCUPIED +  " "
+    private static final String INTERVIEWER_BUSY_STATUS_STUB = InterviewerState.OCCUPIED + " "
             + BENSON.getPhone().toString();
     private static final String INVALID_INTERVIEWER_BUSY_STATUS_STUB = InterviewerState.OCCUPIED + " 1";
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
