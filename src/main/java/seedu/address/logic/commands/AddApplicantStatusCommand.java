@@ -26,8 +26,8 @@ public class AddApplicantStatusCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the status of the applicant identified "
             + "by the phone number used in the command. "
             + "Existing status will be overwritten by the input.\n"
-            + "Parameters: [phone] (must be an existing valid phone) "
-            + PREFIX_STATUS + "[status] (must be one of \"resume review\", \"pending interview\", "
+            + "Parameters: [APPLICANT PHONE] (must be an existing valid phone) "
+            + PREFIX_STATUS + "[STATUS] (must be one of \"resume review\", \"pending interview\", "
             + "\"completed interview\", \"waiting list\", \"accepted\", or \"rejected\")\n"
             + "Example usage: " + COMMAND_WORD + " 98362254 "
             + PREFIX_STATUS + "accepted";
