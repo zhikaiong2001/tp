@@ -19,6 +19,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.enums.Type;
 import seedu.address.model.tag.Tag;
 
@@ -115,10 +116,20 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+        }
+
         if (type.equals(Type.APPLICANT.toString())) {
+            if (!ApplicantStatus.isValidStatus(status)) {
+                throw new IllegalValueException(ApplicantStatus.MESSAGE_CONSTRAINTS);
+            }
             ApplicantStatus applicantStatus = new ApplicantStatus(status);
             return new Applicant(modelName, modelPhone, modelEmail, modelRemark, applicantStatus, modelTags);
         } else if (type.equals(Type.INTERVIEWER.toString())) {
+            if (!InterviewerStatus.isValidStatus(status)) {
+                throw new IllegalValueException(InterviewerStatus.MESSAGE_CONSTRAINTS);
+            }
             InterviewerStatus interviewerStatus = new InterviewerStatus(status);
             return new Interviewer(modelName, modelPhone, modelEmail, modelRemark, interviewerStatus, modelTags);
         }
