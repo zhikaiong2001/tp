@@ -59,11 +59,53 @@ public class AddInterviewerStatusCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonPhoneUnfilteredList_failure() {
+    public void execute_invalidInterviewerPhoneUnfilteredList_failure() {
         AddInterviewerStatusCommand addInterviewerStatusCommand = new AddInterviewerStatusCommand(new Phone("111"),
                 new InterviewerStatus(INTERVIEWER_STATUS_STUB));
 
         assertCommandFailure(addInterviewerStatusCommand, model, Messages.MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER);
+    }
+
+    @Test
+    public void execute_invalidApplicantPhoneUnfilteredList_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_LAST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withStatus("interview with 1").build_interviewer();
+        AddInterviewerStatusCommand addInterviewerStatusCommand = new AddInterviewerStatusCommand(
+                firstPerson.getPhone(), new InterviewerStatus(editedPerson.getCurrentStatus()));
+        String expectedMessage = Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER;
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(firstPerson, editedPerson);
+
+        assertCommandFailure(addInterviewerStatusCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_notFoundApplicantUnfilteredList_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_LAST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withStatus("interview with 99999999").build_interviewer();
+        AddInterviewerStatusCommand addInterviewerStatusCommand = new AddInterviewerStatusCommand(
+                firstPerson.getPhone(), new InterviewerStatus(editedPerson.getCurrentStatus()));
+        String expectedMessage = Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER;
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(firstPerson, editedPerson);
+
+        assertCommandFailure(addInterviewerStatusCommand, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_passInterviewerPhoneInsteadOfApplicantPhoneInStatusUnfilteredList_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_LAST_PERSON.getZeroBased());
+        Person editedPerson = new PersonBuilder(firstPerson).withStatus("interview with 87654321").build_interviewer();
+        AddInterviewerStatusCommand addInterviewerStatusCommand = new AddInterviewerStatusCommand(
+                firstPerson.getPhone(), new InterviewerStatus(editedPerson.getCurrentStatus()));
+        String expectedMessage = Messages.MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER;
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(firstPerson, editedPerson);
+
+        assertCommandFailure(addInterviewerStatusCommand, model, expectedMessage);
     }
 
     @Test
