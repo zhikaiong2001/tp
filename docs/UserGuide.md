@@ -113,14 +113,19 @@ A simple example usage for when manually tweaking an interviewer's status is nec
 
 ## Adding a interview: `add_interview`
 
-Adds an interview to the Tether.
+Now that you have applicants and interviewers inside tether, you can create an interview.
 
+The information required would be a description, the date, start time, end time as well as the applicant's phone number and interviewer's phone number.
+If you would like to not have a description, simply leave it blank with the keyword `desc/`.
+Upon successful addition, the interview will appear under the column named `Upcoming Interviews`.
+
+Simply execute the command show below to start scheduling an interview.
 Format: `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/APPLICANT'S
     PHONE NUMBER i/INTERVIEWER'S PHONE NUMBER`
 
-Examples:
-
-* `add_interview desc/interview Round 1 date/2024-11-11 st/12:00 et/15:00 a/81239123 i/91238123`
+A simple example usage would be `add_interview desc/technical date/2024-11-11 st/12:00 et/15:00 a/12345678 i/87654321`. 
+Executing this would result in the following display: 
+![img.png](img.png)
 
 ## Listing all persons:
 
