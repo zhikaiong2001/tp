@@ -166,6 +166,18 @@ Simply execute `filter_by_status STATUS` where STATUS may be any one of the vali
 A simple example usage would be
 `filter_by_status free`. As you might guess by now, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`.
 
+## Filtering interviews by date: `filter_interviews_by_date`
+
+After adding multiple interview entries into Tether, and if you want to find all the interviews on a particular date, it can be quite cumbersome to eyeball the entire list.
+The `filter_interviews_by_date` command would be very helpful in such situations so that you can locate on the interviews on a particular date.
+Simply execute `filter_interviews_by_date YYYY-MM-DD` to get all the interviews on that particular date.
+
+An example usage would `filter_interviews_by_date 2024-05-05` to display all interviews on 2024-05-05.
+
+To go back to the original unfiltered list, simply enter the `list_interviews` command.
+
+Note that no interviews would be displayed if there are no interviews on that day.
+
 ## Deleting an applicant/interviewer : `delete_person`
 
 Deletes the specified applicant/interviewer based on their phone number from Tether.
@@ -212,12 +224,9 @@ Format: `exit`
 
 Tether's applicant/interviewer data are saved in the hard disk automatically after any command that changes the data.
 
-There is no need to save manually.
-**However, saving of interview data is still in progress.**
+There is **no need** to save manually.
 
-## More features to come `[coming in v1.3]`
 
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
