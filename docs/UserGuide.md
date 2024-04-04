@@ -39,7 +39,7 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 **Notes about the command format:**<br>
 
-* Commands are case-sensitive.<br>
+* Command names are case-sensitive.<br>
  e.g if the user types `ADD_APPLICANT`, it is interpreted as a invalid command.
 
 * The application will give feedback if any parameter constraints for commands are violated
@@ -89,7 +89,7 @@ A simple example usage would therefore be
 
 * The `applicant_status` command **overwrites** the applicant's current status
 * For convenience, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
-* If you [add an interview](#adding-a-interview--addinterview), the involved applicant's status will change automatically from "resume review" to "pending interview". Conversely if you [delete an interview](#deleting-an-interview--deleteinterview) involving an applicant, their status will _revert_ to "resume review"
+* If you add an interview, the involved applicant's status will change automatically from "resume review" to "pending interview". Conversely if you delete an interview involving an applicant, their status will _revert_ to "resume review"
 
 ## Adding a interviewer: `add_interviewer`
 
@@ -113,11 +113,11 @@ Simply execute `interviewer_status PHONE s/STATUS` where PHONE is the **intervie
   - Since it may not be pleasant to view a litany of phone numbers as interviewer statuses though, Tether will find the applicant name associated with the given phone (assuming it is valid) and display "interview with APPLICANT NAME" instead.
 
 A simple example usage for when manually tweaking an interviewer's status is necessary however, would be
-`interviewer_status 98362254 s/interview with 12345678`. As before, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`.
+`interviewer_status 98362254 s/interview with 12345678`.
 
 **Notes**:
 
-* Again, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
+* As before, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`..
 * Unlike the `applicant_status` command, the `interviewer_status` only overwrites the existing status if the given status if "free". If the status is "interview with....", the new status is **appended** to the existing one. For example, if interviewer Nicole's current status is "interview with Yash" and you execute `interviewer_status [Nicole's Phone] s/interview with [Ryan's Phone]`, Nicole's current status will become "interview with Yash interview with Ryan" with a **line-break** separating the two
 * Tether is capable of appending an interviewer's status _automatically_ with "interview with APPLICANT NAME" when an interview concerning the respective interviewer is added. Conversely if the interview is deleted, the **particular** applicant's "interview with..." is deleted. For example if interviewer Nicole's current status is "interview with Yash interview with Ryan", if you delete an interview with Yash, Nicole's status will become "interview with ryan"
 * We give you the freedom to append any number of statuses to an existing interviewer i.e. we **do not** currently check against adding duplicate statuses 
