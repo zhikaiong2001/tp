@@ -22,11 +22,12 @@ while still having the benefits of a Graphical User Interface (GUI).
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tether.jar`
    command to run the application.<br><br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/UpdatedUi.png)
+   
+![Ui](images/UpdatedUi.png)
 
 
-5. Type the command in the command box and press Enter to execute it.
-6. Refer to the [Features](#features) below for details of each command.
+5. Type commands in the command box and press Enter to execute them.
+6. Refer to the [Features](#features) below for details of available commands.
 
 
 
@@ -38,14 +39,14 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 **Notes about the command format:**<br>
 
-
-* Parameters must be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE e/EMAIL`, they need not be typed in that order.
-
 * Commands are case-sensitive.<br>
  e.g if the user types `ADD_APPLICANT`, it is interpreted as a invalid command.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit`) will be
+* The application will give feedback if any parameter constraints for commands are violated
+
+* Optional parameters are wrapped in `[]`.
+
+* Extraneous parameters for commands that do not take in any parameters **at all** (`help`, `exit`, `view_overall_statistics`) will be
   ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
@@ -53,13 +54,14 @@ while still having the benefits of a Graphical User Interface (GUI).
   as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
 
+**Note about directly editing the addressbook.json file:**
+
+* We give you the freedom to make any edits to the addressbook.json file but do not that if any invalid edits (such as adding in `null`, non-english alphabet or emojis) are made to the addressbook.json before (re)launching the application, then no data will load and an exception will be viewed in the terminal. 
+
 
 ## Adding an applicant: `add_applicant`
 
-Adds an applicant to Tether.
-
 Format: `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]`
-
 
 Examples:
 
@@ -70,7 +72,7 @@ Examples:
 
 Now that you know how to add an applicant, it would be nice to record their position in your hiring pipeline at any given time for later review. This is where the applicant_status command is handy.
 
-Simply execute `applicant_status PHONE s/STATUS` where PHONE is the applicant's phone and STATUS may be any one of:
+Simply execute `applicant_status PHONE s/STATUS` where PHONE is the applicant's phone and STATUS may **only** be any one of:
 - "Resume review": for when an applicant has only just entered your hiring pool. Note that **this is the default status an applicant receives** when first added.
 - "Pending interview": for when you are satisfied with an applicant's potential and have set up or are in the process of scheduling an interview for them.
 - "Completed interview": as the natural successor to the previous status.
@@ -83,7 +85,11 @@ A simple example usage would therefore be
 
 ![img.png](images/applicantStatusAddExample.png)
 
-For convenience, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
+**Notes**:
+
+* The `applicant_status` command **overwrites** the applicant's current status
+* For convenience, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
+* If you [add an interview](#adding-a-interview--addinterview), the involved applicant's status will change automatically from "resume review" to "pending interview". Conversely if you [delete an interview](#deleting-an-interview--deleteinterview) involving an applicant, their status will _revert_ to "resume review"
 
 ## Adding a interviewer: `add_interviewer`
 
@@ -101,15 +107,20 @@ Examples:
 
 Now that you know how to add an interviewer, it would be nice to record their availabilities at any given time for subsequent interview scheduling. This is where the `interviewer_status` command is handy.
 
-Simply execute `interviewer_status PHONE s/STATUS` where PHONE is the interviewer's phone and STATUS may be any one of:
+Simply execute `interviewer_status PHONE s/STATUS` where PHONE is the **interviewer's** phone and STATUS may **only** be any one of:
 - "Free": for if an interviewer has no interviews scheduled.
 - "Interview with APPLICANT PHONE": for when an interviewer can be matched with a promising applicant. 
-  - Since it may not be pleasant to view a litany of phone numbers as interviewer statuses though, Tether will display "interview with APPLICANT NAME" instead. For this reason, ensure the APPLICANT PHONE is a valid one, so Tether may find the right corresponding name!
-
-(**Note** that Tether is capable of setting an interviewer's status _automatically_ from "free" to "interview with..." when an interview concerning the respective interviewer is added, and vice versa when the interview is removed. Our hope is simply that `interviewer_status` won't need to be invoked manually by you very often!)
+  - Since it may not be pleasant to view a litany of phone numbers as interviewer statuses though, Tether will find the applicant name associated with the given phone (assuming it is valid) and display "interview with APPLICANT NAME" instead.
 
 A simple example usage for when manually tweaking an interviewer's status is necessary however, would be
 `interviewer_status 98362254 s/interview with 12345678`. As before, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`.
+
+**Notes**:
+
+* Again, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
+* Unlike the `applicant_status` command, the `interviewer_status` only overwrites the existing status if the given status if "free". If the status is "interview with....", the new status is **appended** to the existing one. For example, if interviewer Nicole's current status is "interview with Yash" and you execute `interviewer_status [Nicole's Phone] s/interview with [Ryan's Phone]`, Nicole's current status will become "interview with Yash interview with Ryan" with a **line-break** separating the two
+* Tether is capable of appending an interviewer's status _automatically_ with "interview with APPLICANT NAME" when an interview concerning the respective interviewer is added. Conversely if the interview is deleted, the **particular** applicant's "interview with..." is deleted. For example if interviewer Nicole's current status is "interview with Yash interview with Ryan", if you delete an interview with Yash, Nicole's status will become "interview with ryan"
+* We give you the freedom to append any number of statuses to an existing interviewer i.e. we **do not** currently check against adding duplicate statuses 
 
 ## Adding a interview: `add_interview`
 
@@ -125,7 +136,8 @@ Format: `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/AP
 
 A simple example usage would be `add_interview desc/technical date/2024-11-11 st/12:00 et/15:00 a/12345678 i/87654321`. 
 Executing this would result in the following display: 
-![img.png](img.png)
+
+![img.png](images/addInterviewExample.png)
 
 ## Listing all persons:
 
@@ -133,8 +145,7 @@ Now that you have added multiple `Applicants` and `Interviewers` into Tether, it
 details simultaneously. The list of persons is displayed on the left side of the GUI by default and is updated 
 whenever new persons are added. 
 
-However, there is a ```find``` command (explained below) that filters the persons list in 
-the UI. If you have filtered the list and wants to see the original unfiltered list of persons, you can use this command.
+However, there are ```find``` and `filter` commands (explained below) that filter the list of persons displayed. If you have executed any of these commands and want to revert to the original unfiltered list of persons, you can use the command below.
 
 Format: `list_persons`
 
@@ -145,7 +156,7 @@ simultaneously. The list of interviews is displayed on the right side of the GUI
 new interviews are added.
 
 However, there is a ```filter_interviews_by_date``` command (explained below) that filters the interviews list in
-the UI. If you have filtered the list and wants to see the original unfiltered list, you can use this command.
+the UI. If you have filtered the list and want to rever to the the original unfiltered list, you can use the command below.
 
 Format: `list_interviews`
 
@@ -155,8 +166,8 @@ After adding multiple persons into Tether, you find yourself having to manually 
 The `find` command is useful here to save you time in locating such entries provided you already know at least one of 
 the following 3 details of the person: their email, name or phone number.
 
-Note that email and phone number has to match exactly to locate the person entry if it exists. 
-Full name is not required but name provided should be complete. Otherwise, there will be no matching entries.
+If you use email or phone number, note that they have to match exactly to locate the person entry if it exists. 
+If you use name, a full name is not required but the name provided should be complete. Otherwise, there will also be no matching entries.
 For example, `find_name Ryan` will still display an 
 entry with full name `Ryan Chiang` but `find_name Ry` will result in an error message indicating no matching entries.
 
@@ -179,15 +190,15 @@ A simple example usage would be
 
 ## Filtering interviews by date: `filter_interviews_by_date`
 
-After adding multiple interview entries into Tether, and if you want to find all the interviews on a particular date, it can be quite cumbersome to eyeball the entire list.
-The `filter_interviews_by_date` command would be very helpful in such situations so that you can locate on the interviews on a particular date.
-Simply execute `filter_interviews_by_date YYYY-MM-DD` to get all the interviews on that particular date.
+After adding multiple interview entries into Tether, if you want to find all the interviews on a particular date, it can be quite cumbersome to eyeball the entire list.
+The `filter_interviews_by_date` command would be very helpful in such situations so that you can locate interviews scheduled on a particular date.
+Simply execute `filter_interviews_by_date YYYY-MM-DD` to get all the interviews on `YYYY-MM-DD`.
 
 An example usage would `filter_interviews_by_date 2024-05-05` to display all interviews on 2024-05-05.
 
-To go back to the original unfiltered list, simply enter the `list_interviews` command.
+To revert to the original unfiltered list, simply enter the `list_interviews` command.
 
-Note that no interviews would be displayed if there are no interviews on that day.
+**Note** that no interviews would be displayed if there are no interviews on that day.
 
 ## Deleting an applicant/interviewer : `delete_person`
 
@@ -267,6 +278,6 @@ the data of your previous Tether home folder.
 | **Find Persons**              | `find_[email/name/phone] [keyword 1]` <br> e.g., `find_name Ryan`                                                                                                                                                     |
 | **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
 | **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                             |
-| **View Overall Status**       | `view_overall_statistics`                                                                                                                                                                                             |
+| **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
 | **Exit**                      | `exit`                                                                                                                                                                                                                |
 | **Help**                      | `help`                                                                                                                                                                                                                |
