@@ -104,7 +104,9 @@ public class InterviewTest {
         String expectedString = " ------Interview------\n"
                 + "Applicant: head\n"
                 + "Interviewer: cube\n"
-                + "Date: 2024-01-01\n"
+                + "Date: "
+                + LocalDate.now().toString()
+                + "\n"
                 + "Start: 10:00 "
                 + "End: 12:59\n"
                 + "Description: technical interview";
