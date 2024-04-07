@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -30,16 +32,16 @@ public class AddInterviewCommand extends Command {
     public static final String MESSAGE_INFORMATION = "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_DATE + "DATE "
-            + PREFIX_START_TIME + "START TIME "
-            + PREFIX_END_TIME + "END TIME "
-            + PREFIX_APPLICANT + "APPLICANT PHONE NUMBER"
-            + PREFIX_INTERVIEWER + "INTERVIEWER PHONE NUMBER " + "\n"
+            + PREFIX_START_TIME + "START_TIME "
+            + PREFIX_END_TIME + "END_TIME "
+            + PREFIX_APPLICANT + "APPLICANT_PHONE_NUMBER "
+            + PREFIX_INTERVIEWER + "INTERVIEWER_PHONE_NUMBER " + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "technical interview "
             + PREFIX_DATE + "2022-11-11 "
             + PREFIX_START_TIME + "10:00 "
             + PREFIX_END_TIME + "11:00 "
-            + PREFIX_APPLICANT + "88888888"
+            + PREFIX_APPLICANT + "88888888 "
             + PREFIX_INTERVIEWER + "88889999";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an interview to Tether. "
@@ -79,6 +81,12 @@ public class AddInterviewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Result result = getResult(model);
+        if (date.isBefore(LocalDate.now())) {
+            throw new CommandException(MESSAGE_INVALID_DATE);
+        }
+        if (startTime.isAfter(endTime)) {
+            throw new CommandException(MESSAGE_INVALID_END_TIME);
+        }
         phoneNumberCheck(result.isFoundApplicant, result.isFoundInterviewer, result.isIncorrectApplicantPhone,
                 result.isIncorrectInterviewerPhone);
         this.interview = new Interview(applicantSearch, interviewerSearch, date, startTime, endTime, description);
@@ -146,8 +154,11 @@ public class AddInterviewCommand extends Command {
                                          boolean isFoundInterviewer,
                                          boolean isIncorrectApplicantPhone,
                                          boolean isIncorrectInterviewerPhone) throws CommandException {
-        if (!isFoundApplicant || !isFoundInterviewer) {
-            throw new CommandException(Messages.MESSAGE_PERSON_NOT_IN_LIST);
+        if (!isFoundApplicant) {
+            throw new CommandException(Messages.MESSAGE_APPLICANT_NOT_IN_LIST);
+        }
+        if (!isFoundInterviewer) {
+            throw new CommandException(Messages.MESSAGE_INTERVIEWER_NOT_IN_LIST);
         }
         if (isIncorrectApplicantPhone && isIncorrectInterviewerPhone) {
             throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_AND_APPLICANT_PHONE_NUMBER);
