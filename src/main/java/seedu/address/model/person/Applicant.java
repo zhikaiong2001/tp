@@ -14,7 +14,6 @@ import seedu.address.model.tag.Tag;
 public class Applicant extends Person {
 
     private final Type type = Type.APPLICANT;
-    private ApplicantStatus previousStatus;
     private ApplicantStatus currentStatus;
 
     /**
@@ -43,7 +42,6 @@ public class Applicant extends Person {
      */
     @Override
     public void updateCurrentStatusToReflectScheduledInterview(Model model) {
-        previousStatus = currentStatus;
         currentStatus = new ApplicantStatus(ApplicantState.STAGE_TWO.toString());
         /*
             Need to find this applicant by reference equality and replace them for the change in status to reflect in
@@ -59,9 +57,7 @@ public class Applicant extends Person {
      */
     @Override
     public void revertCurrentStatus(Model model) {
-        currentStatus = previousStatus == null
-                        ? new ApplicantStatus(ApplicantState.STAGE_ONE.toString())
-                        : previousStatus;
+        currentStatus = new ApplicantStatus(ApplicantState.STAGE_ONE.toString());
         /*
             Need to find this applicant by reference equality and replace them for the change in status to reflect in
             the gui immediately

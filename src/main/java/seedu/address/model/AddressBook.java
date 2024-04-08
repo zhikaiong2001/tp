@@ -82,6 +82,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a person with the same email as {@code person} exists in the address book.
+     */
+    public boolean hasPersonWithSameEmail(Person person) {
+        requireNonNull(person);
+        return persons.containsSameEmail(person);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
