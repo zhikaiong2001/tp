@@ -95,4 +95,8 @@ public class Interview {
                 + interviewer.getName() + "\nDate: " + date.toString() + "\nStart: " + startTime.toString() + " End: "
                  + endTime.toString() + "\nDescription: " + description;
     }
+
+    public boolean containsPerson(Person person) {
+        return this.interviewer.isSamePerson(person) || this.applicant.isSamePerson(person);
+    }
 }

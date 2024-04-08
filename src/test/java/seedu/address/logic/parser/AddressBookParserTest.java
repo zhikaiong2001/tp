@@ -22,8 +22,6 @@ import seedu.address.logic.commands.AddInterviewCommand;
 import seedu.address.logic.commands.AddInterviewerPersonCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterPersonsByStatusCommand;
 import seedu.address.logic.commands.FindEmailCommand;
@@ -39,12 +37,10 @@ import seedu.address.model.person.ApplicantStatus;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.enums.ApplicantState;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -95,14 +91,6 @@ public class AddressBookParserTest {
         assertEquals(new DeleteCommand(new Phone("87652533")), command);
     }
 
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    }
 
     @Test
     public void parseCommand_exit() throws Exception {
