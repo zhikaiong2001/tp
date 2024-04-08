@@ -14,7 +14,7 @@ public class FilterPersonsByStatusCommand extends FilterCommand {
     public static final String COMMAND_WORD = FilterCommand.COMMAND_WORD + "_by_status";
 
     public static final String MESSAGE_SUCCESS = FilterCommand.MESSAGE_SUCCESS + " persons with status";
-    private Status targetStatus;
+    private final Status targetStatus;
 
     /**
      * Creates a FilterPersonsByStatusCommand to filter persons by status.
@@ -36,7 +36,7 @@ public class FilterPersonsByStatusCommand extends FilterCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        boolean existsMatchingPersons = model.getAddressBook().getPersonList().stream()
+        boolean existsMatchingPersons = model.getFilteredPersonList().stream()
                 .anyMatch(person -> person.getCurrentStatus().equals(targetStatus.toString()));
         if (!existsMatchingPersons) {
             return new CommandResult("No persons found with status: " + targetStatus.toString());
