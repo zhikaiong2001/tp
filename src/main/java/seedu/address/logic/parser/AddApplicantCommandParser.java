@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -46,7 +47,7 @@ public class AddApplicantCommandParser implements Parser<AddApplicantPersonComma
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Remark remark = new Remark(""); // add command does not allow adding remarks straight away
         ApplicantStatus status = new ApplicantStatus(ApplicantState.STAGE_ONE.toString());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tagList = new HashSet<>();
 
         Applicant applicant = new Applicant(name, phone, email, remark, status, tagList);
 

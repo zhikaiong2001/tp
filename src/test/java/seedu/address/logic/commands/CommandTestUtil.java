@@ -44,6 +44,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_CUBE = "cube@head.com";
     public static final String VALID_REMARK_AMY = "Like skiing.";
     public static final String VALID_REMARK_BOB = "Favourite pastime: Eating";
+    public static final String VALID_TAG_APPLIANT = "applicant";
+    public static final String VALID_TAG_INTERVIEWER = "interviewer";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -74,6 +76,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String EMAIL_DESC_CUBE = " " + PREFIX_EMAIL + VALID_EMAIL_CUBE;
+    public static final String TAG_DESC_APPLICANT = " " + PREFIX_TAG + VALID_TAG_APPLIANT;
+    public static final String TAG_DESC_INTERVIEWER = " " + PREFIX_TAG + VALID_TAG_INTERVIEWER;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 

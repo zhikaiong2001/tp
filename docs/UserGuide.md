@@ -119,7 +119,6 @@ Examples:
 * `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com`
 * `add_interviewer n/Yash p/99998888 e/yash@gmail.com`
 
-
 **Notes**:
 * Different interviewers with the same name can be entered as long as their phone numbers and emails are different.
 * Remark field will empty and can only be added upon entering `remark` command.
