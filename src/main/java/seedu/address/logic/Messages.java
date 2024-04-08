@@ -17,13 +17,15 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSON_NOT_IN_LIST = "The person you are looking for is not on the list";
+    public static final String MESSAGE_APPLICANT_NOT_IN_LIST = "The applicant you are looking for is not on the list";
+    public static final String MESSAGE_INTERVIEWER_NOT_IN_LIST = "The interviewer you are "
+            + "looking for is not on the list";
     public static final String MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER = "The phone number you have keyed is is "
-            + "not an applicant phone number. Please check the input phone number";
+            + "not an applicant phone number, please check the input phone number";
     public static final String MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER = "The phone number you have keyed is is "
-            + "not an interviewer phone number. Please check the input phone number";
+            + "not an interviewer phone number, please check the input phone number";
     public static final String MESSAGE_INCORRECT_INTERVIEWER_AND_APPLICANT_PHONE_NUMBER =
-            "The phone number you have keyed is is not an applicant nor an interviewer phone number. "
-                    + "Please check the input phone numbers";
+            "Please check the input phone numbers, the applicant and interviewer phone numbers entered are incorrect";
     public static final String MESSAGE_INCORRECT_STATUS_APPLICANT = "Only applicants can be given this status";
     public static final String MESSAGE_INCORRECT_STATUS_INTERVIEWER = "Only interviewers can be given this status";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
@@ -37,7 +39,7 @@ public class Messages {
     public static final String INVALID_DATE = "Invalid date format!";
     public static final String INVALID_TIME = "Invalid time format!";
     public static final String MESSAGE_NOT_TIME = "The provided argument is not a valid time";
-
+    public static final String MESSAGE_INVALID_DATE = "The date entered has already passed";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
