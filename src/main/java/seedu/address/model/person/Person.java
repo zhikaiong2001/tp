@@ -135,9 +135,7 @@ public class Person {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Remark: ")
-                .append(getRemark())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getRemark());
         return builder.toString();
     }
 }

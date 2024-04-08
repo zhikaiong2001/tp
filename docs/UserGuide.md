@@ -1,8 +1,12 @@
 
 # Tether User Guide
 
-Tether is the everyday Hiring Manager's **desktop app** for managing applicants, interviewers and interviews. It's optimized for use via a Command Line Interface (CLI)
-while still having the benefits of a Graphical User Interface (GUI).
+_What if you could enjoy the dynamic nature of professional Applicant Tracking Systems combined with the timeless 
+simplicity of tracking tools like Excel?_
+
+Welcome to Tether, the everyday Hiring Manager's **desktop app** for managing applicants, interviewers and interviews. 
+It's optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface 
+(GUI).
 
 **If you can type fast**, Tether can get your hiring management tasks done faster than traditional GUI apps.
 
@@ -33,22 +37,19 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
-
-
+## Using Features Error-Free
 
 **Notes about the command format:**<br>
 
 * Command names are case-sensitive.<br>
- e.g if the user types `ADD_APPLICANT`, it is interpreted as a invalid command.
+ e.g if the user types `ADD_APPLICANT` instead of `add_applicant`, it is interpreted as a invalid command.
 
-* The application will give feedback if any parameter constraints for commands are violated
+* Tether will give as specific feedback **as possible** if any parameter constraints for commands are violated. Parameter constraints
+will be listed along with the commands that **first** use them (i.e. the same parameter constraints will not be 
+explained everytime the parameter is used, only the first time).
 
-* Optional parameters are wrapped in `[]`.
-
-* Extraneous parameters for commands that do not take in any parameters **at all** (`help`, `exit`, `view_overall_statistics`) will be
-  ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in any parameters **at all** (`help`, `clear`, `exit`, `view_overall_statistics`) will be
+  ignored. For example, if you attempt to execute `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -56,39 +57,68 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 **Note about directly editing the addressbook.json file:**
 
-* We give you the freedom to make any edits to the addressbook.json file but do not that if any invalid edits (such as adding in `null`, non-english alphabet or emojis) are made to the addressbook.json before (re)launching the application, then no data will load and an exception will be viewed in the terminal. 
+* We give you the freedom to make any edits to the addressbook.json file but do note that if any invalid edits are made to the addressbook.json before (re)launching the application, then no data will load and an exception will be viewed in the terminal.
+  * What count as invalid edits? Simply speaking, edits that violate the **parameter constraints** of the fields of the 
+  JSON entries. For example, editing a `name` to be an emoji, or an email to be `null`.
+  * What **do not** count as invalid edits? Edits which violate any **business constraints** imposed by Tether. For 
+  example, editing all persons to have the same email when emails are required
+  to be unique.
 
-## Launching help window : `help` ##
-This is your first time opening Tether and you are unfamiliar with the commands. It would be nice to receive some guidance about the commands.
-This is where `help` command is here to help.
-Simply execute `help` and this will launch the help window. You can also press the help button to launch it as well.
+## Gathering your bearings ##
+Before delving into the features, we want you to give you a brief tour on how to use our application in the first place. 
+After all, Tether is not your typical application that you may be accustomed to using off the App Store and does come with a bit of a learning curve. 
 
-Format : `help`
+### The structure of Tether
+
+![img_3.png](images/tetherOrientation.png)
+
+1. Taskbar: where you may click on either the _File_ or _Help_ buttons.
+2. Command Box: where commands are executed.
+3. Result Box: where success or error messages, if any, for executed commands are displayed
+    * Note that the Result Box may not necessarily refresh everytime a new command is executed. This may happen if, as an example, a command incurs a fatal error before it can generate a result.
+4. Person/Interview Card: where the details of each applicant/interviewer and interview you add are displayed
+
+### Help yourself!
+
+Simply execute `help` or press the _Help_ button in the taskbar to launch a help window such as the one below:
+
 ![img.png](img.png)
 
-## Adding an applicant: `add_applicant`
-To get started on using Tether, add an applicant whose resume you just received.
+## Features
 
-Simply execute `add_applicant n/NAME p/PHONE e/EMAIL`. The required applicant's information is their name, phone number and email address.
-The applicant will appear under the `Persons` column.
+Now that we've gone over the basics, let's dive into how you may use Tether for your most essential hiring management tasks!
+
+### Adding an applicant:
+
+One of the first steps in the hiring pipeline is when an applicant submits their name for consideration. 
+
+To record an applicant and their contact details in Tether, simply execute `add_applicant n/NAME p/PHONE e/EMAIL` and the applicant will appear under the _Persons_ column as seen via the example usage below.
+
+**Example usage**:
+* `add_applicant n/Wesley Yu p/88889999 e/wesleyyu@gmail.com`
 
 ![img_1.png](img_1.png)
 
-Examples:
-* `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`
-* `add_applicant n/Wesley Yu p/88889999 e/wesleyyu@gmail.com`
+**Parameter constraints**:
+* Names can only contain alphanumeric characters and spaces, and should not be blank.
+* Phone numbers must be at least 3 digits long and strictly only contain numbers (i.e. no spaces or dashes).
+* Emails should be of the format local-part@domain and adhere to the following constraints:
+  * The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters. 
+  * This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
+   The domain name must:
+    - end with a domain label at least 2 characters long
+    - have each domain label start and end with alphanumeric characters
+    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 
 **Notes**:
-* Different applicants with the same name can be entered as long as their phone numbers and emails are different.
-* Remark field will empty and can only be added upon entering `remark` command.
+* Different applicants with the same name can be added as long as their phone numbers and emails are different.
+* Applicants' remark field will be empty by default and can only be edited later with the `remark` command (described below).
 
-Note that the remark field would be empty be default and can only be changed after the person is added.
+### Adding a status to an applicant:
 
-## Adding a status to an applicant: `applicant_status`
+Now that you know how to add an applicant, it would be nice to record their position in your hiring pipeline at any given time for later review. This is where tagging applicants by status is handy.
 
-Now that you know how to add an applicant, it would be nice to record their position in your hiring pipeline at any given time for later review. This is where the applicant_status command is handy.
-
-Simply execute `applicant_status PHONE s/STATUS` where PHONE is the applicant's phone and STATUS may **only** be any one of:
+Simply execute `applicant_status PHONE s/STATUS` where PHONE is the target applicant's phone number and STATUS may **only** be any one of:
 - "Resume review": for when an applicant has only just entered your hiring pool. Note that **this is the default status an applicant receives** when first added.
 - "Pending interview": for when you are satisfied with an applicant's potential and have set up or are in the process of scheduling an interview for them.
 - "Completed interview": as the natural successor to the previous status.
@@ -96,106 +126,104 @@ Simply execute `applicant_status PHONE s/STATUS` where PHONE is the applicant's 
 - "Accepted": in the case that an applicant has impressed their interviewer enough for you to send a happy email <span style="color: green;">as soon as possible</span>.
 - "Rejected": for the <span style="color: red;">unfortunate</span> case....
 
-A simple example usage would therefore be
-`applicant_status 98362254 s/accepted`. Executing this would result in the following display: 
+**Example Usage**
 
-![img.png](images/applicantStatusAddExample.png)
+* `applicant_status 98362254 s/accepted`.
+
+![img_3.png](images/addApplicantStatusExample.png)
+
+**Parameter Constraints**
+* A status may strictly only be any of the statuses enumerated above. However, the status parameter is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
+* If multiple valid status parameters are passed, such as `add_applicant PHONE s/accepted s/rejected`, then only the last status will be considered. I.e, the applicant's status will become _rejected_
+* If multiple valid statuses are passed through one status parameter, such as `add_applicant PHONE s/accepted rejected`, then an error will be displayed since "accepted rejected" is not any one of the valid statuses. I.e, whatever follows the `s/` prefix is considered as one status.
 
 **Notes**:
 
-* The `applicant_status` command **overwrites** the applicant's current status
-* For convenience, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
-* If you add an interview, the involved applicant's status will change automatically from "resume review" to "pending interview". Conversely if you delete an interview involving an applicant, their status will _revert_ to "resume review"
+* The `applicant_status` command **overwrites** the applicant's current status. Ultimately, we want you to be able to pivot your applicants to any stage of the hiring pipeline
+* If you schedule an interview with a particular applicant, the applicant's status will change automatically from "resume review" to "pending interview". Conversely, if you delete an interview involving an applicant, their status will revert to "resume review" regardless of what their previous status was.
 
-## Adding an interviewer: `add_interviewer`
-Now that you have all your required applicants, you would like to schedule an interview. But before that, you would need to enter the interviewer needed to conduct the interview.
+### Adding an interviewer:
+Recording all potential applicants is one thing, but to meaningfully schedule interviews for them, you also need a host of interviewers and their details.
 
-Simply execute `add_interviewer n/NAME p/PHONE e/EMAIL`. The required interviewer's information is their name, phone number and email address.
-The interviewer will appear under the `Persons` column.
+To record an applicant and their contact details in Tether, simply execute `add_interviewer n/NAME p/PHONE e/EMAIL` and the interviewer will appear under the _Persons_ column as seen via the example usage below.
+
+**Example Usage**
+* `add_interviewer n/Yash p/99998888 e/yash@gmail.com`
 
 ![img_2.png](img_2.png)
 
-Examples:
-* `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com`
-* `add_interviewer n/Yash p/99998888 e/yash@gmail.com`
-
 **Notes**:
-* Different interviewers with the same name can be entered as long as their phone numbers and emails are different.
-* Remark field will empty and can only be added upon entering `remark` command.
+* Similar to applicants, different interviewers with the same names can be added as long as their phone numbers and emails are different.
+* Interviewers' remark field will be empty by default and can only be edited later with the `remark` command (described below).
 
-## Adding a status to an interviewer: `interviewer_status`
+### Adding a status to an interviewer:
 
-Now that you know how to add an interviewer, it would be nice to record their availabilities at any given time for subsequent interview scheduling. This is where the `interviewer_status` command is handy.
+Now that you know how to add an interviewer, it would be nice to record their availabilities at any given time for subsequent interview scheduling. Happily however, there's no need to worry about using any commands to manage interviewer statuses manually!
 
-Simply execute `interviewer_status PHONE s/STATUS` where PHONE is the **interviewer's** phone and STATUS may **only** be any one of:
-- "Free": for if an interviewer has no interviews scheduled.
-- "Interview with APPLICANT PHONE": for when an interviewer can be matched with a promising applicant. 
-  - Since it may not be pleasant to view a litany of phone numbers as interviewer statuses though, Tether will find the applicant name associated with the given phone (assuming it is valid) and display "interview with APPLICANT NAME" instead.
+Tether is capable of tagging an interviewer with a status _automatically_ when an interview concerning the respective interviewer is added. As a specific example, if an interview is scheduled between applicant Wesley and interviewer Yash, then Yash is given a status of _interview with wesley_.
 
-A simple example usage for when manually tweaking an interviewer's status is necessary however, would be
-`interviewer_status 98362254 s/interview with 12345678`.
+As more interviews are added, the interviewer's statuses stack on top of each other: 
 
-**Notes**:
+![img_3.png](images/addInterviewerStatusExample.png)
 
-* As before, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`..
-* Unlike the `applicant_status` command, the `interviewer_status` only overwrites the existing status if the given status if "free". If the status is "interview with....", the new status is **appended** to the existing one. For example, if interviewer Nicole's current status is "interview with Yash" and you execute `interviewer_status [Nicole's Phone] s/interview with [Ryan's Phone]`, Nicole's current status will become "interview with Yash interview with Ryan" with a **line-break** separating the two
-* Tether is capable of appending an interviewer's status _automatically_ with "interview with APPLICANT NAME" when an interview concerning the respective interviewer is added. Conversely if the interview is deleted, the **particular** applicant's "interview with..." is deleted. For example if interviewer Nicole's current status is "interview with Yash interview with Ryan", if you delete an interview with Yash, Nicole's status will become "interview with ryan"
-* We give you the freedom to append any number of statuses to an existing interviewer i.e. we **do not** currently check against adding duplicate statuses 
+Conversely, if an interview is deleted, the respective status is automatically removed from the interviewer's status stack: 
 
-## Adding a remark to an applicant/interviewer: `remark`
+![img_3.png](images/deleteInterviewerStatusExample.png)
 
-Once you have applicants/interviewers in Tether, you might want to add some remarks to each individual. This is where the `remark`
-command would come in handy. Simply execute `remark INDEX r/REMARK`. 
+### Adding a remark to an applicant/interviewer:
 
-For example, executing `remark 1 r/Confident` would add the 
-"Confident" remark to the person at index 1.
+Once you have applicants/interviewers in Tether, wouldn't it be nice to annotate your applicants/interviewers with helpful remarks?
 
-Note that if you only execute `remark INDEX`, the remark of the person at that index would be removed.
+Simply execute `remark INDEX r/REMARK` and the interview will appear under the _Upcoming Interviews_ column.
+
+**Example Usage**
+
+* `remark 1 r/Confident` would add the 
+"Confident" remark to the applicant/interviewer at index 1.
+
+**Parameter Constraints**
+* The INDEX of the person to be removed has to be within the bounds of the number of people currently in the list. I.e. executing `remark -2 r/Confident` when there can't be a negative amount of people, or `remark 100 r/Confident` when there's only 20 people, will both lead to errors.
+
+**Notes**
+* If you only execute `remark INDEX` without any parameters, the remark of the person at that index will be removed.
 
 
-## Adding an interview: `add_interview`
+### Adding an interview:
 
-Now that you have applicants and interviewers inside tether, you can create an interview.
+Now comes a very meaty part of hiring management - scheduling interviews. And to do so, simply execute `add_interview desc/DESCRIPTION date/DATE st/START_TIME et/END_TIME a/APPLICANT_PHONE_NUMBER i/INTERVIEWER_PHONE_NUMBER` t
 
-The information required would be a description, the date, start time, end time as well as the applicant's phone number and interviewer's phone number.
-If you would like to not have a description, simply leave it blank with the keyword `desc/`.
-Upon successful addition, the interview will appear under the column named `Upcoming Interviews`.
+The following example usage demonstrates the effect of adding an interview in this manner:
 
-Simply execute the command show below to start scheduling an interview.
-Format: `add_interview desc/DESCRIPTION date/DATE st/START_TIME et/END_TIME a/APPLICANT_PHONE_NUMBER i/INTERVIEWER_PHONE_NUMBER`
-
-A simple example usage would be `add_interview desc/technical date/2024-11-11 st/12:00 et/15:00 a/12345678 i/87654321`. 
-Executing this would result in the following display: 
+**Example Usage**
+* `add_interview desc/technical date/2024-11-11 st/12:00 et/15:00 a/12345678 i/87654321`.
 
 ![img.png](images/addInterviewExample.png)
 
+**Parameter Constraints**
+* If you would like to not have a description, simply pass an empty parameter`desc/`.
+* Dates must be in `YYYY-MM-DD` format
+* Times must be in either `HH:MM` or `HH:MM:SS` format
+
 **Notes**:
 
-* You can still schedule new interviews for applicants who have already been rejected or accepted. This is because there can follow up or subsequent interviews.
+* You can still schedule new interviews for applicants who have already been rejected or accepted. This is simply to accommodate the possibility of follow-up interviews, amongst other possibilities.
 * Entering dates that have already passed are not allowed.
 
-## Listing all persons:
+### Listing all persons:
 
-Now that you have added multiple `Applicants` and `Interviewers` into Tether, it would be nice to view them with their 
-details simultaneously. The list of persons is displayed on the left side of the GUI by default and is updated 
-whenever new persons are added. 
+After adding multiple applicants/interviews into Tether, its often necessary to view all of them and their details together.
 
-However, there are ```find``` and `filter` commands (explained below) that filter the list of persons displayed. If you have executed any of these commands and want to revert to the original unfiltered list of persons, you can use the command below.
+Although the list of persons and their details are displayed on the left side of the GUI by default and is updated automatically
+whenever new persons are added, there are ```find``` and `filter` commands (explained below) that filter the list of persons displayed. If you have executed any of these commands and want to revert to the original unfiltered list of persons, just execute `list_persons`. 
 
-Format: `list_persons`
+### Listing all the interviews:
 
-## Listing all the interviews:
+After adding multiple interviews into Tether, its often necessary to view all of them and their details together.
 
-Now that you have added multiple `Interviews` into Tether, it would be nice to view them with their details 
-simultaneously. The list of interviews is displayed on the right side of the GUI by default and is updated whenever 
-new interviews are added.
+Although the list of interviews and their details are displayed on the right side of the GUI by default and is updated automatically
+whenever new interviews are added, there is a `filter` commands (explained below) that filters the list of interviews displayed. If you have executed this command and want to revert to the original unfiltered list of interviews, just execute `list_interviews`.
 
-However, there is a ```filter_interviews_by_date``` command (explained below) that filters the interviews list in
-the UI. If you have filtered the list and want to rever to the the original unfiltered list, you can use the command below.
-
-Format: `list_interviews`
-
-## Finding persons:
+### Finding persons:
 
 After adding multiple persons into Tether, you find yourself having to manually scroll to locate specific person entries. 
 The `find` command is useful here to save you time in locating such entries provided you already know at least one of 
@@ -204,16 +232,16 @@ the following 3 details of the person: their email, name or phone number.
 If you use email or phone number, note that they have to match exactly to locate the person entry if it exists. 
 If you use name, a full name is not required but the name provided should be complete. Otherwise, there will also be no matching entries.
 
-The command accepts all inputs, including invalid ones and will only display no matching entries in such cases.
+The command accepts all inputs, **including invalid ones** (however, no matching entries will be displayed in such cases).
 
 `find` can also be used to find multiple entries at once. You can provide multiple keywords after the initial 
 `find_[email/name/phone]` and all entries that match any of the keywords will be displayed. Note that all the keywords 
 provided should be of the same type. For example, `find_phone` should only be followed by valid phone number(s), not 
 emails or names.
 
-Format: `find_[email/name/phone] [keyword 1]...`
+To find a person or persons, execute `find_[email/name/phone] [keyword 1]...` such as in the example usages illustrated below:
 
-Examples:
+**Example Usage**:
 
 ![img.png](images/find-command/base.png)
 
@@ -238,52 +266,59 @@ Executing `find_phone 123 23456` will display the entries that have `123` or `23
 
 ![img.png](images/find-command/multiplekeywords.png)
 
-## Filtering persons by status: `filter_by_status`
+### Filtering persons by status:
 
 What if you have no information about an applicant or interviewer's name, phone or email though? Fret not, for the `filter_by_status` command enables you to narrow down the current list of persons on the basis of their current status.
 
-Simply execute `filter_by_status STATUS` where STATUS may be any one of the valid statuses enumerated in `applicant_status` and `interviewer_status` commands above, and the displayed list will update to show only persons with the required status. 
-- As of now, there is only support for a single status parameter.
+Simply execute `filter_by_status STATUS`, and the displayed list will update to show only persons with the required status.
 
-A simple example usage would be
-`filter_by_status free`. As you might guess by now, STATUS is case-insensitive i.e. `s/interview with 12345678` is as valid as `s/iNtERVIew wIth 12345678`.
+**Example Usage**
+* `filter_by_status free` will display all interviewers with status _free_.
+* `filter_by_status interview with wesley` will display all interviewers containing a status _interview with wesley_ in their status list.
 
-## Filtering interviews by date: `filter_interviews_by_date`
+**Parameter Constraints**
+* STATUS may be any one of the valid statuses enumerated in `applicant_status` and `interviewer_status` commands above.
+
+**Notes**
+* As of now, there is only support for a single status parameter.
+* If you want to apply filters one-after-the-other seamlessly, you will have to do this manually. I.e. after applying `filter_by_status free`, you will need to `list_persons` again before applying `filter_by_status interview with wesley`. 
+  * If you don't, then the filters will stack on top of the other and you will be searching for people with status _interview with wesley_ **among** those with status _free_, which would result in finding people at all.  
+* No persons will be displayed if there are no persons with the given status
+* Unlike for the `find` command, statuses must be matched exactly i.e. `filter_by_status interview with wes` will not match an interviewer with status _interview with wesley_
+
+### Filtering interviews by date:
 
 After adding multiple interview entries into Tether, if you want to find all the interviews on a particular date, it can be quite cumbersome to eyeball the entire list.
 The `filter_interviews_by_date` command would be very helpful in such situations so that you can locate interviews scheduled on a particular date.
+
 Simply execute `filter_interviews_by_date YYYY-MM-DD` to get all the interviews on `YYYY-MM-DD`.
 
-An example usage would `filter_interviews_by_date 2024-05-05` to display all interviews on 2024-05-05.
+**Example Usage**
+* `filter_interviews_by_date 2024-05-05` to display all interviews on 2024-05-05.
 
 To revert to the original unfiltered list, simply enter the `list_interviews` command.
 
-**Note** that no interviews would be displayed if there are no interviews on that day.
+**Notes**
+* No interviews would be displayed if there are no interviews on that day.
 
-## Deleting an applicant/interviewer : `delete_person`
+### Deleting an applicant/interviewer:
 
-Deletes the specified applicant/interviewer based on their phone number from Tether.
+If you're confident in removing an applicant or interviewer from Tether if for example an interviewer leaves your company or an applicant is out of the hiring process, then execute `delete_person PHONE`
 
-Format: `delete_person <phone number>`
+**Example Usage**:
 
-* Deletes the person with the specified phone number.
-
-Examples:
-
-* If there exists an applicant/interviewer with phone number 81239123, `delete_person 81239123` would delete that
+* `delete_person 81239123` would delete that
   applicant/interviewer.
 
 ## Deleting an interview : `delete_interview`
 
-Deletes the specified interview from Tether based on **index**.
+If you're confident in unscheduling an interview perhaps due to changed availability or an unexpected clash, then execute `delete_interview INDEX`
 
-Format: `delete_interview <interview index>`
+**Example Usage**:
 
-Examples:
+* `delete_interview 1` would delete the first interview in the list.
 
-* `delete_interview 1` would delete the first interview in Tether.
-
-## View overall statistics: `view_overall_statistics`
+## View overall statistics:
 
 Core features such as adding, finding, statuses and deleting are likely going to be your bread and butter as a hiring manager. However often you may be tasked to analyse and report certain statistics that may be tedious to compute manually. 
 
@@ -296,21 +331,17 @@ A simple example usage would be `view_overall_statistics` to get a result as suc
 
 ![img.png](images/viewOverallStatisticsExample.png)
 
-## Clear all existing data:
+### Clear all existing data:
 
-Made multiple mistakes and wish to rebuild your hiring data from scratch? The clear command deletes all existing data in Tether, giving you the fresh start you require.
+Made multiple mistakes and wish to rebuild your hiring data from scratch? The `clear` command deletes all existing data in Tether, giving you the fresh start you require.
 
-Format: `clear`
+**Note** that this action is irreversible. The moment you enter the command and see the success message `Addressbook has been cleared!`, ALL your data will be deleted permanently. Do exercise caution with this particular command by making an independent copy of your data before clearing it.
 
-**Note** that this action is irreversible. The moment you enter the command and see the success message `Addressbook has been cleared!`, ALL your data will be deleted permanently. Do exercise caution with this particular command. 
+### Exiting the program:
 
-## Exiting the program : `exit`
+If you're clocking out for the day, either execute `exit` directly or press the _File_ button in the taskbar and then press _Exit_ to quit Tether.
 
-Exits the program.
-
-Format: `exit`
-
-## Saving the data
+### Saving the data
 
 Tether's applicant/interviewer data are saved in the hard disk automatically after any command that changes the data.
 
