@@ -61,12 +61,13 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 ## Adding an applicant: `add_applicant`
 
-Format: `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]`
+Format: `add_applicant n/NAME p/PHONE e/EMAIL`
 
 Examples:
 
 * `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`
-* `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
+
+Note that trying to a tag to a person, e.g `t/owesMoney` would be ignored.
 
 ## Adding a status to an applicant: `applicant_status`
 
@@ -95,12 +96,13 @@ A simple example usage would therefore be
 
 Adds an interviewer to the Tether.
 
-Format: `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]`
+Format: `add_interviewer n/NAME p/PHONE e/EMAIL`
 
 Examples:
 
 * `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com`
-* `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
+
+Note that trying to a tag to a person, e.g `t/owesMoney` would be ignored.
 
 
 ## Adding a status to an interviewer: `interviewer_status`
@@ -264,20 +266,20 @@ the data of your previous Tether home folder.
 
 ## Command summary
 
-| Action                        | Format, Examples                                                                                                                                                                                                      |
-|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Applicant**             | `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                                |
-| **Change Applicant Status**   | `applicant_status PHONE s/STATUS` <br> e.g., `applicant_status 81239123 s/accepted`                                                                                                                                   |
-| **Add Interviewer**           | `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                               |
-| **Change Interviewer Status** | `interviewer_status PHONE s/STATUS` <br> e.g., `interviewer_status 81239123 s/free`                                                                                                                                   |
+| Action                        | Format, Examples                                                                                                                                                                                                    |
+|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Applicant**             | `add_applicant n/NAME p/PHONE e/EMAIL` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                               |
+| **Change Applicant Status**   | `applicant_status PHONE s/STATUS` <br> e.g., `applicant_status 81239123 s/accepted`                                                                                                                                 |
+| **Add Interviewer**           | `add_interviewer n/NAME p/PHONE e/EMAIL` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                              |
+| **Change Interviewer Status** | `interviewer_status PHONE s/STATUS` <br> e.g., `interviewer_status 81239123 s/free`                                                                                                                                 |
 | **Add Interview**             | `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/APPLICANT PHONE i/INTERVIEWER PHONE`<br> e.g., `add_interview desc/Interview with John date/2024-11-11 st/10:00 et/11:00 a/81239123 i/91238123` |
-| **Delete Person**             | `delete_person PHONE` <br> e.g., `delete_person 81239123`                                                                                                                                                             |
-| **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                               |
-| **List Interviews**           | `list_interviews`                                                                                                                                                                                                     |
-| **List Persons**              | `list_persons`                                                                                                                                                                                                        |
-| **Find Persons**              | `find_[email/name/phone] [keyword 1]` <br> e.g., `find_name Ryan`                                                                                                                                                     |
-| **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
-| **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                             |
-| **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
-| **Exit**                      | `exit`                                                                                                                                                                                                                |
-| **Help**                      | `help`                                                                                                                                                                                                                |
+| **Delete Person**             | `delete_person PHONE` <br> e.g., `delete_person 81239123`                                                                                                                                                           |
+| **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                             |
+| **List Interviews**           | `list_interviews`                                                                                                                                                                                                   |
+| **List Persons**              | `list_persons`                                                                                                                                                                                                      |
+| **Find Persons**              | `find_[email/name/phone] [keyword 1]` <br> e.g., `find_name Ryan`                                                                                                                                                   |
+| **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                       |
+| **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                           |
+| **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                           |
+| **Exit**                      | `exit`                                                                                                                                                                                                              |
+| **Help**                      | `help`                                                                                                                                                                                                              |
