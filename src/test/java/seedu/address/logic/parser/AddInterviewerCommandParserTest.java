@@ -27,7 +27,6 @@ import static seedu.address.testutil.TypicalPersons.CUBE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddInterviewerPersonCommand;
-import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
@@ -67,7 +66,8 @@ public class AddInterviewerCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddInterviewerPersonCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
@@ -111,6 +111,6 @@ public class AddInterviewerCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInterviewerPersonCommand.MESSAGE_USAGE));
     }
 }
