@@ -58,15 +58,31 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 * We give you the freedom to make any edits to the addressbook.json file but do not that if any invalid edits (such as adding in `null`, non-english alphabet or emojis) are made to the addressbook.json before (re)launching the application, then no data will load and an exception will be viewed in the terminal. 
 
+## Launching help window : `help` ##
+This is your first time opening Tether and you are unfamiliar with the commands. It would be nice to receive some guidance about the commands.
+This is where `help` command is here to help.
+Simply execute `help` and this will launch the help window. You can also press the help button to launch it as well.
+
+Format : `help`
+![img.png](img.png)
 
 ## Adding an applicant: `add_applicant`
+To get started on using Tether, add an applicant whose resume you just received.
 
-Format: `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]`
+Simply execute `add_applicant n/NAME p/PHONE e/EMAIL`. The required applicant's information is their name, phone number and email address.
+The applicant will appear under the `Persons` column.
+
+![img_1.png](img_1.png)
 
 Examples:
-
 * `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`
-* `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
+* `add_applicant n/Wesley Yu p/88889999 e/wesleyyu@gmail.com`
+
+**Notes**:
+* Different applicants with the same name can be entered as long as their phone numbers and emails are different.
+* Remark field will empty and can only be added upon entering `remark` command.
+
+Note that the remark field would be empty be default and can only be changed after the person is added.
 
 ## Adding a status to an applicant: `applicant_status`
 
@@ -91,17 +107,22 @@ A simple example usage would therefore be
 * For convenience, STATUS is case-insensitive i.e. `s/accepted` is as valid as `s/AcCepTed`.
 * If you add an interview, the involved applicant's status will change automatically from "resume review" to "pending interview". Conversely if you delete an interview involving an applicant, their status will _revert_ to "resume review"
 
-## Adding a interviewer: `add_interviewer`
+## Adding an interviewer: `add_interviewer`
+Now that you have all your required applicants, you would like to schedule an interview. But before that, you would need to enter the interviewer needed to conduct the interview.
 
-Adds an interviewer to the Tether.
+Simply execute `add_interviewer n/NAME p/PHONE e/EMAIL`. The required interviewer's information is their name, phone number and email address.
+The interviewer will appear under the `Persons` column.
 
-Format: `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]`
+![img_2.png](img_2.png)
 
 Examples:
-
 * `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com`
-* `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
+* `add_interviewer n/Yash p/99998888 e/yash@gmail.com`
 
+
+**Notes**:
+* Different interviewers with the same name can be entered as long as their phone numbers and emails are different.
+* Remark field will empty and can only be added upon entering `remark` command.
 
 ## Adding a status to an interviewer: `interviewer_status`
 
@@ -122,7 +143,18 @@ A simple example usage for when manually tweaking an interviewer's status is nec
 * Tether is capable of appending an interviewer's status _automatically_ with "interview with APPLICANT NAME" when an interview concerning the respective interviewer is added. Conversely if the interview is deleted, the **particular** applicant's "interview with..." is deleted. For example if interviewer Nicole's current status is "interview with Yash interview with Ryan", if you delete an interview with Yash, Nicole's status will become "interview with ryan"
 * We give you the freedom to append any number of statuses to an existing interviewer i.e. we **do not** currently check against adding duplicate statuses 
 
-## Adding a interview: `add_interview`
+## Adding a remark to an applicant/interviewer: `remark`
+
+Once you have applicants/interviewers in Tether, you might want to add some remarks to each individual. This is where the `remark`
+command would come in handy. Simply execute `remark INDEX r/REMARK`. 
+
+For example, executing `remark 1 r/Confident` would add the 
+"Confident" remark to the person at index 1.
+
+Note that if you only execute `remark INDEX`, the remark of the person at that index would be removed.
+
+
+## Adding an interview: `add_interview`
 
 Now that you have applicants and interviewers inside tether, you can create an interview.
 
@@ -131,13 +163,17 @@ If you would like to not have a description, simply leave it blank with the keyw
 Upon successful addition, the interview will appear under the column named `Upcoming Interviews`.
 
 Simply execute the command show below to start scheduling an interview.
-Format: `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/APPLICANT'S
-    PHONE NUMBER i/INTERVIEWER'S PHONE NUMBER`
+Format: `add_interview desc/DESCRIPTION date/DATE st/START_TIME et/END_TIME a/APPLICANT_PHONE_NUMBER i/INTERVIEWER_PHONE_NUMBER`
 
 A simple example usage would be `add_interview desc/technical date/2024-11-11 st/12:00 et/15:00 a/12345678 i/87654321`. 
 Executing this would result in the following display: 
 
 ![img.png](images/addInterviewExample.png)
+
+**Notes**:
+
+* You can still schedule new interviews for applicants who have already been rejected or accepted. This is because there can follow up or subsequent interviews.
+* Entering dates that have already passed are not allowed.
 
 ## Listing all persons:
 
@@ -168,8 +204,8 @@ the following 3 details of the person: their email, name or phone number.
 
 If you use email or phone number, note that they have to match exactly to locate the person entry if it exists. 
 If you use name, a full name is not required but the name provided should be complete. Otherwise, there will also be no matching entries.
-For example, `find_name Ryan` will still display an 
-entry with full name `Ryan Chiang` but `find_name Ry` will result in an error message indicating no matching entries.
+
+The command accepts all inputs, including invalid ones and will only display no matching entries in such cases.
 
 `find` can also be used to find multiple entries at once. You can provide multiple keywords after the initial 
 `find_[email/name/phone]` and all entries that match any of the keywords will be displayed. Note that all the keywords 
@@ -177,6 +213,31 @@ provided should be of the same type. For example, `find_phone` should only be fo
 emails or names.
 
 Format: `find_[email/name/phone] [keyword 1]...`
+
+Examples:
+
+![img.png](images/find-command/base.png)
+
+Assume that the above list reflects the current data present in Tether for the upcoming example commands.
+
+Multiple matching entries:
+Executing `find_name Alice` will list all entries with the name `Alice` even if it is not a full name as stated earlier as seen below:
+
+![img.png](images/find-command/findnamesuccess.png)
+
+Keyword has to be complete:
+Executing `find_name Ali` will not display any matching entries even though `Ali` is a substring of `Alice`.
+`0 persons listed!` is the response for such cases of no matching entries as seen below:
+
+![img.png](images/find-command/nomatches.png)
+
+Nonsense keyword inputs:
+Executing `find_email 123456` will likewise result in no matching entries. Not that while the value `123456` is not a valid `email`, the command still accepts it and just displays no matching entries. Result display is similar to above
+
+Multiple Keywords:
+Executing `find_phone 123 23456` will display the entries that have `123` or `23456` as their phone numbers
+
+![img.png](images/find-command/multiplekeywords.png)
 
 ## Filtering persons by status: `filter_by_status`
 
@@ -236,6 +297,14 @@ A simple example usage would be `view_overall_statistics` to get a result as suc
 
 ![img.png](images/viewOverallStatisticsExample.png)
 
+## Clear all existing data:
+
+Made multiple mistakes and wish to rebuild your hiring data from scratch? The clear command deletes all existing data in Tether, giving you the fresh start you require.
+
+Format: `clear`
+
+**Note** that this action is irreversible. The moment you enter the command and see the success message `Addressbook has been cleared!`, ALL your data will be deleted permanently. Do exercise caution with this particular command. 
+
 ## Exiting the program : `exit`
 
 Exits the program.
@@ -266,18 +335,19 @@ the data of your previous Tether home folder.
 
 | Action                        | Format, Examples                                                                                                                                                                                                      |
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Applicant**             | `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                                |
+| **Add Applicant**             | `add_applicant n/NAME p/PHONE e/EMAIL` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                                        |
 | **Change Applicant Status**   | `applicant_status PHONE s/STATUS` <br> e.g., `applicant_status 81239123 s/accepted`                                                                                                                                   |
-| **Add Interviewer**           | `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                               |
+| **Add Interviewer**           | `add_interviewer n/NAME p/PHONE e/EMAIL` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                                       |
 | **Change Interviewer Status** | `interviewer_status PHONE s/STATUS` <br> e.g., `interviewer_status 81239123 s/free`                                                                                                                                   |
-| **Add Interview**             | `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/APPLICANT PHONE i/INTERVIEWER PHONE`<br> e.g., `add_interview desc/Interview with John date/2024-11-11 st/10:00 et/11:00 a/81239123 i/91238123` |
+| **Add Interview**             | `add_interview desc/DESCRIPTION date/DATE st/START_TIME et/END_TIME a/APPLICANT_PHONE i/INTERVIEWER_PHONE`<br> e.g., `add_interview desc/Interview with John date/2024-11-11 st/10:00 et/11:00 a/81239123 i/91238123` |
 | **Delete Person**             | `delete_person PHONE` <br> e.g., `delete_person 81239123`                                                                                                                                                             |
 | **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                               |
 | **List Interviews**           | `list_interviews`                                                                                                                                                                                                     |
 | **List Persons**              | `list_persons`                                                                                                                                                                                                        |
-| **Find Persons**              | `find_[email/name/phone] [keyword 1]` <br> e.g., `find_name Ryan`                                                                                                                                                     |
+| **Find Persons**              | `find_[email/name/phone] [keyword 1]...` <br> e.g., `find_name Alice` or `find_phone 123 456 789`                                                                                                                     |
 | **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
 | **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                             |
 | **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
+| **Clear All Existing Data**   | `clear`                                                                                                                                                                                                               |
 | **Exit**                      | `exit`                                                                                                                                                                                                                |
 | **Help**                      | `help`                                                                                                                                                                                                                |

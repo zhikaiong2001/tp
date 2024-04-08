@@ -20,7 +20,6 @@ import seedu.address.logic.commands.AddApplicantPersonCommand;
 import seedu.address.logic.commands.AddApplicantStatusCommand;
 import seedu.address.logic.commands.AddInterviewCommand;
 import seedu.address.logic.commands.AddInterviewerPersonCommand;
-import seedu.address.logic.commands.AddInterviewerStatusCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -37,13 +36,14 @@ import seedu.address.model.person.Applicant;
 import seedu.address.model.person.ApplicantStatus;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.Interviewer;
-import seedu.address.model.person.InterviewerStatus;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.enums.ApplicantState;
 import seedu.address.model.person.enums.InterviewerState;
+
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -108,15 +108,6 @@ public class AddressBookParserTest {
         AddApplicantStatusCommand command = (AddApplicantStatusCommand) parser.parseCommand(
                 AddApplicantStatusCommand.COMMAND_WORD + " " + phone + " s/" + status);
         assertEquals(command, new AddApplicantStatusCommand(new Phone(phone), new ApplicantStatus(status)));
-    }
-
-    @Test
-    public void parseCommand_addInterviewerStatus() throws Exception {
-        String phone = "98362254";
-        String status = InterviewerState.FREE.toString();
-        AddInterviewerStatusCommand command = (AddInterviewerStatusCommand) parser.parseCommand(
-                AddInterviewerStatusCommand.COMMAND_WORD + " " + phone + " s/" + status);
-        assertEquals(command, new AddInterviewerStatusCommand(new Phone(phone), new InterviewerStatus(status)));
     }
 
     @Test
