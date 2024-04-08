@@ -257,6 +257,11 @@ public class DeleteCommandTest {
         }
 
         @Override
+        public boolean hasPersonWithSameEmail(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasInterview(Interview interview) {
             throw new AssertionError("This method should not be called.");
         }

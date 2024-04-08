@@ -41,9 +41,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.enums.ApplicantState;
-import seedu.address.model.person.enums.InterviewerState;
-
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
