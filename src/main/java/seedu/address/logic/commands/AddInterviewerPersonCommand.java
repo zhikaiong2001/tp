@@ -25,8 +25,7 @@ public class AddInterviewerPersonCommand extends AddPersonCommand {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "friends ";
 
     public static final String MESSAGE_SUCCESS = "New interviewer added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This interviewer already exists in the Tether."
