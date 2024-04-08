@@ -20,6 +20,10 @@ public class Messages {
     public static final String MESSAGE_APPLICANT_NOT_IN_LIST = "The applicant you are looking for is not on the list";
     public static final String MESSAGE_INTERVIEWER_NOT_IN_LIST = "The interviewer you are "
             + "looking for is not on the list";
+
+    public static final String MESSAGE_PERSON_HAS_INTERVIEW = "The applicant or interviewer that you are " +
+            "trying to delete has existing scheduled interview(s). Please delete the corresponding " +
+            "interviews before deleting this person.";
     public static final String MESSAGE_INCORRECT_APPLICANT_PHONE_NUMBER = "The phone number you have keyed is is "
             + "not an applicant phone number, please check the input phone number";
     public static final String MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER = "The phone number you have keyed is is "

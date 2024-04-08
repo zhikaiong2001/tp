@@ -25,12 +25,11 @@ public class HelpWindow extends UiPart<Stage> {
             + "\n4. Delete an interview: delete_interview [interview index]"
             + "\n5. List applicants/interviewers: list_persons"
             + "\n6. List interviews: list_interviews"
-            + "\n7. Edit applicants/interviewers: edit [applicant/interviewer index] n/[newName]..."
-            + "\n8. Add and edit statuses for applicants/interviews: [applicant/interviewer]_status [phone] [status]"
-            + "\n9. Find person(s) by email/name/phone: find_[email/name/phone] [keyword1] [keyword2]..."
-            + "\n10. Filter interview(s) by date: filter_interviews_by_date [date in YYYY-MM-DD]"
-            + "\n11. Filter persons(s) by status: filter_by_status [status]"
-            + "\n12. View overall statistics: view_overall_statistics";
+            + "\n7. Add and edit statuses for applicants/interviews: [applicant/interviewer]_status [phone] [status]"
+            + "\n8. Find person(s) by email/name/phone: find_[email/name/phone] [keyword1] [keyword2]..."
+            + "\n9. Filter interview(s) by date: filter_interviews_by_date [date in YYYY-MM-DD]"
+            + "\n10. Filter persons(s) by status: filter_by_status [status]"
+            + "\n11. View overall statistics: view_overall_statistics";
     public static final String HELP_MESSAGE = "Refer to our user guide at " + USERGUIDE_URL + " for detailed info "
             + "on how to use Tether." + COMMON_COMMANDS;
 
