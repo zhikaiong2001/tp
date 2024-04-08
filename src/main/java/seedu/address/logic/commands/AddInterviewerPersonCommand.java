@@ -28,8 +28,8 @@ public class AddInterviewerPersonCommand extends AddPersonCommand {
             + PREFIX_TAG + "friends ";
 
     public static final String MESSAGE_SUCCESS = "New interviewer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This interviewer already exists in the Tether."
-            + " Do ensure phone number is unique";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the Tether."
+            + " Do ensure phone number and email are unique!";
 
     /**
      * Creates an AddInterviewerCommand to add the specified {@code Person}
@@ -42,7 +42,7 @@ public class AddInterviewerPersonCommand extends AddPersonCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd) || model.hasPersonWithSamePhone(toAdd)) {
+        if (model.hasPerson(toAdd) || model.hasPersonWithSamePhone(toAdd) || model.hasPersonWithSameEmail(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
