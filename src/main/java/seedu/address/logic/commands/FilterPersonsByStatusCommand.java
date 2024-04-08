@@ -36,7 +36,7 @@ public class FilterPersonsByStatusCommand extends FilterCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        boolean existsMatchingPersons = model.getFilteredPersonList().stream()
+        boolean existsMatchingPersons = model.getAddressBook().getPersonList().stream()
                 .anyMatch(person -> person.getCurrentStatus().equals(targetStatus.toString()));
         if (!existsMatchingPersons) {
             return new CommandResult("No persons found with status: " + targetStatus.toString());
