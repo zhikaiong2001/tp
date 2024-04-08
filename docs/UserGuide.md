@@ -68,6 +68,8 @@ Examples:
 * `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`
 * `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
 
+Note that the remark field would be empty be default and can only be changed after the person is added.
+
 ## Adding a status to an applicant: `applicant_status`
 
 Now that you know how to add an applicant, it would be nice to record their position in your hiring pipeline at any given time for later review. This is where the applicant_status command is handy.
@@ -102,6 +104,8 @@ Examples:
 * `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com`
 * `add_interviewer n/John Doe p/81239123 e/johndoe123@gmail.com t/friends t/cool`
 
+Note that the remark field would be empty be default and can only be changed after the person is added.
+
 
 ## Adding a status to an interviewer: `interviewer_status`
 
@@ -122,7 +126,18 @@ A simple example usage for when manually tweaking an interviewer's status is nec
 * Tether is capable of appending an interviewer's status _automatically_ with "interview with APPLICANT NAME" when an interview concerning the respective interviewer is added. Conversely if the interview is deleted, the **particular** applicant's "interview with..." is deleted. For example if interviewer Nicole's current status is "interview with Yash interview with Ryan", if you delete an interview with Yash, Nicole's status will become "interview with ryan"
 * We give you the freedom to append any number of statuses to an existing interviewer i.e. we **do not** currently check against adding duplicate statuses 
 
-## Adding a interview: `add_interview`
+## Adding a remark to an applicant/interviewer: `remark`
+
+Once you have applicants/interviewers in Tether, you might want to add some remarks to each individual. This is where the `remark`
+command would come in handy. Simply execute `remark INDEX r/REMARK`. 
+
+For example, executing `remark 1 r/Confident` would add the 
+"Confident" remark to the person at index 1.
+
+Note that if you only execute `remark INDEX`, the remark of the person at that index would be removed.
+
+
+## Adding an interview: `add_interview`
 
 Now that you have applicants and interviewers inside tether, you can create an interview.
 
@@ -264,20 +279,20 @@ the data of your previous Tether home folder.
 
 ## Command summary
 
-| Action                        | Format, Examples                                                                                                                                                                                                      |
-|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Applicant**             | `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                                |
-| **Change Applicant Status**   | `applicant_status PHONE s/STATUS` <br> e.g., `applicant_status 81239123 s/accepted`                                                                                                                                   |
-| **Add Interviewer**           | `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                               |
-| **Change Interviewer Status** | `interviewer_status PHONE s/STATUS` <br> e.g., `interviewer_status 81239123 s/free`                                                                                                                                   |
-| **Add Interview**             | `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/APPLICANT PHONE i/INTERVIEWER PHONE`<br> e.g., `add_interview desc/Interview with John date/2024-11-11 st/10:00 et/11:00 a/81239123 i/91238123` |
-| **Delete Person**             | `delete_person PHONE` <br> e.g., `delete_person 81239123`                                                                                                                                                             |
-| **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                               |
-| **List Interviews**           | `list_interviews`                                                                                                                                                                                                     |
-| **List Persons**              | `list_persons`                                                                                                                                                                                                        |
-| **Find Persons**              | `find_[email/name/phone] [keyword 1]` <br> e.g., `find_name Ryan`                                                                                                                                                     |
-| **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
-| **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                             |
-| **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
-| **Exit**                      | `exit`                                                                                                                                                                                                                |
-| **Help**                      | `help`                                                                                                                                                                                                                |
+| Action                                   | Format, Examples                                                                                                                                                                                                      |
+|------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Applicant**                        | `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                                |
+| **Change Applicant Status**              | `applicant_status PHONE s/STATUS` <br> e.g., `applicant_status 81239123 s/accepted`                                                                                                                                   |
+| **Add Interviewer**                      | `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                               |
+| **Add Remarks to Interviewer/Applicant** | `remark INDEX r/REMARK` <br> e.g., `remark 1 r/Confident`                                                                                                                                                             |
+| **Add Interview**                        | `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/APPLICANT PHONE i/INTERVIEWER PHONE`<br> e.g., `add_interview desc/Interview with John date/2024-11-11 st/10:00 et/11:00 a/81239123 i/91238123` |
+| **Delete Person**                        | `delete_person PHONE` <br> e.g., `delete_person 81239123`                                                                                                                                                             |
+| **Delete Interview**                     | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                               |
+| **List Interviews**                      | `list_interviews`                                                                                                                                                                                                     |
+| **List Persons**                         | `list_persons`                                                                                                                                                                                                        |
+| **Find Persons**                         | `find_[email/name/phone] [keyword 1]` <br> e.g., `find_name Ryan`                                                                                                                                                     |
+| **Filter Persons by Status**             | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
+| **Filter Interviews by date**            | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                             |
+| **View Overall Statistics**              | `view_overall_statistics`                                                                                                                                                                                             |
+| **Exit**                                 | `exit`                                                                                                                                                                                                                |
+| **Help**                                 | `help`                                                                                                                                                                                                                |
