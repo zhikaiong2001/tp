@@ -155,6 +155,11 @@ public class AddInterviewerCommandTest {
         }
 
         @Override
+        public boolean hasPersonWithSameEmail(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasInterview(Interview interview) {
             throw new AssertionError("This method should not be called.");
         }
@@ -236,6 +241,12 @@ public class AddInterviewerCommandTest {
         public boolean hasPersonWithSamePhone(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(p -> p.getPhone().equals(person.getPhone()));
+        }
+
+        @Override
+        public boolean hasPersonWithSameEmail(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(p -> p.getEmail().equals(person.getEmail()));
         }
 
         @Override

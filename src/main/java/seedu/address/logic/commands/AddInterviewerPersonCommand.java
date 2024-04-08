@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -16,11 +20,16 @@ public class AddInterviewerPersonCommand extends AddPersonCommand {
     public static final String COMMAND_WORD = AddPersonCommand.COMMAND_WORD + "_interviewer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an interviewer to Tether. "
-            + AddPersonCommand.MESSAGE_USAGE;
+            + AddPersonCommand.MESSAGE_USAGE
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_PHONE + "98765432 "
+            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_TAG + "friends ";
 
     public static final String MESSAGE_SUCCESS = "New interviewer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This interviewer already exists in the Tether."
-            + " Do ensure phone number is unique";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the Tether."
+            + " Do ensure phone number and email are unique!";
 
     /**
      * Creates an AddInterviewerCommand to add the specified {@code Person}
@@ -33,7 +42,7 @@ public class AddInterviewerPersonCommand extends AddPersonCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd) || model.hasPersonWithSamePhone(toAdd)) {
+        if (model.hasPerson(toAdd) || model.hasPersonWithSamePhone(toAdd) || model.hasPersonWithSameEmail(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
