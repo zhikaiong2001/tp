@@ -27,12 +27,15 @@ public class FilterInterviewsByDateCommand extends FilterCommand {
         requireNonNull(model);
         boolean existsMatchingInterviews = model.getFilteredInterviewList().stream()
                 .anyMatch(interview -> interview.getDate().equals(targetDate));
+        CommandResult result;
         if (!existsMatchingInterviews) {
-            return new CommandResult("No interviews found on " + targetDate);
+            result = new CommandResult("No interviews found on " + targetDate);
 
+        } else {
+            result = new CommandResult(MESSAGE_SUCCESS + " " + targetDate);
         }
         model.updateFilteredInterviewList(interview -> interview.getDate().equals(targetDate));
-        return new CommandResult(MESSAGE_SUCCESS + " " + targetDate);
+        return result;
     }
 
     @Override
