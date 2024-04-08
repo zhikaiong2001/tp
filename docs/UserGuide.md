@@ -203,9 +203,6 @@ Executing `find_phone 123 23456` will display the entries that have `123` or `23
 
 ![img.png](images/find-command/multiplekeywords.png)
 
-
-
-
 ## Filtering persons by status: `filter_by_status`
 
 What if you have no information about an applicant or interviewer's name, phone or email though? Fret not, for the `filter_by_status` command enables you to narrow down the current list of persons on the basis of their current status.
@@ -300,21 +297,21 @@ the data of your previous Tether home folder.
 
 ## Command summary
 
-| Action                        | Format, Examples                                                                                                                                                                                                     |
-|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Applicant**             | `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                               |
-| **Change Applicant Status**   | `applicant_status PHONE s/STATUS` <br> e.g., `applicant_status 81239123 s/accepted`                                                                                                                                  |
-| **Add Interviewer**           | `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                              |
-| **Change Interviewer Status** | `interviewer_status PHONE s/STATUS` <br> e.g., `interviewer_status 81239123 s/free`                                                                                                                                  |
+| Action                        | Format, Examples                                                                                                                                                                                                      |
+|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Applicant**             | `add_applicant n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_applicant n/John Doe p/81239123 e/johndoe123@gmail.com`                                                                                                |
+| **Change Applicant Status**   | `applicant_status PHONE s/STATUS` <br> e.g., `applicant_status 81239123 s/accepted`                                                                                                                                   |
+| **Add Interviewer**           | `add_interviewer n/NAME p/PHONE e/EMAIL [t/TAG]` <br> e.g., `add_interviewer n/Jane Doe p/81239123 e/janed@example.com`                                                                                               |
+| **Change Interviewer Status** | `interviewer_status PHONE s/STATUS` <br> e.g., `interviewer_status 81239123 s/free`                                                                                                                                   |
 | **Add Interview**             | `add_interview desc/DESCRIPTION date/DATE st/START TIME et/END TIME a/APPLICANT PHONE i/INTERVIEWER PHONE`<br> e.g., `add_interview desc/Interview with John date/2024-11-11 st/10:00 et/11:00 a/81239123 i/91238123` |
-| **Delete Person**             | `delete_person PHONE` <br> e.g., `delete_person 81239123`                                                                                                                                                            |
-| **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                              |
-| **List Interviews**           | `list_interviews`                                                                                                                                                                                                    |
-| **List Persons**              | `list_persons`                                                                                                                                                                                                       |
-| **Find Persons**              | `find_[email/name/phone] [keyword 1]` <br> e.g., `find_name Ryan`                                                                                                                                                    |
-| **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                        |
-| **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                            |
-| **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                            |
+| **Delete Person**             | `delete_person PHONE` <br> e.g., `delete_person 81239123`                                                                                                                                                             |
+| **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                               |
+| **List Interviews**           | `list_interviews`                                                                                                                                                                                                     |
+| **List Persons**              | `list_persons`                                                                                                                                                                                                        |
+| **Find Persons**              | `find_[email/name/phone] [keyword 1]...` <br> e.g., `find_name Alice` or `find_phone 123 456 789`                                                                                                                     |
+| **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
+| **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                             |
+| **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
 | **Clear All Existing Data**   | `clear`                                                                                                                                                                                                               |
-| **Exit**                      | `exit`                                                                                                                                                                                                               |
-| **Help**                      | `help`                                                                                                                                                                                                               |
+| **Exit**                      | `exit`                                                                                                                                                                                                                |
+| **Help**                      | `help`                                                                                                                                                                                                                |
