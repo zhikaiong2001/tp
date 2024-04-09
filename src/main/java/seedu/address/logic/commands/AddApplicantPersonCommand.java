@@ -29,8 +29,7 @@ public class AddApplicantPersonCommand extends AddPersonCommand {
 
 
     public static final String MESSAGE_SUCCESS = "New applicant added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in Tether."
-            + " Do ensure phone number and email are unique!";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in Tether.";
 
 
     /**
@@ -44,7 +43,7 @@ public class AddApplicantPersonCommand extends AddPersonCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd) || model.hasPersonWithSamePhone(toAdd) || model.hasPersonWithSameEmail(toAdd)) {
+        if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
