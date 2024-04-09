@@ -83,17 +83,17 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPersonWithSamePhone_personWithSamePhoneInAddressBook_returnsTrue() {
+    public void hasPerson_personWithSamePhoneInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withEmail("alice@example.org").build();
-        assertTrue(addressBook.hasPersonWithSamePhone(editedAlice));
+        assertTrue(addressBook.hasPerson(editedAlice));
     }
 
     @Test
-    public void hasPersonWithSamePhone_personWithDifferentPhoneInAddressBook_returnsFalse() {
+    public void hasPerson_personWithDifferentPhoneInAddressBook_returnsFalse() {
         addressBook.addPerson(ALICE);
         Person bob = new PersonBuilder().withPhone("11111111").build(); // Use a phone number not used by ALICE
-        assertFalse(addressBook.hasPersonWithSamePhone(bob));
+        assertFalse(addressBook.hasPerson(bob));
     }
 
 

@@ -111,7 +111,9 @@ To record an applicant and their contact details in Tether, simply execute `add_
     - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
 
 **Notes**:
-* Different applicants with the same name can be added as long as their phone numbers and emails are different.
+* No two applicants can have the same email or phone number.
+  * For two applicants to be considered different, they must have different emails AND different phone numbers.
+  * For the discrete mathematics enthusiasts, this is equivalent to `~(sameEmail || samePhone) = ~sameEmail && ~ samePhone = differentEmail && differentPhone`.
 * Applicants' remark field will be empty by default and can only be edited later with the `remark` command (described below).
 
 ### Adding a status to an applicant:
@@ -153,7 +155,7 @@ To record an applicant and their contact details in Tether, simply execute `add_
 ![img_2.png](img_2.png)
 
 **Notes**:
-* Similar to applicants, different interviewers with the same names can be added as long as their phone numbers and emails are different.
+* Similar to applicants, no two interviewers can have the same email or phone number. 
 * Interviewers' remark field will be empty by default and can only be edited later with the `remark` command (described below).
 
 ### Adding a status to an interviewer:
