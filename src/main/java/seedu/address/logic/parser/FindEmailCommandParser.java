@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND;
 
 import java.util.Arrays;
 
@@ -22,7 +22,7 @@ public class FindEmailCommandParser implements Parser<FindEmailCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindEmailCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND, FindEmailCommand.MESSAGE_USAGE));
         }
 
         String[] emailKeywords = trimmedArgs.split("\\s+");

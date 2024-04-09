@@ -9,13 +9,13 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddApplicantStatusCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ApplicantStatus;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 
 public class AddApplicantStatusCommandParserTest {
     private AddApplicantStatusCommandParser parser = new AddApplicantStatusCommandParser();
@@ -33,7 +33,8 @@ public class AddApplicantStatusCommandParserTest {
 
     @Test
     public void parse_incompleteFields_failure() {
-        String expectedMessage = String.format(Phone.MESSAGE_CONSTRAINTS);
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND,
+                AddApplicantStatusCommand.MESSAGE_USAGE);
 
         // no parameters
         assertParseFailure(parser, AddApplicantStatusCommand.COMMAND_WORD, expectedMessage);
@@ -50,6 +51,7 @@ public class AddApplicantStatusCommandParserTest {
                 ApplicantStatus.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, "1" + " " + PREFIX_STATUS + "resume review", Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + " " + PREFIX_STATUS + "resume review",
+                String.format(Messages.MESSAGE_INVALID_COMMAND, AddApplicantStatusCommand.MESSAGE_USAGE));
     }
 }

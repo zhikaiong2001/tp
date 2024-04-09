@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND;
 import static seedu.address.logic.Messages.MESSAGE_NOT_DATE;
 import static seedu.address.logic.Messages.MESSAGE_NOT_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.APPLICANT_PHONE;
@@ -51,7 +51,7 @@ public class AddInterviewCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInterviewCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND, AddInterviewCommand.MESSAGE_USAGE);
 
         // missing description prefix
         assertParseFailure(parser, INTERVIEW_DATE + START_TIME

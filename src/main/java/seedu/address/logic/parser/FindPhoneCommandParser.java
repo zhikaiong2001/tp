@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND;
 
 import java.util.Arrays;
 
@@ -22,7 +22,7 @@ public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPhoneCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND, FindPhoneCommand.MESSAGE_USAGE));
         }
 
         String[] phoneKeywords = trimmedArgs.split("\\s+");
