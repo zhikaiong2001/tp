@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -81,9 +80,6 @@ public class AddInterviewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Result result = getResult(model);
-        if (date.isBefore(LocalDate.now())) {
-            throw new CommandException(MESSAGE_INVALID_DATE);
-        }
         if (startTime.isAfter(endTime)) {
             throw new CommandException(MESSAGE_INVALID_END_TIME);
         }
@@ -154,11 +150,8 @@ public class AddInterviewCommand extends Command {
                                          boolean isFoundInterviewer,
                                          boolean isIncorrectApplicantPhone,
                                          boolean isIncorrectInterviewerPhone) throws CommandException {
-        if (!isFoundApplicant) {
-            throw new CommandException(Messages.MESSAGE_APPLICANT_NOT_IN_LIST);
-        }
-        if (!isFoundInterviewer) {
-            throw new CommandException(Messages.MESSAGE_INTERVIEWER_NOT_IN_LIST);
+        if (!isFoundApplicant || !isFoundInterviewer) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_IN_LIST);
         }
         if (isIncorrectApplicantPhone && isIncorrectInterviewerPhone) {
             throw new CommandException(Messages.MESSAGE_INCORRECT_INTERVIEWER_AND_APPLICANT_PHONE_NUMBER);
