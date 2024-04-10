@@ -17,10 +17,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND = "Invalid command format or invalid parameters! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSON_NOT_IN_LIST = "The person you are looking for is not on the list";
-    public static final String MESSAGE_APPLICANT_NOT_IN_LIST = "The applicant you are looking for is not on the list";
-    public static final String MESSAGE_INTERVIEWER_NOT_IN_LIST = "The interviewer you are "
-            + "looking for is not on the list";
-
     public static final String MESSAGE_PERSON_HAS_INTERVIEW = "The applicant or interviewer that you are "
             + "trying to delete has existing scheduled interview(s). Please delete the corresponding "
             + "interviews before deleting this person.";
@@ -43,7 +39,6 @@ public class Messages {
     public static final String INVALID_DATE = "Invalid date format!";
     public static final String INVALID_TIME = "Invalid time format!";
     public static final String MESSAGE_NOT_TIME = "The provided argument is not a valid time";
-    public static final String MESSAGE_INVALID_DATE = "The date entered has already passed";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
