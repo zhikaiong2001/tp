@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -37,7 +37,7 @@ public class FilterPersonsByStatusCommandParser implements Parser<FilterPersonsB
                 throw new ParseException(Status.MESSAGE_USAGE);
             }
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND,
                     Status.MESSAGE_USAGE), ive);
         }
 

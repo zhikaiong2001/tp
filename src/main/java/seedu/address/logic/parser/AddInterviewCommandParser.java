@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND;
 import static seedu.address.logic.Messages.MESSAGE_NOT_DATE;
 import static seedu.address.logic.Messages.MESSAGE_NOT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPLICANT;
@@ -43,8 +43,8 @@ public class AddInterviewCommandParser implements Parser<AddInterviewCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_DATE, PREFIX_START_TIME, PREFIX_END_TIME,
                 PREFIX_APPLICANT, PREFIX_INTERVIEWER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            logger.info("An error has occurred while parsing AddInterviewCommand: " + MESSAGE_INVALID_COMMAND_FORMAT);
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInterviewCommand.MESSAGE_USAGE));
+            logger.info("An error has occurred while parsing AddInterviewCommand: " + MESSAGE_INVALID_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND, AddInterviewCommand.MESSAGE_USAGE));
         }
 
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();

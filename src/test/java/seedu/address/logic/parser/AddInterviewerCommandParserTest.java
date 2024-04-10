@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_CUBE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -61,7 +61,7 @@ public class AddInterviewerCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND,
                 AddInterviewerPersonCommand.MESSAGE_USAGE);
 
         // missing name prefix
@@ -102,6 +102,6 @@ public class AddInterviewerCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddInterviewerPersonCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND, AddInterviewerPersonCommand.MESSAGE_USAGE));
     }
 }

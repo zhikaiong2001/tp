@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddApplicantStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ApplicantStatus;
@@ -26,7 +27,8 @@ public class AddApplicantStatusCommandParser implements Parser<AddApplicantStatu
         try {
             phone = ParserUtil.parsePhone(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS, ive);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND,
+                    AddApplicantStatusCommand.MESSAGE_USAGE), ive);
         }
 
         ApplicantStatus applicantStatus = ParserUtil.parseApplicantStatus(argMultimap
