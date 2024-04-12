@@ -17,16 +17,16 @@ It's optimized for use via a Command Line Interface (CLI) while still having the
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer. [How to check](https://www.baeldung.com/java-check-is-installed)
-    - If you do not have Java `11`, download it from [here](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
+1. Ensure you have Java ```11``` or above installed in your Computer. [How to check](https://www.baeldung.com/java-check-is-installed)
+    - If you do not have Java ```11```, download it from [here](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
+    - For Mac users, you are recommended to follow this [guide](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) if you face issues running the ```tether.jar``` file, notably unreadable or garbled text in the application.
     - Help with configuring correct Java version: [Windows](https://www.happycoders.eu/java/how-to-switch-multiple-java-versions-windows/) | [MacOS](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-macos) | [Linux](https://www.baeldung.com/linux/java-choose-default-version)
-    - For Mac users, you are recommended to follow this [guide](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) if you face issues running the `tether.jar` file, notably unreadable or garbled text in the application.
 
-1. Download the latest `tether.jar` from [here](https://github.com/AY2324S2-CS2103T-F11-3/tp/releases/tag/v1.3).
+1. Download the latest ```tether.jar``` from [here](https://github.com/AY2324S2-CS2103T-F11-3/tp/releases/tag/v1.3).
 
 1. Copy the downloaded file to the folder you want to use as the _home folder_ for Tether.
 
-1. Double click the `tether.jar` file. Alternatively, for users with command line experience, open up your favourite command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tether.jar`
+1. Double-click the ```tether.jar``` file. Alternatively, for users with command line experience, open up your favourite command terminal, ```cd``` into the folder you put the jar file in, and use the ```java -jar tether.jar```
    command to run the application.<br><br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    
@@ -219,19 +219,19 @@ The following example usage demonstrates the effect of adding an interview in th
 After adding multiple applicants/interviews into Tether, its often necessary to view all of them and their details together.
 
 Although the list of persons and their details are displayed on the left side of the GUI by default and is updated automatically
-whenever new persons are added, there are ```find``` and `filter` commands (explained below) that filter the list of persons displayed. If you have executed any of these commands and want to revert to the original unfiltered list of persons, just execute `list_persons`. 
+whenever new persons are added, there are ```find``` and `filter` commands (explained below) that filter the list of persons displayed. If you have executed any of these commands and want to revert to the original unfiltered list of persons, just execute ```list_persons```. 
 
 ### Listing all the interviews:
 
 After adding multiple interviews into Tether, its often necessary to view all of them and their details together.
 
 Although the list of interviews and their details are displayed on the right side of the GUI by default and is updated automatically
-whenever new interviews are added, there is a `filter` commands (explained below) that filters the list of interviews displayed. If you have executed this command and want to revert to the original unfiltered list of interviews, just execute `list_interviews`.
+whenever new interviews are added, there is a ```filter``` commands (explained below) that filters the list of interviews displayed. If you have executed this command and want to revert to the original unfiltered list of interviews, just execute ```list_interviews```.
 
 ### Finding persons:
 
 After adding multiple persons into Tether, you find yourself having to manually scroll to locate specific person entries. 
-The `find` command is useful here to save you time in locating such entries provided you already know at least one of 
+The ```find``` command is useful here to save you time in locating such entries provided you already know at least one of 
 the following 3 details of the person: their email, name or phone number.
 
 If you use email or phone number, note that they have to match exactly to locate the person entry if it exists. 
@@ -239,12 +239,12 @@ If you use name, a full name is not required but the name provided should be com
 
 The command accepts all inputs, **including invalid ones** (however, no matching entries will be displayed in such cases).
 
-`find` can also be used to find multiple entries at once. You can provide multiple keywords after the initial 
-`find_[email/name/phone]` and all entries that match any of the keywords will be displayed. Note that all the keywords 
-provided should be of the same type. For example, `find_phone` should only be followed by valid phone number(s), not 
+```find``` can also be used to find multiple entries at once. You can provide multiple keywords after the initial 
+```find_[email/name/phone]``` and all entries that match any of the keywords will be displayed. Note that all the keywords 
+provided should be of the same type. For example, ```find_phone``` should only be followed by valid phone number(s), not 
 emails or names.
 
-To find a person or persons, execute `find_[email/name/phone] [keyword 1]...` such as in the example usages illustrated below:
+To find a person or persons, execute ```find_[email/name/phone] [keyword 1]...``` such as in the example usages illustrated below:
 
 **Example Usage**:
 
@@ -253,26 +253,26 @@ To find a person or persons, execute `find_[email/name/phone] [keyword 1]...` su
 Assume that the above list reflects the current data present in Tether for the upcoming example commands.
 
 **Multiple matching entries:**
-Executing `find_name Alice` will list all entries with the name `Alice` even if it is not a full name as stated earlier as seen below:
+Executing ```find_name Alice``` will list all entries with the name ```Alice``` even if it is not a full name as stated earlier as seen below:
 
 ![img.png](images/find-command/findnamesuccess.png)
 
 **Keyword has to be complete:**
-Executing `find_name Ali` will not display any matching entries even though `Ali` is a substring of `Alice`.
-`0 persons listed!` is the response for such cases of no matching entries as seen below:
+Executing ```find_name Ali``` will not display any matching entries even though ```Ali``` is a substring of ```Alice```.
+```0 persons listed!``` is the response for such cases of no matching entries as seen below:
 
 ![img.png](images/find-command/nomatches.png)
 
 **Nonsense keyword inputs:**
-Executing `find_email 123456` will likewise result in no matching entries. Not that while the value `123456` is not a valid `email`, the command still accepts it and just displays no matching entries. Result display is similar to above
+Executing ```find_email 123456``` will likewise result in no matching entries. Not that while the value ```123456``` is not a valid ```email```, the command still accepts it and just displays no matching entries. Result display is similar to above
 
 **Multiple Keywords:**
-Executing `find_phone 123 23456` will display the entries that have `123` or `23456` as their phone numbers
+Executing ```find_phone 123 23456``` will display the entries that have ```123``` or ```23456``` as their phone numbers
 
 ![img.png](images/find-command/multiplekeywords.png)
 
 **Notes**:
-* The `find` command queries the original unfiltered list of persons, meaning that `find` commands cannot be stacked.
+* The ```find``` command queries the original unfiltered list of persons, meaning that consecutively executed ```find``` commands cannot be stacked.
 
 ### Filtering persons by status:
 
@@ -311,20 +311,20 @@ To revert to the original unfiltered list, simply enter the `list_interviews` co
 
 ### Deleting an applicant/interviewer:
 
-If you're confident in removing an applicant or interviewer from Tether if for example an interviewer leaves your company or an applicant is out of the hiring process, then execute `delete_person PHONE`
+If you're confident in removing an applicant or interviewer from Tether if for example an interviewer leaves your company or an applicant is out of the hiring process, then execute ```delete_person PHONE```
 
 **Example Usage**:
 
-* `delete_person 81239123` would delete that
+* ```delete_person 81239123``` would delete that
   applicant/interviewer.
 
-## Deleting an interview : `delete_interview`
+## Deleting an interview :
 
-If you're confident in unscheduling an interview perhaps due to changed availability or an unexpected clash, then execute `delete_interview INDEX`
+If you're confident in unscheduling an interview perhaps due to changed availability or an unexpected clash, then execute ```delete_interview INDEX```
 
 **Example Usage**:
 
-* `delete_interview 1` would delete the first interview in the list.
+* ```delete_interview 1``` would delete the first interview in the list.
 
 ## View overall statistics:
 
@@ -341,13 +341,13 @@ A simple example usage would be `view_overall_statistics` to get a result as suc
 
 ### Clear all existing data:
 
-Made multiple mistakes and wish to rebuild your hiring data from scratch? The `clear` command deletes all existing data in Tether, giving you the fresh start you require.
+Made multiple mistakes and wish to rebuild your hiring data from scratch? The ```clear``` command deletes all existing data in Tether, giving you the fresh start you require.
 
-**Note** that this action is irreversible. The moment you enter the command and see the success message `Addressbook has been cleared!`, ALL your data will be deleted permanently. Do exercise caution with this particular command by making an independent copy of your data before clearing it.
+**Note** that this action is irreversible. The moment you enter the command and see the success message ```Addressbook has been cleared!```, ALL your data will be deleted permanently. Do exercise caution with this particular command by making an independent copy of your data before clearing it.
 
 ### Exiting the program:
 
-If you're clocking out for the day, either execute `exit` directly or press the _File_ button in the taskbar and then press _Exit_ to quit Tether.
+If you're clocking out for the day, either execute ```exit``` directly or press the _File_ button in the taskbar and then press _Exit_ to quit Tether.
 
 ### Saving the data
 
