@@ -4,7 +4,7 @@
   "titleSuffix": "Tether",
   "faviconPath": "images/tether_logo.png",
   "style": {
-    "codeTheme": "dark"
+    "codeTheme": "light"
   },
   "ignore": [
     "_markbind/layouts/*",
