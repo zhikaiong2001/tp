@@ -28,7 +28,7 @@ You can reach us at our respective emails.
 <img src="images/macareonie.png" width="150px" height ="200px">
 
 [[github](http://github.com/macareonie)]
-[[portfolio](team/ryanchiang.md)]
+[[portfolio](team/macareonie)]
 [email: e0958490@u.nus.edu]
 
 * Role: Developer
