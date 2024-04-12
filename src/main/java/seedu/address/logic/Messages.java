@@ -25,7 +25,8 @@ public class Messages {
     public static final String MESSAGE_INCORRECT_INTERVIEWER_PHONE_NUMBER = "The phone number you have keyed is is "
             + "not an interviewer phone number, please check the input phone number";
     public static final String MESSAGE_INCORRECT_INTERVIEWER_AND_APPLICANT_PHONE_NUMBER =
-            "Please check the input phone numbers, the applicant and interviewer phone numbers entered are incorrect";
+            "The phone number you have keyed is is not an applicant nor an interviewer phone number. "
+                    + "Please check the input phone numbers";
     public static final String MESSAGE_INCORRECT_STATUS_APPLICANT = "Only applicants can be given this status";
     public static final String MESSAGE_INCORRECT_STATUS_INTERVIEWER = "Only interviewers can be given this status";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
