@@ -296,15 +296,17 @@ Simply execute `filter_by_status STATUS`, and the displayed list will update to 
 
 ### Filtering interviews by date:
 
-After adding multiple interview entries into Tether, if you want to find all the interviews on a particular date, it can be quite cumbersome to eyeball the entire list.
-The `filter_interviews_by_date` command would be very helpful in such situations so that you can locate interviews scheduled on a particular date.
+Navigating through a dense schedule to find specific interviews can be daunting. 
+Tether simplifies this with the `filter_interviews_by_date` command, allowing you to instantly locate all interviews scheduled for a given date.
+Just enter `filter_interviews_by_date DATE`, and Tether will display all interviews for that day.
 
-Simply execute `filter_interviews_by_date YYYY-MM-DD` to get all the interviews on `YYYY-MM-DD`.
+To view your full interview schedule again, simply use the `list_interviews` command.
 
 **Example Usage**
-* `filter_interviews_by_date 2024-05-05` to display all interviews on 2024-05-05.
+* For instance, to see all interviews on May 5th, 2024, you would use `filter_interviews_by_date 2024-05-05`.
 
-To revert to the original unfiltered list, simply enter the `list_interviews` command.
+**Parameter Constraints**
+* DATE must be in YYYY-MM-DD format and must be a valid date.
 
 **Notes**
 * No interviews would be displayed if there are no interviews on that day.
