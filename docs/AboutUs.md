@@ -17,7 +17,7 @@ You can reach us at our respective emails.
 
 [[homepage](https://yashwit.com)]
 [[github](https://github.com/yashpola)]
-[[portfolio](team/yashwit.md)]
+[[portfolio](team/yashpola.md)]
 [email: yashwit@u.nus.edu]
 
 * Role: Developer
