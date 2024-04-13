@@ -33,7 +33,7 @@ Ready to make hiring management easy for yourself? Let's get started!
     - [Adding a Status to an Applicant](#adding-a-status-to-an-applicant)
     - [Adding an Interviewer](#adding-an-interviewer)
     - [Adding a Status to an Interviewer](#adding-a-status-to-an-interviewer)
-    - [Adding a Remark to an Applicant or Interviewer](#adding-a-remark-to-a-person)
+    - [Adding a Remark to a Person](#adding-a-remark-to-a-person)
     - [Adding an Interview](#adding-an-interview)
     - [Listing All Persons](#listing-all-persons)
     - [Listing All the Interviews](#listing-all-interviews)
@@ -59,9 +59,9 @@ This crucial section is where your journey with Tether starts. Here, you may lea
 
 ## Context on Tether
 
-Tether is not your typical application that you may download off an app-store and directly launch from your desktop. It is an **offline** application that launches from and runs entirely through your computer's [_Command Line Interface_ (CLI)](https://aws.amazon.com/what-is/cli/#:~:text=A%20command%20line%20interface%20operating%20system%20using%20your%20keyboard) which is a medium through which you directly interact with your computer system.
+Tether is not your typical application that you may download off an app-store and directly launch from your desktop. It is an offline application that launches from and runs entirely through your computer's [_Command Line Interface_ (CLI)](https://aws.amazon.com/what-is/cli/#:~:text=A%20command%20line%20interface%20operating%20system%20using%20your%20keyboard) which is a medium through which you directly interact with your computer system.
 
-The way Tether works is, once you set up and launch the application from the CLI (as you will learn below in [Quick Start](#quick-start)), you **type-in** commands into a [_Graphical User Interface_ (GUI)](https://www.britannica.com/technology/graphical-user-interface) to use the application. We employ this modus operandi to cut down on visual-noise such as buttons and click-away popups, and allow you to focus your hands only on the keyboard. 
+The way Tether works is, once you set up and launch the application from the CLI (as you will learn below in [Quick Start](#quick-start)), you type-in commands into a [_Graphical User Interface_ (GUI)](https://www.britannica.com/technology/graphical-user-interface) to use the application. We employ this modus operandi to cut down on visual-noise such as buttons and click-away popups, and allow you to focus your hands only on the keyboard. 
 
 In short, **if you can type fast**, Tether can get your hiring management tasks done faster than traditional GUI apps.
 
@@ -74,7 +74,6 @@ Below you will see a listing and explanation of the exact commands you will need
     - If you do not have Java 11, download it from [here](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
       - For **Mac** users, you are recommended to download from [here](https://www.azul.com/downloads/?version=java-11-lts&os=macos&architecture=arm-64-bit&package=jdk-fx) to prevent any issues running the `tether.jar` file.
     -  Help with configuring correct Java version: [Windows](https://www.happycoders.eu/java/how-to-switch-multiple-java-versions-windows/) | [MacOS](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-macos) | [Linux](https://www.baeldung.com/linux/java-choose-default-version)
-
 
 2. Click to download the latest `tether.jar` from [here](https://github.com/AY2324S2-CS2103T-F11-3/tp/releases/tag/v1.3).
 
@@ -89,8 +88,7 @@ Below you will see a listing and explanation of the exact commands you will need
      * **Tip** for Mac Users: when you first open the _command line interface_ and start at your home directory, type in `cd` and then simply drag and drop the _tether_folder_ into the terminal. Press enter and you will directly find yourself in the _tether_folder_.
    * Now that you are in _tether_folder_, enter the `java -jar tether.jar` command to run the application. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
 
-![Ui](images/UpdatedUi.png)
-
+![img_4.png](img_4.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -111,9 +109,7 @@ Before delving into the features, we want you to give you a brief tour on how to
 
 ## Help yourself!
 
-Simply execute `help` or press the _Help_ button in the taskbar to launch a help window such as the one below:
-
-![img.png](img.png)
+Simply execute `help` or press the _Help_ button in the taskbar to launch a help window that shows the list of commands.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -149,18 +145,13 @@ Now that we've gone over the basics, let's dive into how you may use Tether for 
   as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
 
-**Note about adding strange values for fields:**
+**Note about adding invalid values for fields:**
 
-* If strange values are used for command parameters, Tether will intercept the execution of these invalid commands as far as possible. Ultimately however, we adopt a liberal "Garbage in, Garbage out" approach. This means that we give you the freedom to perform actions like setting interviews that start after they end, at the expense of the coherency of your data.
-  * We are open to feedback however for future iterations of Tether if you would rather we intercept more invalid commands.
+* The application may not load any data at all upon launch
+    * If you make invalid edits to the `addressbook.json` file such as changing a person's name to be an emoji, Tether will launch with no data until invalid fields are rectified.
 
-
-
-* Similarly, we give you the freedom to make any edits to the `addressbook.json` file but do note that if any invalid edits are made before (re)launching the application, then no data will load and an exception will be viewed in the CLI.
-    * What counts as an invalid edit? Simply speaking, an edit that violates the parameter constraints of the fields of the person/interview entry. For example, editing a `name` to be an emoji, or an email to be `null`.
-    * What **does not** count as an invalid edit? An edit which violates any business constraints imposed by Tether. For
-      example, editing all persons to have the same phone number and email when emails are required
-      to be unique. 
+* The application may fill up with incoherent data
+    * If you attempt to add illogical data such as editing all person emails in the `addressbook.json` to be duplicated or adding interviews whose dates precede the current date the application will allow you to do so. Do check your command parameters for such violations that Tether may use, and be careful editing the `addressbook.json` file.
 
 ### Adding an Applicant:
 
@@ -171,7 +162,7 @@ To record an applicant and their contact details in Tether, simply execute `add_
 **Example usage**:
 * `add_applicant n/Wesley Yu p/88889999 e/wesleyyu@gmail.com`
 
-![img_1.png](img_1.png)
+![img_3.png](img_3.png)
 
 **Parameter constraints**:
 * Names can only contain alphanumeric characters and spaces, and should not be blank.
@@ -303,12 +294,12 @@ whenever new interviews are added, there is a ```filter``` commands (explained b
 
 ### Finding Persons:
 
-After adding multiple persons into Tether, you may find yourself having to manually scroll to locate specific person entries. 
-The ```find``` command is useful here to save you time in locating such entries provided you already know at least one of 
+After adding multiple persons into Tether, you may find yourself having to manually scroll to locate a specific person. 
+The ```find``` command is useful here to save you time in locating such persons provided you already know at least one of 
 the following 3 details of the person: their email, name or phone number.
 
-```find``` can also be used to find multiple entries at once. You can provide multiple parameters after the initial 
-```find_[email/name/phone]``` and all entries that match any of the keywords will be displayed. 
+```find``` can also be used to find multiple persons at once. You can provide multiple parameters after the initial 
+```find_[email/name/phone]``` and all persons that match any of the parameters will be displayed. 
 
 To find a person or persons, execute ```find_[email/name/phone] [parameter 1]...``` such as in the example usages illustrated below:
 
@@ -318,16 +309,16 @@ To find a person or persons, execute ```find_[email/name/phone] [parameter 1]...
 
 Assume that the above list reflects the current data present in Tether for the upcoming example commands.
 
-**Multiple matching entries:**
-Executing ```find_name Alice``` will list all entries with the name ```Alice``` even if it is not a full name as stated earlier as seen below:
+**Multiple matching persons:**
+Executing ```find_name Alice``` will list all persons with the name ```Alice``` even if it is not a full name as stated earlier as seen below:
 
 ![img.png](images/find-command/findnamesuccess.png)
 
 **Notes**:
 * The ```find``` command queries the original unfiltered list of persons each time, meaning that sequentially executed ```find``` commands do not stack.
 * If you use email or phone number, note that they have to match exactly to locate the person entry if it exists.
-* If you use name, a full name is not required but the name provided should be complete. Otherwise, there will also be no matching entries.
-* The command accepts any parameters, including invalid ones (however, no matching entries will be displayed in such cases).
+* If you use name, a full name is not required but the name provided should be complete. Otherwise, there will also be no matching persons.
+* The command accepts any parameters, including invalid ones (however, no matching persons will be displayed in such cases).
 * Note that for multiple parameters, all the parameters should be of the same type. For example, ```find_phone``` should only be followed by valid phone number(s), not
   emails or names.
 
@@ -426,32 +417,34 @@ Tether is always a Work-In-Progress as we are constantly refining our applicatio
 1. Managing Applicants/Interviewers/Interviews
    * An `edit` command to amend any of the fields of an person/interview
    * A `tag` command and `t/` parameter to add and edit custom tags for persons/interviews
-   
-    
-
+<br>
+<br>
 2. Interviews
     * Delete interviews automatically once an applicant or interviewer is deleted.
-
 
 ### Known Issues
 1. User Display
     * In general, we focused on a clean interface with minimal moving parts. For this reason, there are many possible areas for improvement in our UI that we are ready and open to work on
-    * Currently, adding multiple interviews may cause the inteviewer card to expand beyond its bounds.
-    * Adding very long fields for person/interviews may cause the field in the respective card to spill out of bounds
-
-
+    * Currently, adding multiple interviews may cause the interviewer's card to expand beyond its bounds.
+    * Adding extremely long fields for a person/interview may cause the field in the respective cards to spill out of bounds.
+<br>
+<br>
 2. Error Messaging
    * Some of our error messages could be more specific in why the command triggered an error and how to rectify this. For now, we wanted to minimise the risk of information overload in lieu of very detailed feedback.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
-
+1. Command Line Interface (CLI) : It is a software mechanism you use to interact with your computer using your keyboard.
+2. Graphical User Interface (GUI) : It is a user interface that allows users to interact with graphical icons like buttons.
+3. Person : Refers to an applicant or an interviewer.
+4. Parameter : Information to be supplied by the user into commands.
+5. Hard disk : The storage component of your computer.
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
+**Q**: How do I transfer my data to another Computer? <br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous Tether home folder.
 
@@ -471,7 +464,7 @@ the data of your previous Tether home folder.
 | **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                               |
 | **List Interviews**           | `list_interviews`                                                                                                                                                                                                     |
 | **List Persons**              | `list_persons`                                                                                                                                                                                                        |
-| **Find Persons**              | `find_[email/name/phone] [keyword 1]...` <br> e.g., `find_name Alice` or `find_phone 123 456 789`                                                                                                                     |
+| **Find Persons**              | `find_[email/name/phone] [parameter 1]...` <br> e.g., `find_name Alice` or `find_phone 123 456 789`                                                                                                                   |
 | **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
 | **Filter Interviews by date** | `filter_interviews_by_date DATE`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                                   |
 | **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
