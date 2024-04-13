@@ -118,7 +118,7 @@ To record an applicant and their contact details in Tether, simply execute `add_
   * For two applicants to be considered different, they must have different emails AND different phone numbers.
   * For the discrete mathematics enthusiasts, this is equivalent to `~(sameEmail || samePhone) = ~sameEmail && ~ samePhone = differentEmail && differentPhone`.
 * Applicants' remark field will be empty by default and can only be edited later with the `remark` command (described below).
-
+* No custom tags are allowed 
 ### Adding a status to an applicant:
 
 Now that you know how to add an applicant, it would be nice to record their position in your hiring pipeline at any given time for later review. This is where tagging applicants by status is handy.
@@ -160,7 +160,7 @@ To record an applicant and their contact details in Tether, simply execute `add_
 **Notes**:
 * Similar to applicants, no two interviewers can have the same email or phone number. 
 * Interviewers' remark field will be empty by default and can only be edited later with the `remark` command (described below).
-
+* No custom tags are allowed
 ### Adding a status to an interviewer:
 
 Now that you know how to add an interviewer, it would be nice to record their availabilities at any given time for subsequent interview scheduling. Happily however, there's no need to worry about using any commands to manage interviewer statuses manually!
@@ -195,7 +195,7 @@ Simply execute `remark INDEX r/REMARK` and the interview will appear under the _
 
 ### Adding an interview:
 
-Now comes a very meaty part of hiring management - scheduling interviews. And to do so, simply execute `add_interview desc/DESCRIPTION date/DATE st/START_TIME et/END_TIME a/APPLICANT_PHONE_NUMBER i/INTERVIEWER_PHONE_NUMBER` t
+Now comes a very meaty part of hiring management - scheduling interviews. And to do so, simply execute `add_interview desc/DESCRIPTION date/DATE st/START_TIME et/END_TIME a/APPLICANT_PHONE_NUMBER i/INTERVIEWER_PHONE_NUMBER`
 
 The following example usage demonstrates the effect of adding an interview in this manner:
 
@@ -210,9 +210,11 @@ The following example usage demonstrates the effect of adding an interview in th
 * Times must be in either `HH:MM` or `HH:MM:SS` format
 
 **Notes**:
-
 * You can still schedule new interviews for applicants who have already been rejected or accepted. This is simply to accommodate the possibility of follow-up interviews, amongst other possibilities.
-* Entering dates that have already passed are not allowed.
+* Entering dates that have already passed are allowed.
+* Entering start times that are beyond end times are not allowed.
+* When entering an interviewer or applicant phone number that does not exist, tether is unable to determine which is incorrect.
+* When entering a valid interviewer and applicant phone number but placed in the wrong fields, tether is unable to determine which is incorrect.
 
 ### Listing all persons:
 
