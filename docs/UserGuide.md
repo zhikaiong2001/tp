@@ -13,6 +13,13 @@ It's optimized for use via a Command Line Interface (CLI) while still having the
 <!-- * Table of Contents -->
 <page-nav-print />
 
+-----------------------------------------------------------------------------------------------------------------
+
+## Table of Contents
+
+- Table of Contents
+  {:toc}
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
