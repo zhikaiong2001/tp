@@ -49,7 +49,7 @@ deactivate AddressBookParser
 LogicManager -> AddInterviewCommand : execute(m)
 activate AddInterviewCommand
 
-AddInterviewCommand -> Model : getFilteredPersonList()
+AddInterviewCommand -> Model : getFilteredInterviewList()
 activate Model
 
 Model --> AddInterviewCommand

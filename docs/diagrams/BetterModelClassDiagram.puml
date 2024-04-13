@@ -5,6 +5,8 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Enum "<<enumeration>>\nType" as Type
+Enum "<<enumeration>>\nApplicantState" as ApplicantState
+Enum "<<enumeration>>\nInterviewerState" as InterviewerState
 
 AddressBook *-right-> "1" UniquePersonList
 AddressBook *-right-> "1" UniqueInterviewList
@@ -27,5 +29,7 @@ Interview *--> Interviewer
 Interview *--> Applicant
 
 Applicant -up--|>Person
+Applicant *--> ApplicantState
+Interviewer *--> InterviewerState
 Interviewer -up--|>Person
 @enduml

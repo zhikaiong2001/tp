@@ -9,9 +9,12 @@ Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
 Enum "<<enumeration>>\nType" as Type
+Enum "<<enumeration>>\nApplicantState" as ApplicantState
+Enum "<<enumeration>>\nInterviewerState" as InterviewerState
 Class AddressBook
 Class ModelManager
 Class UserPrefs
+Class Interview
 
 Class UniquePersonList
 Class UniqueInterviewList
@@ -23,6 +26,8 @@ Class Name
 Class Phone
 Class Tag
 Enum Type
+Enum ApplicantState
+Enum InterviewerState
 
 Class I #FFFFFF
 }
@@ -49,6 +54,8 @@ Person *--> Phone
 Person *--> Email
 Person *--> Type
 Person *--> "*" Tag
+Applicant *--> ApplicantState
+Interviewer *--> InterviewerState
 
 Applicant -up--|>Person
 Interviewer -up--|>Person
@@ -57,6 +64,4 @@ Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
-
-ModelManager --> "~* filtered" Person
 @enduml

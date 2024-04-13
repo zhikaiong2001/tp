@@ -71,7 +71,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `InterviewListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -80,7 +80,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `Interview` objects residing in the `Model`.
 
 ### Logic component
 
@@ -126,6 +126,8 @@ The `Model` component,
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores the address book data i.e., all `Interview` objects (which are contained in a `UniqueInterviewList` object).
+* stores the currently 'selected' `Interview` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Interview>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
@@ -386,7 +388,7 @@ The above `execute` operation utilises `ModelManager#updateFilteredPersonList()`
 This change is then reflected in the UI list of persons / Interviews.
 
 The following class diagram summarizes the organisation of the two different list commands:
-<puml src="diagrams/list/ListCommandsClassDiagram.puml" width="250"/>
+<puml src="diagrams/list/ListCommandsClassDiagram.puml"/>
 
 
 Given below is an example usage scenario for interviews and how the mechanism behaves at each step.
@@ -418,7 +420,7 @@ The above `execute` operation utilises `ModelManager#deletePerson()` or `ModelMa
 This change is then reflected in the UI list of persons / Interviews.
 
 The following class diagram summarizes the organisation of the two different delete commands:
-<puml src="diagrams/delete/DeleteCommandsClassDiagram.puml" width="250"/>
+<puml src="diagrams/delete/DeleteCommandsClassDiagram.puml"/>
 
 
 Note:
@@ -492,7 +494,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. Any of the given name, email, phone number are invalid.
 
-    * 3a1. System shows an error message indicating invalid name/email/phone number.
+    * 3a1. System shows an error message.
 
       Use case resumes at step 2.
 
@@ -511,54 +513,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-    * 2a1. System shows an error message indicating no person in list.
+    * 2a1. System shows an error message.
 
       Use case resumes at step 2.
 
 * 3a. The given phone number is invalid.
 
-    * 3a1. System shows an error message indicating person not found.
+    * 3a1. System shows an error message.
 
       Use case resumes at step 2.
 
-**Use case: UC03 - Tag an applicant**
+**Use case: UC03 - Find a person by name/email/phone number**
 
 **MSS**
 
 1.  User requests to list persons
 2.  System shows a list of persons
-3.  User requests to tag a specific applicant, using their name/email, with an application status
-4.  System tags the requested applicant with the given application status
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-    * 2a1. System shows an error message indicating no applicant in list.
-
-      Use case resumes at step 2.
-
-* 3a. The given name/email is invalid.
-
-    * 3a1. System shows an error message indicating applicant not found.
-
-      Use case resumes at step 2.
-
-* 4a. The tag is already added for the applicant.
-
-    * 4a1. System shows an error message indicating tag is already added.
-
-      Use case resumes at step 2.
-
-**Use case: UC04 - Find a person by name/email**
-
-**MSS**
-
-1.  User requests to list persons
-2.  System shows a list of persons
-3.  User requests to find a specific person in the list by their name or email
+3.  User requests to find a specific person in the list by their name/email/phone number
 4.  System updates the list to only display the requested person
 
     Use case ends.
@@ -567,13 +538,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-    * 2a1. Tether shows an error message indicating no person in list.
+    * 2a1. Tether shows an error message.
 
       Use case resumes at step 2.
 
-* 3a. The given name/email is invalid.
+* 3a. The given name/email/phone number is invalid.
 
-    * 3a1. Tether shows an error message indicating person not found.
+    * 3a1. Tether shows an error message.
 
       Use case resumes at step 2.
 
@@ -583,10 +554,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should work on any _mainstream OS_ as long as it has Java 11 or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  Should be able to display multiple lists of applicants/interviews/interviewers without a noticeable sluggishness in performance for typical usage.
+3.  Should be able to display lists of persons and interviews without a noticeable sluggishness in performance for typical usage.
 4.  Should be responsive in all functionality, especially updating and displaying the list after each request.
 5.  Should be able to reliably preserve application data across multiple sessions without risk of data loss/corruption.
-6.  Should not leak applicant details, especially email and phone number, outside the application.
+6.  Should not leak person details, especially email and phone number, outside the application.
 7.  Should provide specific error messages to guide users on intended usage of features.
 8.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
