@@ -15,10 +15,32 @@ It's optimized for use via a Command Line Interface (CLI) while still having the
 
 -----------------------------------------------------------------------------------------------------------------
 
-## Table of Contents
 
-- Table of Contents
-  {:toc}
+## Table of Contents
+- [Quick Start](#quick-start)
+- [Using Features Error-Free](#using-features-error-free)
+- [Gathering Your Bearings](#gathering-your-bearings)
+- [Features](#features)
+    - [Adding an Applicant](#adding-an-applicant)
+    - [Adding a Status to an Applicant](#adding-a-status-to-an-applicant)
+    - [Adding an Interviewer](#adding-an-interviewer)
+    - [Adding a Status to an Interviewer](#adding-a-status-to-an-interviewer)
+    - [Adding a Remark to an Applicant/Interviewer](#adding-a-remark-to-an-applicantinterviewer)
+    - [Adding an Interview](#adding-an-interview)
+    - [Listing All Persons](#listing-all-persons)
+    - [Listing All the Interviews](#listing-all-the-interviews)
+    - [Finding Persons](#finding-persons)
+    - [Filtering Persons by Status](#filtering-persons-by-status)
+    - [Filtering Interviews by Date](#filtering-interviews-by-date)
+    - [Deleting an Applicant/Interviewer](#deleting-an-applicantinterviewer)
+    - [Deleting an Interview](#deleting-an-interview)
+    - [View Overall Statistics](#view-overall-statistics)
+    - [Clear All Existing Data](#clear-all-existing-data)
+    - [Exiting the Program](#exiting-the-program)
+    - [Saving the Data](#saving-the-data)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
