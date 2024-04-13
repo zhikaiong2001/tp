@@ -589,40 +589,119 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download `tether.jar` and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file or run `java -jar tether.jar`.
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+   2. Re-launch the app by double-clicking the jar file or running `java -jar tether.jar`.<br>
+      Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3. Closing the app using the `exit` command
+
+   1. Type the command exit into the command line and hit enter.
+      Expected: The app window closes.
+
+4. Closing the app by clicking on the close button
+   
+   1. Click the close button in the top right hand corner of the app window.
+      Expected: The app window closes.
+
+5. Closing the app by clicking on the `Exit` button in the `File` tab
+
+    1. Click on the `File` tab in the top left corner of the app window.
+
+    2. Click on the `Exit` button that is displayed under the `File` tab.
+       Expected: The app window closes.
 
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list_persons` command. Multiple persons in the list, specifically there exists a person with phone number `123` and there is no existing person with phone number `456`.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    2. Test case: `delete 123`<br>
+       Expected: Contact with phone number `123` is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    3. Test case: `delete 456`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is an invalid phone number)<br>
+       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Finding a person
 
-### Saving data
+1. Finding a person by name
+    
+    1. Prerequisites: Tether already contains multiple persons in the list, specifically there exists a person with name `Alice` and there is no existing person with phone number `Bob`.
 
-1. Dealing with missing/corrupted data files
+    2. Test case: `find_name Alice` <br>
+       Expected: Contact with name `Alice` is displayed on the list.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    3. Test case: `find_name Bob` <br>
+       Expected: An empty list is displayed.
 
-1. _{ more test cases …​ }_
+2. Finding a person by phone number
+    
+    1. Prerequisites: Tether already contains multiple persons in the list, specifically there exists a person with phone number `123` and there is no existing person with phone number `456`.
+   
+    2. Test case: `find_phone 123` <br>
+       Expected: Contact with phone number `123` is displayed on the list.
+   
+    3. Test case: `find_phone 456` <br>
+       Expected: An empty list is displayed.
+   
+3. Finding a person by email
+
+    1. Prerequisites: Tether already contains multiple persons in the list, specifically there exists a person with phone number `alice@email.com` and there is no existing person with phone number `bob@email.com`.
+   
+    2. Test case: `find_email alice@email.com` <br>
+       Expected: Contact with email `alice@email.com` is displayed on the list.
+   
+    3. Test case: `find_email bob@email.com` <br>
+       Expected: An empty list is displayed.
+
+### Saving and Loading data from data file
+
+1. Saving and loading data from data file.
+
+    1. Prerequisites: The data file exists and is located at `data/addressbook.json`. Data in data file is valid.
+
+    2. Perform commands that changes data in Tether (Example: add an applicant using `add_applicant n/Alice p/123 e/alice@email.com`)
+
+    3. Close and launch Tether again. <br>
+       Expected: Tether correctly displays the updated data.
+
+2. Dealing with corrupted data file.
+
+    1. Prerequisites: The data file exists and is located at `data/addressbook.json`.
+
+    2. Add an invalid character to the `addressbook.json` (e.g. add a # to the start of file).
+
+    3. Close and launch Tether again. <br>
+       Expected: Tether does not display any data and an error message is shown in the terminal.
+
+3. Dealing with missing data file.
+
+    1. Prerequisites: The data file exists and is located at `data/addressbook.json`.
+
+    2. Delete the data file located at `data/addressbook.json`.
+
+    3. Close and launch Tether again. <br>
+       Expected: New data file created at `data/addressbook.json` containing some sample data.
+
+## **Appendix: Planned Enhancements**
+
+**Team Size**: 5 members <br>
+
+Given below are the planned enhancements we plan to implement for our application in the future:
+
+1. **To be added**
+
+## **Appendix: Effort**
+
+**To be added**
