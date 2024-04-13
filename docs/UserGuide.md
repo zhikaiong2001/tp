@@ -29,22 +29,22 @@ Ready to make hiring management easy for yourself? Let's get started!
   - [Gathering Your Bearings](#gathering-your-bearings)
 - [Features](#features)
     - [Using Features Error-Free](#using-features-error-free)
-    - [Adding an Applicant](#adding-an-applicant-)
-    - [Adding a Status to an Applicant](#adding-a-status-to-an-applicant-)
-    - [Adding an Interviewer](#adding-an-interviewer-)
-    - [Adding a Status to an Interviewer](#adding-a-status-to-an-interviewer-)
-    - [Adding a Remark to an Applicant/Interviewer](#adding-a-remark-to-an-applicantinterviewer-)
-    - [Adding an Interview](#adding-an-interview-)
-    - [Listing All Persons](#listing-all-persons-)
-    - [Listing All the Interviews](#listing-all-interviews-)
-    - [Finding Persons](#finding-persons-)
-    - [Filtering Persons by Status](#filtering-persons-by-status-)
-    - [Filtering Interviews by Date](#filtering-interviews-by-date-)
-    - [Deleting an Applicant/Interviewer](#deleting-an-applicantinterviewer-)
-    - [Deleting an Interview](#deleting-an-interview-)
-    - [View Overall Statistics](#view-overall-statistics-)
-    - [Clear All Existing Data](#clear-all-existing-data-)
-    - [Exiting the Program](#exiting-the-program-)
+    - [Adding an Applicant](#adding-an-applicant)
+    - [Adding a Status to an Applicant](#adding-a-status-to-an-applicant)
+    - [Adding an Interviewer](#adding-an-interviewer)
+    - [Adding a Status to an Interviewer](#adding-a-status-to-an-interviewer)
+    - [Adding a Remark to an Applicant/Interviewer](#adding-a-remark-to-an-applicantinterviewer)
+    - [Adding an Interview](#adding-an-interview)
+    - [Listing All Persons](#listing-all-persons)
+    - [Listing All the Interviews](#listing-all-interviews)
+    - [Finding Persons](#finding-persons)
+    - [Filtering Persons by Status](#filtering-persons-by-status)
+    - [Filtering Interviews by Date](#filtering-interviews-by-date)
+    - [Deleting an Applicant/Interviewer](#deleting-an-applicantinterviewer)
+    - [Deleting an Interview](#deleting-an-interview)
+    - [View Overall Statistics](#view-overall-statistics)
+    - [Clear All Existing Data](#clear-all-existing-data)
+    - [Exiting the Program](#exiting-the-program)
 - [Saving your Data](#saving-your-data)
 - [Planned Enhancements and Known Issues](#planned-enhancements-and-known-issues)
 - [Glossary](#glossary)
@@ -475,7 +475,7 @@ the data of your previous Tether home folder.
 | **List Persons**              | `list_persons`                                                                                                                                                                                                        |
 | **Find Persons**              | `find_[email/name/phone] [keyword 1]...` <br> e.g., `find_name Alice` or `find_phone 123 456 789`                                                                                                                     |
 | **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
-| **Filter Interviews by date** | `filter_interviews_by_date YYYY-MM-DD`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                             |
+| **Filter Interviews by date** | `filter_interviews_by_date DATE`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                                   |
 | **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
 | **Clear All Existing Data**   | `clear`                                                                                                                                                                                                               |
 | **Exit**                      | `exit`                                                                                                                                                                                                                |
