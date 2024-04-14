@@ -4,15 +4,11 @@ skinparam classAttributeIconSize 0
 
 Class "{abstract}\nCommand" as Command {
 }
-Class AddApplicantStatusCommand {
-  +{static}COMMAND_WORD: String
-  +{static}MESSAGE_USAGE: String
-  +{static}MESSAGE_ADD_STATUS_SUCCESS: String
-  -Phone: Phone
-  +execute(Model): CommandResult
-  -generateSuccessMessage(Person): String
+Class Applicant {
 }
-Class AddInterviewerStatusCommand {
+Class Interviewer {
+}
+Class AddApplicantStatusCommand {
   +{static}COMMAND_WORD: String
   +{static}MESSAGE_USAGE: String
   +{static}MESSAGE_ADD_STATUS_SUCCESS: String
@@ -37,8 +33,6 @@ Class IllegalValueException
 
 AddApplicantStatusCommand -up-|> Command
 AddApplicantStatusCommand -down-> ApplicantStatus
-AddInterviewerStatusCommand -up-|> Command
-AddInterviewerStatusCommand -down-> InterviewerStatus
 ApplicantStatus -up-|> Status
 InterviewerStatus -up-|> Status
 ApplicantStatus ..> IllegalValueException: throws >
