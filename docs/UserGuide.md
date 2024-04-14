@@ -32,7 +32,7 @@ Ready to make hiring management easy for yourself? Let's get started!
     - [Adding an Applicant](#adding-an-applicant)
     - [Adding a Status to an Applicant](#adding-a-status-to-an-applicant)
     - [Adding an Interviewer](#adding-an-interviewer)
-    - [Adding a Status to an Interviewer](#adding-a-status-to-an-interviewer)
+    - [Viewing the Status of an Interviewer](#viewing-the-status-of-an-interviewer)
     - [Adding a Remark to a Person](#adding-a-remark-to-a-person)
     - [Adding an Interview](#adding-an-interview)
     - [Listing All Persons](#listing-all-persons)
@@ -75,7 +75,8 @@ Below you will see a listing and explanation of the exact commands you will need
     - If you do not have Java 11, download it from [here](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
       - For **Mac** users, you are recommended to download from [here](https://www.azul.com/downloads/?version=java-11-lts&os=macos&architecture=arm-64-bit&package=jdk-fx) to prevent any issues running the `tether.jar` file.
     -  Help with configuring correct Java version: [Windows](https://www.happycoders.eu/java/how-to-switch-multiple-java-versions-windows/) | [MacOS](https://stackoverflow.com/questions/21964709/how-to-set-or-change-the-default-java-jdk-version-on-macos) | [Linux](https://www.baeldung.com/linux/java-choose-default-version)
-
+   
+    <br>
 
 2. Click to download the latest `tether.jar` from [here](https://github.com/AY2324S2-CS2103T-F11-3/tp/releases/tag/v1.3).
 
@@ -158,6 +159,7 @@ Now that we've gone over the basics, let's dive into how you may use Tether for 
     * If you make invalid edits to the _addressbook.json_ file such as changing a person's name to be an emoji, Tether will launch with no data until invalid fields are rectified.
     * The definition of an invalid edit is far from exhaustive, but a good indicator is that if the edit violates basic parameter constraints of the fields (which are explained below), then it is likely to be invalid.
 
+    <br>
 
 * The application may fill up with incoherent data.
     * Tether may not always check against invalid edits. If you attempt to add illogical data such as editing all person emails in the _addressbook.json_ to be duplicated or add interviews whose dates precede the current date, the application will allow you to do so at your expense.
@@ -479,7 +481,7 @@ the data of your previous Tether home folder.
 | **Delete Interview**          | `delete_interview INDEX`<br> e.g., `delete_interview 1`                                                                                                                                                               |
 | **List Interviews**           | `list_interviews`                                                                                                                                                                                                     |
 | **List Persons**              | `list_persons`                                                                                                                                                                                                        |
-| **Find Persons**              | `find_[email/name/phone] [parameter 1]...` <br> e.g., `find_name Alice` or `find_phone 123 456 789`                                                                                                                   |
+| **Find Persons**              | `find_email/name/phone PARAMETER1 PARAMETER2...` <br> e.g., `find_name Alice` or `find_phone 123 456 789`                                                                                                             |
 | **Filter Persons by Status**  | `filter_by_status STATUS`  <br> e.g., `filter_by_status free`                                                                                                                                                         |
 | **Filter Interviews by date** | `filter_interviews_by_date DATE`  <br> e.g., `filter_interviews_by_date 2024-05-05`                                                                                                                                   |
 | **View Overall Statistics**   | `view_overall_statistics`                                                                                                                                                                                             |
