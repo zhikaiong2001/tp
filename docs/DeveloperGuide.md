@@ -750,12 +750,12 @@ testers are expected to do more *exploratory* testing.
 
 3. Closing the app using the `exit` command
 
-   1. Type the command exit into the command line and hit enter.
+   1. Type the command exit into the command line and hit enter.<br>
       Expected: The app window closes.
 
 4. Closing the app by clicking on the close button
    
-   1. Click the close button in the top right hand corner of the app window.
+   1. Click the close button in the top right hand corner of the app window.<br>
       Expected: The app window closes.
 
 5. Closing the app by clicking on the `Exit` button in the `File` tab
@@ -947,8 +947,7 @@ Given below are the planned enhancements we plan to implement for our applicatio
     * Description: Currently, the `AddApplicantStatusCommand` strictly checks if the status given by the user matches any of 5 preset statuses. This can be problematic since different companies may have different conventions on applicant statuses and thus require adding applicant statuses to be more flexible.
     * Enhancement: To resolve this, we plan to change the `AddApplicantStatusCommand` to accommodate custom statuses so long as they still adhere to some basic constraints such as being alphanumeric or ASCII-characters.
     * Example: A user may choose to execute `applicant_status 12345678 s/Stage1` instead of `applicant_status 12345678 s/resume review`, depending on their specific label for the first stage of the hiring pipeline.  
-<br>
-<br>   
+<br> 
 3.  Shorthand for commands
     - **Description:** Currently, some commands can be very long and take some to type out. This can affect the efficiency of the hiring manager.
     - **Enhancement:** To resolve this, we plan to add shorter versions of existing commands by modifying the parser classes to take in these shorter commands.
