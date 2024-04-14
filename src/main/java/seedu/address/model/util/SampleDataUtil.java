@@ -31,27 +31,27 @@ public class SampleDataUtil {
             new Applicant(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                     EMPTY_REMARK,
                     new ApplicantStatus(ApplicantState.STAGE_ONE.toString()),
-                    getTagSet("friends")),
+                    getTagSet()),
             new Applicant(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                     EMPTY_REMARK,
                     new ApplicantStatus(ApplicantState.STAGE_ONE.toString()),
-                    getTagSet("colleagues", "friends")),
+                    getTagSet()),
             new Interviewer(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                     EMPTY_REMARK,
                     new InterviewerStatus(InterviewerState.FREE.toString()),
-                    getTagSet("neighbours")),
+                    getTagSet()),
             new Applicant(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                     EMPTY_REMARK,
                     new ApplicantStatus(ApplicantState.STAGE_ONE.toString()),
-                    getTagSet("family")),
+                    getTagSet()),
             new Interviewer(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                     EMPTY_REMARK,
                     new InterviewerStatus(InterviewerState.FREE.toString()),
-                    getTagSet("classmates")),
+                    getTagSet()),
             new Interviewer(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                     EMPTY_REMARK,
                     new InterviewerStatus(InterviewerState.FREE.toString()),
-                    getTagSet("colleagues"))
+                    getTagSet())
         };
     }
 
