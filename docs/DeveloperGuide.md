@@ -222,46 +222,66 @@ The following sequence diagram shows how a find operation, specifically `find_na
     * Pros: Less repeating of similar code. Only 1 command word required.
     * Cons: More changes to parsing is required for identification of criteria and potential errors with mixing up keywords with criteria word.
 
-### Applicant/Interviewer status feature
+### Applicant status feature
 
 #### Implementation
 
-The applicant/interviewer status mechanism is facilitated by `AddApplicantStatusCommand` and `AddInterviewerStatusCommand`. They extend `Command` with their own `status` field, stored internally as `ApplicantStatus` and `InterviewerStatus` respectively. 
-`ApplicantStatus` and `InterviewerStatus` encapsulate statuses (enumerated in `ApplicantState` and `InterviewerState`) in a `value` field.
-`AddApplicantStatusCommand` and `AddInterviewerStatusCommand` implement the following operations:
+##### Applicant Status
+
+The applicant status mechanism is facilitated by `AddApplicantStatusCommand`. It extends `Command` with its own `status` field, stored internally as `ApplicantStatus`. 
+`ApplicantStatus` encapsulates statuses (enumerated in `ApplicantState`) in a `value` field.
+`AddApplicantStatusCommand` implements the following operations:
 
 * `AddApplicantStatusCommand#execute()` — Adds on the encapsulated `currentStatus` to the applicant in question.
-* `AddInterviewerStatusCommand#execute()` — Adds on the encapsulated `currentStatus` to the interviewer in question.
 
-`ApplicantStatus` and `InterviewerStatus` also enable the following functionality in `Applicant` and `Interviewer`:
+`ApplicantStatus` also enables the following functionality in `Applicant`:
 
-* `Applicant#updateCurrentStatus()` — Updates the `currentStatus` of the applicant to "pending interview".
-* `Applicant#revertCurrentStatus()` — Reverts the `currentStatus` of the applicant to `previousStatus`.
-* `Interviewer#updateCurrentStatus()` — Updates the `currentStatus` of the interviewer to "interview with [applicant name]" if the `currentStatus` is "free", and vice versa.
+* `Applicant#updateCurrentStatusToReflectScheduledInterview()` — Updates the `currentStatus` of the applicant to "pending interview".
+* `Applicant#revertCurrentStatus()` — Reverts the `currentStatus` of the applicant to "resume review".
+* `Applicant#getCurrentStatus()` — Returns the stringified version of the encapsulated `currentStatus` which is simply its `value`"
 
-The following class diagram shows the structure of `AddApplicantStatusCommand`, `AddInterviewerStatusCommand`, `ApplicantStatus`, `InterviewerStatus`:
+
+##### Interviewer Status
+Unlike for applicant statuses, there is no `AddInterviewerStatusCommand` available for users. interviewer statuses are managed only internally between `Interview`, `InterviewerStatus` and `Interviewer`.
+
+Another important difference is that while an `Applicant` contains at most 1 `currentStatus`, an `Interviewer` contains a variable-size list of `upcomingInterviews` containing objects of type `InterviewerStatus` in the form of "interview with [applicant name]".
+
+The interviewer status mechanism is facilitated by `InterviewerStatus`. It extends `Status` and
+encapsulates statuses (enumerated in `InterviewerState`) in a `value` field represented as a `String`.
+
+`InterviewerStatus` enables the following functionality in `Interviewer`:
+
+* `Interviewer#updateCurrentStatusToReflectScheduledInterview()` — Appends a new "interview with..." status to the list of `upcomingInterviews` of the interviewer.
+* `Interviewer#updateCurrentStatusToReflectDeletedInterview()()` — Removed the specific "interview with..." status of from the list of `upcomingInterviews` of the interviewer.
+* `Interviewer#getCurrentStatus()` — Returns the stringified version of the encapsulated `upcomingInterviews` list by retrieving the stringified version of each of the `InterviewStatus` in the `upcomingInterviews` list and separating them with a newline. 
+  * **Note** that if an interviewer has no upcoming interviews, then instead of storing an `InterviewerStatus` of "free" inside `upcomingInterviews`, the list is left empty and `getCurrentStatus` just returns the String "free" instead.
+
+##### General Notes
+
+
+The following class diagram shows the overall structure of `AddApplicantStatusCommand`, `ApplicantStatus`, `InterviewerStatus`:
 
 <puml src="diagrams/add-status/StatusCommandClasses.puml"/>
 
 Given below is an example usage scenario and how the applicant/interviewer status mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time and executes `add_applicant n/Yash p/98362254 e/yashwit@u.nus.edu`. An applicant `Yash` is initialised with default `currentStatus` "resume review".
+Step 1. The user launches the application for the first time and executes `add_applicant n/Yash p/98362254 e/yashwit@u.nus.edu`. An applicant _Yash_ is initialised with default `currentStatus` "resume review".
 
-Step 2. The user executes `add_interviewer n/Ryan p/12345678 e/ryan@u.nus.edu`. An interviewer `Ryan` is initialised with default `currentStatus` "free".
+Step 2. The user executes `add_interviewer n/Ryan p/12345678 e/ryan@u.nus.edu`. An interviewer _Ryan_ is initialised with default `upcomingInterviews` .
 
-Step 3. The user executes `add_interview....a/98362254 i/12345678` to create an interview between `Yash` and `Ryan`. The `add_interview` command makes a call to `updateCurrentStatus` in `Yash`, which updates `Yash`'s `currentStatus` to "pending interview" and `previousStatus` to "resume review". Similarly, a call is made to `updateCurrentStatus` in `Ryan` and `Ryan`'s `currentStatus` is updated to "interview with Yash". The `updateCurrentStatus` methods in `Ryan` and `Yash` in-turn call the `setPerson` list of the current `Model` for the status change to be reflected immediately.
+Step 3. The user executes `add_interview....a/98362254 i/12345678` to create an interview between _Yash_ and _Ryan_. The `add_interview` command makes a call to `updateCurrentStatusToReflectScheduledInterview` in _Yash_, which updates _Yash's_ `currentStatus` to "pending interview". Similarly, a call is made to `updateCurrentStatusToReflectInterview` in _Ryan_ and _Ryan's_ `upcomingInterviews` is appended with "interview with Yash". The `updateCurrentStatusToReflectScheduledInterview` methods in _Ryan_ and _Yash_ in-turn call the `setPerson` list of the current `Model` for the status change to be reflected immediately.
 
 <box type="info" seamless>
 
-**Note:** If the `add_interview` command fails its execution, it will not call `updateCurrentStatus`, so the address book state will not be modified.
+**Note:** If the `add_interview` command fails its execution, it will not call `updateCurrentStatusToReflectScheduledInterview`, so the address book state will not be modified.
 
 </box>
 
-Step 4. The user now decides that she wants to edit `Yash`'s status to "completed interview" manually, and executes the `applicant_status 98362254 s/completed interview` command. The `applicant_status` command will call `AddApplicantStatusCommandParser#parse()`, which will verify the validity of the status through `ApplicantStatus#isValidStatus()` before creating an `ApplicantStatus` and then an `AddApplicantStatusCommand`. A similar flow is true for `interviewer_status...`
+Step 4. The user now decides that she wants to edit `Yash`'s status to "completed interview" manually, and executes the `applicant_status 98362254 s/completed interview` command. The `applicant_status` command will call `AddApplicantStatusCommandParser#parse()`, which will verify the validity of the status through `ApplicantStatus#isValidStatus()` through `ParserUtil` before creating an `ApplicantStatus` and then an `AddApplicantStatusCommand`.
 
 <box type="info" seamless>
 
-**Note:** If the status passed by the user matches with none of the statuses enumerated in `ApplicantState` or `InterviewerState`, a new `ApplicantStatus` or `InterviewerStatus` is not created and consequently so aren't `AddApplicantStatusCommand` or `AddInterviewerStatusCommand`.
+**Note:** If the status passed by the user matches with none of the statuses enumerated in `ApplicantState`, a new `ApplicantStatus` is not created and consequently neither is an `AddApplicantStatusCommand`.
 
 </box>
 
@@ -271,15 +291,15 @@ The following sequence diagram illustrates step 4:
 
 #### Design considerations:
 
-**Aspect: How statuses are stored:**
+**Aspect: Customisability of statuses for users:**
 
-* **Alternative 1 (current choice):** One status at a time instead of a `Set` (like for `Tags`).
-    * Pros: Easy to implement.
-    * Cons: Doesn't allow for interviewers to encapsulate multiple scheduled interviews or for applicants to be in multiple hiring pipelines.
+* **Alternative 1 (current choice):** Users can only set those applicant statuses enumerated in `ApplicantState`.
+    * Pros: Less prone to user inputs that may crash the application or interfere with data integrity.
+    * Cons: Less freedom for users, especially those whose companies have their own set of business rules.
 
-* **Alternative 2:** Multiple statuses (proposed: an unmodifiable `Set`).
-    * Pros: Greater flexibility in setting statuses.
-    * Cons: Possible performance issues when updating multi-statuses, as well as graphical design overhead when choosing how to sort and render multiple statuses.
+* **Alternative 2:** Custom statuses.
+    * Pros: Can switch to pre-existing `Tag` architecture to implement statuses since they are very similar and there is more leeway in setting tags.
+    * Cons: Lose a bit of control over status management and degrade separation of concerns. More prone to errors when parsing user input.
 
 ### Add Interview Feature
 #### Implementation
@@ -460,95 +480,132 @@ Free alternative for tracking interview datetimes, applicant contacts and their 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                                           | I want to …​                             | So that I can…​                                                           |
-|----------|-------------------------------------------------------------------|------------------------------------------|---------------------------------------------------------------------------|
-| `* * *`  | new user                                                          | see usage instructions                   | refer to instructions when I forget how to use the Tether                 |
-| `* * *`  | user                                                              | add a new person (applicant/interviewer) |                                                                           |
-| `* * *`  | user                                                              | delete a person (applicant/interviewer)  | remove person entries that I no longer need                               |
-| `* * *`  | user                                                              | add a new interview                      |                                                                           |
-| `* * *`  | user                                                              | delete an interviewer                    | remove interview entries that I no longer need                            |
-| `* *`    | user with many persons in Tether                                  | find a person by name/email              | locate details of a person without having to go through the entire list   |
-| `* *`    | user with many interviews in Tether                               | filter interviews by date                | locate details of interviews without having to go through the entire list |
-| `* *`    | user with many applicants of varying application status in Tether | tag applicants                           | identify applicant's application progress                                 |
-| `* `     | user collaborating with other Tether users                        | share an applicant's details             | update other hiring managers on applicant details                         |
-| `* `     | user who does not want to clutter local hard drive with files     | store applicant's resume                 | view applicant's resume in Tether                                         |
+| Priority | As a …​                                                              | I want to …​                                       | So that I can…​                                                           |
+|----------|----------------------------------------------------------------------|----------------------------------------------------|---------------------------------------------------------------------------|
+| `* * *`  | new user                                                             | see usage instructions                             | refer to instructions when I forget how to use the Tether                 |
+| `* * *`  | user                                                                 | add a new person (applicant/interviewer)           |                                                                           |
+| `* * *`  | user                                                                 | delete a person (applicant/interviewer)            | remove person entries that I no longer need                               |
+| `* * *`  | user                                                                 | add a new interview                                |                                                                           |
+| `* * *`  | user                                                                 | delete an interviewer                              | remove interview entries that I no longer need                            |
+| `* *`    | user with many persons in Tether                                     | find a person by name/email                        | locate details of a person without having to go through the entire list   |
+| `* *`    | user with many interviews in Tether                                  | filter interviews by date                          | locate details of interviews without having to go through the entire list |
+| `* *`    | user with many applicants of varying application status in Tether    | tag applicants                                     | identify applicant's application progress                                 |
+| `* *`    | user with many interviewers of varying availabilities in the company | have a record of interviewer's interview scheduled | identify which interviewers are occupied or available for interviews      |
+| `* *`    | user with many persons of varying application status in Tether       | filter persons by status                           | contact all persons within a specific status group if necessary           |
+| `* `     | user collaborating with other Tether users                           | share an applicant's details                       | update other hiring managers on applicant details                         |
+| `* `     | user who does not want to clutter local hard drive with files        | store applicant's resume                           | view applicant's resume in Tether                                         |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `Tether` and the **Actor** is the `Hiring Manager`, unless specified otherwise)
+(For all use cases below, the **System** is `Tether` and the **Actor** is the `Hiring Manager`, unless specified otherwise)
 
-**Use case: UC01 - Add a person**
+**Use case: UC01 - List persons**
 
 **MSS**
 
-1.  User requests to list persons
-2.  System shows a list of persons
-3.  User requests to add a new person to the list
-4.  System adds the person and updates the displayed list
+1. User requests to list persons
+2. System displays list of persons
+
+**Use case: UC02 - Add a person with name, email and phone number**
+
+**MSS**
+
+1.  User requests to <u>list persons (UC01)</u>
+2.  User requests to add a new person to the list
+3.  System adds the person and updates the displayed list
 
     Use case ends.
 
 **Extensions**
 
-* 3a. Any of the given name, email, phone number are invalid.
-
-    * 3a1. System shows an error message.
-
-      Use case resumes at step 2.
-
-**Use case: UC02 - Delete a person by phone number**
-
-**MSS**
-
-1.  User requests to list persons
-2.  System shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  System deletes the person
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
+* 2a. Any of the given name, email, phone number are invalid.
 
     * 2a1. System shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
-* 3a. The given phone number is invalid.
-
-    * 3a1. System shows an error message.
-
-      Use case resumes at step 2.
-
-**Use case: UC03 - Find a person by name/email/phone number**
+**Use case: UC03 - Delete a person by phone number**
 
 **MSS**
 
-1.  User requests to list persons
-2.  System shows a list of persons
-3.  User requests to find a specific person in the list by their name/email/phone number
-4.  System updates the list to only display the requested person
+1.  User requests to <u>list persons (UC01)</u>
+2.  User requests to delete a specific person in the list
+3.  System deletes the person
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The given phone number is invalid or doesn't exist.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: UC04 - Find a person by name/email/phone number**
+
+**MSS**
+
+1.  User requests to <u>list persons (UC01)</u>
+2.  User requests to find a specific person in the list by their name/email/phone number
+3.  System updates the list to only display the requested person
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The given name/email/phone number is invalid.
 
     * 2a1. Tether shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
-* 3a. The given name/email/phone number is invalid.
+**Use case: UC05 - Update an applicant's status**
+Precondition: There is at least 1 applicant in the system.
 
-    * 3a1. Tether shows an error message.
+**MSS**
 
-      Use case resumes at step 2.
+1.  User requests to <u>list persons (UC01)</u>.
+2.  User requests to update a specific applicant's status
+3.  System changes the applicant's status
 
-**Use case: UC04 - Add an interview**
+    Use case ends.
+
+**Extensions**
+
+* 2a. The given applicant phone number is invalid or doesn't exist.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 1.
+
+
+* 2b. The given status is an invalid applicant status.
+
+    * 2a1. System shows an error message.
+    
+      Use case resumes at step 1.
+
+**Use case: UC06 - Filter by status**
+Precondition: There is at least 1 applicant or interviewer in the system.
+
+**MSS**
+
+1.  User requests to <u>list persons (UC01)</u>.
+2.  User requests to filter by a given status
+3.  System updates the filtered list
+
+**Extensions**
+
+* 2a. The given status is neither a valid applicant nor interviewer status.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: UC07 - Add an interview**
 
 **MSS**
 
@@ -567,7 +624,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC05 - Delete an interview**
+**Use case: UC08 - Delete an interview**
 
 **MSS**
 
@@ -591,6 +648,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. System shows an error message.
 
       Use case resumes at step 2.
+
+
+**Use case: UC09 - Filtering interviews by date**
+
+**MSS**
+
+1.  User requests to list interviews
+2.  System shows a list of interviews
+3.  User requests to filter interview by a specified date
+4.  System updates the list to only display interviews that match the specified date
+
+    Use case ends.
+    
+**Extensions**
+
+* 3a. The given date is invalid.
+
+    * 3a1. Tether shows an error message.
+
+      Use case resumes at step 2.
+* 3b. There are no interviews on the specified date.
+
+    * 3b1. Tether shows a no interviews found message.
+
+      Use case resumes at step 2.
+
+**Use case: UC10 - View overall statistics**
+
+**MSS**
+
+1.  User requests to <u>list persons (UC01)</u>.
+2.  User requests to view overall statistics
+3.  System displays number of applicants (total, and by status), number of interviewers (total, and by status), and number of interviews 
+
+    Use case ends.
 
 *{More to be added}*
 
@@ -709,6 +801,66 @@ testers are expected to do more *exploratory* testing.
     3. Test case: `find_email bob@email.com` <br>
        Expected: An empty list is displayed.
 
+### Updating applicant status
+
+1. Updating an applicant's status
+
+    1. Prerequisites: List all persons using the `list_persons` command. Multiple applicants in the list, specifically there exists an applicant with phone number `123` and an interviewer with phone number `321`.
+
+    2. Test case: `applicant_status 123 s/accepted`<br>
+       Expected: Status field of applicant with phone number `123` is updated with "accepted". Details of the applicant with their status is shown in the result message.
+
+    3. Test case: `applicant_status 321 s/accepted`<br>
+       Expected: Status field of interviewer with phone number `321` does not change. Error message displayed to user stating that only applicants can be given this status.
+
+    4. Test case: `applicant_status 123 s/free`<br>
+      Expected: Status field of applicant with phone number `123` does not change. Error message displayed to user stating that applicant status can only be given one of a given set of statuses.
+
+   5.  Test case: `applicant_status hello s/free`<br>
+      Expected: Error message displayed to user stating that either the command format or parameters are invalid.
+
+   6.  Test case: `applicant_status 123 s/accepted s/rejected`<br>
+       Expected: Status field of applicant with phone number `123` is updated with "rejected". Details of the applicant with their status is shown in the result message.
+
+   7.  Test case: `applicant_status 123 s/accepted rejected`<br>
+       Expected: Status field of applicant with phone number `123` does not change. Error message displayed to user stating that applicant status can only be given one of a given set of statuses.
+
+### Filtering persons by status
+
+1. Filtering persons by status
+
+    1. Prerequisites: List all persons using the `list_persons` command. 4 applicants in the list, specifically there exists 2 applicants with status `resume review` and `pending interview` respectively, and 2 interviewers with status `free` and `interview with applicantOneName` respectively.
+
+    2. Test case: `filter_by_status resume review`<br>
+       Expected: Displayed list of persons is updated to show only 1 applicant with status `resume review`.
+
+   3.  Test case: `filter_by_status pending interview`<br>
+       Expected: Displayed list of persons is updated to show only 1 applicant with status `pending interview`.
+
+   4.  Test case: `filter_by_status free`<br>
+       Expected: Displayed list of persons is updated to show only 1 interviewer with status `free`.
+
+   5.  Test case: `filter_by_status interview with applicantOneName`<br>
+       Expected: Displayed list of persons is updated to show only 1 interviewer with status `interview with applicantOneName`.
+
+   6.  Test case: `filter_by_status 1`<br>
+       Expected: Displayed list of persons doesn't change. Error message is displayed stating invalid command format or parameters.
+
+   7.  Test case: `filter_by_status accepted`<br>
+       Expected: Displayed list of persons doesn't change. Message is displayed stating no persons found with the given status.
+
+### View overall statistics
+
+1. View overall statistics
+
+    1. Prerequisites: List all persons using the `list_persons` command. 4 applicants in the list, specifically there exists 2 applicants with status `resume review` and `pending interview` respectively, and 2 interviewers with status `free` and `interview with applicantOneName` respectively. List all interviews using the `list_interviews` command. 1 interview in the list, between the same interviewer whose status is `interview with applicantOneName` and the same applicant whose status is `pending interview`.
+
+    2. Test case: `view_overall_statistics`<br>
+       Expected: Message is displayed stating 2 applicants total (1 in resume review and 1 in pending interview), 2 interviewers total (1 free and 1 busy), and 1 interview total.
+
+    3.  Test case: `view_overall_statistics 1`<br>
+        Expected: Same result as Test Case 2. Extraneous parameters are ignored
+
 ### Saving and Loading data from data file
 
 1. Saving and loading data from data file.
@@ -737,6 +889,18 @@ testers are expected to do more *exploratory* testing.
 
     3. Close and launch Tether again. <br>
        Expected: New data file created at `data/addressbook.json` containing some sample data.
+
+### Filtering interviews by date
+
+1. Filtering interviews by date
+
+    1. Prerequisites: Tether already contains multiple interviews in the list, specifically there exists multiple interviews with date `2024-05-05` and there is no existing interview with date `2024-06-06`. Additionally, ensure that the original interview list is displayed by using the `list_interviews` command.
+
+    2. Test case: `filter_interviews_by_date 2024-05-05` <br>
+       Expected: Interviews with date `2024-05-05` is displayed on the list.
+
+    3. Test case: `filter_interviews_by_date 2024-06-06` <br>
+       Expected: A message indicating that no interviews are found is displayed, and the displayed interview list does not change.
 
 ## **Appendix: Planned Enhancements**
 
