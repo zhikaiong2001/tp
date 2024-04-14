@@ -548,6 +548,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Use case: UC04 - Filtering interviews by date**
+
+**MSS**
+
+1.  User requests to list interviews
+2.  System shows a list of interviews
+3.  User requests to filter interview by a specified date
+4.  System updates the list to only display interviews that match the specified date
+
+    Use case ends.
+
+**Extensions**
+
+
+* 3a. The given date is invalid.
+
+    * 3a1. Tether shows an error message.
+
+      Use case resumes at step 2.
+* 3b. There are no interviews on the specified date.
+
+    * 3b1. Tether shows a no interviews found message.
+
+      Use case resumes at step 2.
+
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -693,6 +719,18 @@ testers are expected to do more *exploratory* testing.
 
     3. Close and launch Tether again. <br>
        Expected: New data file created at `data/addressbook.json` containing some sample data.
+
+### Filtering interviews by date
+
+1. Filtering interviews by date
+
+    1. Prerequisites: Tether already contains multiple interviews in the list, specifically there exists multiple interviews with date `2024-05-05` and there is no existing interview with date `2024-06-06`. Additionally, ensure that the original interview list is displayed by using the `list_interviews` command.
+
+    2. Test case: `filter_interviews_by_date 2024-05-05` <br>
+       Expected: Interviews with date `2024-05-05` is displayed on the list.
+
+    3. Test case: `filter_interviews_by_date 2024-06-06` <br>
+       Expected: A message indicating that no interviews are found is displayed, and the displayed interview list does not change.
 
 ## **Appendix: Planned Enhancements**
 
