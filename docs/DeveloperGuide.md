@@ -849,6 +849,33 @@ testers are expected to do more *exploratory* testing.
    7.  Test case: `filter_by_status accepted`<br>
        Expected: Displayed list of persons doesn't change. Message is displayed stating no persons found with the given status.
 
+### Deleting an interview
+
+1. Deleting an interview while all interviews are being shown
+
+    1. Prerequisites: List all interviews using the `list_interviews` command. One interview in the list.
+
+    2. Test case: `delete 1`<br>
+       Expected: The only interview is deleted from the list. Details of the deleted interview shown in the status message. Timestamp in the status bar is updated.
+
+    3. Test case: `delete 5`<br>
+       Expected: No interview is deleted. Error details shown in the status message. Status bar remains the same.
+
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is an invalid phone number)<br>
+       Expected: Similar to previous.
+
+### Filtering interviews by date
+
+1. Filtering interviews by date
+
+    1. Prerequisites: Tether already contains multiple interviews in the list, specifically there exists multiple interviews with date `2024-05-05` and there is no existing interview with date `2024-06-06`. Additionally, ensure that the original interview list is displayed by using the `list_interviews` command.
+
+    2. Test case: `filter_interviews_by_date 2024-05-05` <br>
+       Expected: Interviews with date `2024-05-05` is displayed on the list.
+
+    3. Test case: `filter_interviews_by_date 2024-06-06` <br>
+       Expected: A message indicating that no interviews are found is displayed, and the displayed interview list does not change.
+
 ### View overall statistics
 
 1. View overall statistics
@@ -890,17 +917,7 @@ testers are expected to do more *exploratory* testing.
     3. Close and launch Tether again. <br>
        Expected: New data file created at `data/addressbook.json` containing some sample data.
 
-### Filtering interviews by date
 
-1. Filtering interviews by date
-
-    1. Prerequisites: Tether already contains multiple interviews in the list, specifically there exists multiple interviews with date `2024-05-05` and there is no existing interview with date `2024-06-06`. Additionally, ensure that the original interview list is displayed by using the `list_interviews` command.
-
-    2. Test case: `filter_interviews_by_date 2024-05-05` <br>
-       Expected: Interviews with date `2024-05-05` is displayed on the list.
-
-    3. Test case: `filter_interviews_by_date 2024-06-06` <br>
-       Expected: A message indicating that no interviews are found is displayed, and the displayed interview list does not change.
 
 ## **Appendix: Planned Enhancements**
 
