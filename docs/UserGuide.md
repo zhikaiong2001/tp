@@ -357,6 +357,7 @@ To view your full interview schedule again, simply use the `list_interviews` com
 
 **Notes**
 * If there are no interviews with the given date, Tether will simply inform you that there are no interviews found and the displayed list will remain unchanged.
+* If you want to apply filters one-after-the-other seamlessly, you will have to do this manually. For example, after applying `filter_interviews_by_date 2024-05-05`, and if there exists interviews on that date, you will need to `list_interviews` again before applying `filter_interviews_by_date 2024-06-06`.
 
 ### Deleting a Person:
 
