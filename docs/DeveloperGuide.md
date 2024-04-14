@@ -548,6 +548,50 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Use case: UC04 - Add an interview**
+
+**MSS**
+
+1.  User requests to list interviews
+2.  System shows a list of interviews
+3.  User requests to add a new interview to the list
+4.  System adds the interview and updates the displayed list
+
+    Use case ends.
+
+**Extensions**
+
+* 3a. Any of the given description, date, time, phone number are invalid.
+
+    * 3a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC05 - Delete an interview**
+
+**MSS**
+
+1.  User requests to list interviews
+2.  System shows a list of interviews
+3.  User requests to delete a specific interview in the list
+4.  System deletes the interview
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 3a. The given index is invalid.
+
+    * 3a1. System shows an error message.
+
+      Use case resumes at step 2.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
