@@ -508,6 +508,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list persons
 2. System displays list of persons
 
+    Use case ends.
+
 **Use case: UC02 - Add a person with name, email and phone number**
 
 **MSS**
@@ -605,14 +607,22 @@ Precondition: There is at least 1 applicant or interviewer in the system.
 
       Use case resumes at step 1.
 
-**Use case: UC07 - Add an interview**
+**Use case: UC07 - List interviews**
 
 **MSS**
 
 1.  User requests to list interviews
 2.  System shows a list of interviews
-3.  User requests to add a new interview to the list
-4.  System adds the interview and updates the displayed list
+
+    Use case ends.
+
+**Use case: UC08 - Add an interview**
+
+**MSS**
+
+1.  User requests to <u>list interviews (UC07)</u>
+2.  User requests to add a new interview to the list
+3.  System adds the interview and updates the displayed list
 
     Use case ends.
 
@@ -622,16 +632,15 @@ Precondition: There is at least 1 applicant or interviewer in the system.
 
     * 3a1. System shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
-**Use case: UC08 - Delete an interview**
+**Use case: UC09 - Delete an interview**
 
 **MSS**
 
-1.  User requests to list interviews
-2.  System shows a list of interviews
-3.  User requests to delete a specific interview in the list
-4.  System deletes the interview
+1.  User requests to <u>list interviews (UC07)</u>
+2.  User requests to delete a specific interview in the list
+3.  System deletes the interview
 
     Use case ends.
 
@@ -641,40 +650,39 @@ Precondition: There is at least 1 applicant or interviewer in the system.
 
     * 2a1. System shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
 * 3a. The given index is invalid.
 
     * 3a1. System shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
 
-**Use case: UC09 - Filtering interviews by date**
+**Use case: UC10 - Filtering interviews by date**
 
 **MSS**
 
-1.  User requests to list interviews
-2.  System shows a list of interviews
-3.  User requests to filter interview by a specified date
-4.  System updates the list to only display interviews that match the specified date
+1.  User requests to <u>list interviews (UC07)</u>
+2.  User requests to filter interview by a specified date
+3.  System updates the list to only display interviews that match the specified date
 
     Use case ends.
     
 **Extensions**
 
-* 3a. The given date is invalid.
+* 2a. The given date is invalid.
 
-    * 3a1. Tether shows an error message.
+    * 2a1. Tether shows an error message.
 
-      Use case resumes at step 2.
-* 3b. There are no interviews on the specified date.
+      Use case resumes at step 1.
+* 2b. There are no interviews on the specified date.
 
-    * 3b1. Tether shows a no interviews found message.
+    * 2b1. Tether shows a no interviews found message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
-**Use case: UC10 - View overall statistics**
+**Use case: UC11 - View overall statistics**
 
 **MSS**
 
