@@ -480,20 +480,21 @@ Free alternative for tracking interview datetimes, applicant contacts and their 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                                              | I want to …​                                       | So that I can…​                                                           |
-|----------|----------------------------------------------------------------------|----------------------------------------------------|---------------------------------------------------------------------------|
-| `* * *`  | new user                                                             | see usage instructions                             | refer to instructions when I forget how to use the Tether                 |
-| `* * *`  | user                                                                 | add a new person (applicant/interviewer)           |                                                                           |
-| `* * *`  | user                                                                 | delete a person (applicant/interviewer)            | remove person entries that I no longer need                               |
-| `* * *`  | user                                                                 | add a new interview                                |                                                                           |
-| `* * *`  | user                                                                 | delete an interviewer                              | remove interview entries that I no longer need                            |
-| `* *`    | user with many persons in Tether                                     | find a person by name/email                        | locate details of a person without having to go through the entire list   |
-| `* *`    | user with many interviews in Tether                                  | filter interviews by date                          | locate details of interviews without having to go through the entire list |
-| `* *`    | user with many applicants of varying application status in Tether    | tag applicants                                     | identify applicant's application progress                                 |
-| `* *`    | user with many interviewers of varying availabilities in the company | have a record of interviewer's interview scheduled | identify which interviewers are occupied or available for interviews      |
-| `* *`    | user with many persons of varying application status in Tether       | filter persons by status                           | contact all persons within a specific status group if necessary           |
-| `* `     | user collaborating with other Tether users                           | share an applicant's details                       | update other hiring managers on applicant details                         |
-| `* `     | user who does not want to clutter local hard drive with files        | store applicant's resume                           | view applicant's resume in Tether                                         |
+| Priority | As a …​                                                                         | I want to …​                                                  | So that I can…​                                                           |
+|----------|---------------------------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------------------|
+| `* * *`  | new user                                                                        | see usage instructions                                        | refer to instructions when I forget how to use the Tether                 |
+| `* * *`  | user                                                                            | add a new person (applicant/interviewer)                      |                                                                           |
+| `* * *`  | user                                                                            | delete a person (applicant/interviewer)                       | remove person entries that I no longer need                               |
+| `* * *`  | user                                                                            | add a new interview                                           |                                                                           |
+| `* * *`  | user                                                                            | delete an interviewer                                         | remove interview entries that I no longer need                            |
+| `* *`    | user with many persons in Tether                                                | find a person by name/email                                   | locate details of a person without having to go through the entire list   |
+| `* *`    | user with many interviews in Tether                                             | filter interviews by date                                     | locate details of interviews without having to go through the entire list |
+| `* *`    | user with many applicants of varying application status in Tether               | record applicants' statuses                                   | identify applicant's application progress                                 |
+| `* *`    | user with many interviewers of varying availabilities in the company            | have a record of interviewer's scheduled interviews           | identify which interviewers are occupied or available for interviews      |
+| `* *`    | user with many persons of varying application status in Tether                  | filter persons by status                                      | contact all persons within a specific status group if necessary           |
+| `* `     | user collaborating with other Tether users                                      | share an applicant's details                                  | update other hiring managers on applicant details                         |
+| `* `     | user who does not want to clutter local hard drive with files                   | store applicant's resume                                      | view applicant's resume in Tether                                         |
+| `*`      | user with multiple ongoing interviews and many applicants/interviewers to track | view overall statistics of applicants/interviewers/interviews | keep abreast of the overall situation at all times                        |
 
 *{More to be added}*
 
@@ -565,6 +566,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 
 **Use case: UC05 - Update an applicant's status**
+
 Precondition: There is at least 1 applicant in the system.
 
 **MSS**
@@ -591,6 +593,7 @@ Precondition: There is at least 1 applicant in the system.
       Use case resumes at step 1.
 
 **Use case: UC06 - Filter by status**
+
 Precondition: There is at least 1 applicant or interviewer in the system.
 
 **MSS**
@@ -933,8 +936,66 @@ testers are expected to do more *exploratory* testing.
 
 Given below are the planned enhancements we plan to implement for our application in the future:
 
-1. **To be added**
+1.  Add group/panel interviews
 
+    - **Description:** Currently, each interview can only have one applicant and one interviewer. This can be problematic since it is common for group interviews to occur where there are multiple interviewers/applicants in one interview.
+    - **Enhancement:** To resolve this, we plan to allow the `add_interview` command to take in more than one applicants/interviewers phone number.
+    - **Example:** The user can add two applicants and 2 interviewers to an interview by executing`add_interview desc/Group interview date/2024-05-05 st/13:00 et/15:00 a/11111111 a/22222222 i/33333333 i/44444444`.
+<br>
+<br>
+2. `AddApplicantStatusCommand` to accommodate custom statuses
+    * Description: Currently, the `AddApplicantStatusCommand` strictly checks if the status given by the user matches any of 5 preset statuses. This can be problematic since different companies may have different conventions on applicant statuses and thus require adding applicant statuses to be more flexible.
+    * Enhancement: To resolve this, we plan to change the `AddApplicantStatusCommand` to accommodate custom statuses so long as they still adhere to some basic constraints such as being alphanumeric or ASCII-characters.
+    * Example: A user may choose to execute `applicant_status 12345678 s/Stage1` instead of `applicant_status 12345678 s/resume review`, depending on their specific label for the first stage of the hiring pipeline.  
+<br>
+<br>   
+3.  Shorthand for commands
+    - **Description:** Currently, some commands can be very long and take some to type out. This can affect the efficiency of the hiring manager.
+    - **Enhancement:** To resolve this, we plan to add shorter versions of existing commands by modifying the parser classes to take in these shorter commands.
+    - **Example:** User can filter interviews by `fibd 2024-05-05` instead of typing out the whole `filter_interviews_by_date 2024-05-05`.
+<br>
+<br>
+4. `PersonCard` to accommodate dynamic sizing
+    * Description: Currently, the `PersonCard` encapsulating all the fields of a person (`name`, `email`, `status`...) spills out of bounds when the fields have too long values or when statuses stack up vertically (for interviewers). This can be problematic since it impedes the user view of the application and undermines their interaction with it.
+    * Enhancement: To resolve this, we plan to calibrate the `PersonCard`s to be more dynamically sized i.e. resize themselves when the information they encapsulate grows out of the current dimensions.
+<br>
+<br>
+5.  Edit parameters of persons
+    - **Description:** Currently, the only way to edit a person’s details is to delete the person and re-add the person with the corrected details. This can be problematic as users have to execute multiple commands with repeated parameters just to make a small change.
+    - **Enhancement:** We plan to abstract these steps into a single edit command which allows users to change specific parameters of a selected person.
+    - **Example:** Assuming the first person in the list has name Alice and the user wants to change the person’s name to Bob, the command `edit 1 n/Bob` can be executed.
+<br>
+<br> 
+6.  Tagging persons
+    - **Description:** Currently, applicant and interviewer tags are automatically added when a person object is created and cannot be modified. This can be inconvenient for users who may want to manually append additional information in the tags of existing people, but are unable to do so in the current iteration of Tether.
+    - **Enhancement:** To resolve this, we plan to modify the currently private add tag functionality into a command that users can input in the command box to add custom tags to persons.
+    - **Example:** Users can now execute `tag 1 late` to add a late tag to the first person in the list.
+<br>
+<br>
+7.  More specific error messages
+    - **Description:** Some of the commands currently are not the most specific when it comes to error messages. Users who enter the parameters wrongly might not be able to tell from a glance what went wrong. One example would be for the add_interview command if the user accidentally swapped the interviewer and applicant’s phone numbers.
+    - **Enhancement:** We can create a new exception for when the user swaps the interviewer and applicant’s phone numbers.
+    - **Example:** If the phone numbers are swapped, an error message will be shown: “You seemed to have swapped the interviewer and applicant’s phone numbers”.
+<br>
+<br>
+8.  Separate Applicant/Interviewer list
+    - **Description:**  Currently, all persons (regardless of applicant or interviewer) are packed in the persons list, with their respective tags. These two different types of persons are not sorted or separated. This might not be convenient when you only want to look at either applicants or interviewers but not both.
+    - **Enhancement:** We can modify the UI to have a third list, of Interviewers, in the middle. The leftmost list will be list of Applicants, while the rightmost will remain to be the list of interviews. The two persons list will be labelled Applicants and interviewers respectively.
+    - **Example:** The two different lists will be as described, then the list_persons command will reset all filters for both lists. find_name/phone/email command will also work for both. The Applicant and Interviewer Tag is no longer shown.
+<br>
+<br>
+9.  Delete Interviews when deleting a person
+    - **Description:** Currently, when the user tries to delete a person, the system checks whether that person is involved in any existing interviews (be it as an applicant or interviewer). If this is false, the command executes as normal. However, if it is true, the command execution will be blocked and the user will receive a system message stating that he or she will need to delete all interviews corresponding to the person before he or she can delete the person. This might be troublesome if there are many interviews to be deleted.
+    - **Enhancement:** We plan to add a cascading function that will automatically search for all existing interviews corresponding to the person and delete them, as well as the person. We will also ask the user to confirm this action before proceeding.
+    - **Example:** If applicant A has 3 existing interviews, when the user deletes this applicant, the system will ask for confirmation first. After confirming, the application will delete applicant A together with all 3 interviews corresponding to A.
+<br>
+<br>
+10. Delete multiple people at once
+    - **Description:** Currently, the user can only delete one person at a time. This may be problematic because the user may want to delete many people at once and this can take up quite some time.
+    - **Enhancement:** We plan allow the `delete_person` command to take in multiple phone numbers at once. 
+    - **Example:** The user can execute `delete_person 11111111 22222222 33333333` to delete persons with the respective phone numbers.
+<br>
+<br>
 ## **Appendix: Effort**
 
 **To be added**

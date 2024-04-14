@@ -46,7 +46,7 @@ Ready to make hiring management easy for yourself? Let's get started!
     - [Clear All Existing Data](#clear-all-existing-data)
     - [Exiting the Program](#exiting-the-program)
 - [Saving your Data](#saving-your-data)
-- [Planned Enhancements and Known Issues](#planned-enhancements-and-known-issues)
+- [Planned Enhancements and Known Limitations](#planned-enhancements-and-known-limitations)
 - [Glossary](#glossary)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
@@ -110,7 +110,8 @@ Before delving into the features, we want you to give you a brief tour on how to
     * Note that the Result Box may not necessarily refresh everytime a new command is executed. This may happen if, as an example, a command incurs a fatal error before it can generate a result.
 4. Person/Interview Card: Where the details of each person **[4]** and interview you add are displayed
 5. Path to saved data: The location (i.e. the place you created the _tether_folder_ from earlier) of the folder _data_ in which your person/interview data file _addressbook.json_ is saved. If you followed the instructions in the [Quick Start](#quick-start) closely, when you first run and use the application using `java -jar`, the _data_ folder should be automatically created in the same _tether_folder_ that you created to store the `tether.jar` file.
-    * **Note**: If you move the _data_ folder or the enclosed _addressbook.json_ file to some other location, the application will **not** load with your existing data. This is because the application searches for the data folder in the **same** location as your `tether.jar` file. The path to saved data will **not** update itself if you move the _data_ folder. To summarize, just do not touch the _data_ folder or the _addressbook.json_ file as doing so would cause issues with your existing data.
+    * **Note**: If you move the _data_ folder or the enclosed _addressbook.json_ file to some other location, the application will **not** load with your existing data. This is because the application searches for the data folder in the **same** location as your `tether.jar` file. The path to saved data will **not** update itself if you move the _data_ folder.
+    * To summarize, just do not touch the _data_ folder or the _addressbook.json_ file as doing so would cause issues with your existing data.
 
 ## Help yourself!
 
@@ -169,12 +170,12 @@ One of the first steps in the hiring pipeline is when an applicant submits their
 
 To record an applicant and their contact details in Tether, simply execute `add_applicant n/NAME p/PHONE e/EMAIL` and the applicant will appear under the _Persons_ column as seen via the example usage below.
 
-**Example usage**:
+**Example Usage**:
 * `add_applicant n/Wesley Yu p/88889999 e/wesleyyu@gmail.com`
 
 ![img_3.png](img_3.png)
 
-**Parameter constraints**:
+**Parameter Constraints**:
 * Names can only contain alphanumeric **[6]** characters and spaces, and should not be blank.
 * Phone numbers must be at least 3 digits long and strictly only contain numbers (i.e. no spaces or dashes).
 * Emails should be of the format local-part@domain and adhere to the following constraints:
@@ -315,12 +316,12 @@ To find a person or persons, execute `find_email/name/phone PARAMETER1 PARAMETER
 
 **Example Usage**:
 
-**Single parameter:**
+**Single Parameter:**
 Executing ```find_name Alice``` will list all persons containing the name ```Alice```:
 
 ![img.png](images/find-command/base_to_success.png)
 
-**Multiple parameters:**
+**Multiple Parameters:**
 Executing ```find_phone 123 456``` will list all persons with the phone number `123` or `456` as seen below:
 
 ![img.png](images/find-command/base_to_multiplesuccess.png)
@@ -420,7 +421,7 @@ There is **no need** to save manually.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Planned Enhancements and Known Issues
+## Planned Enhancements and Known Limitations
 
 Tether is always a Work-In-Progress as we are constantly refining our application for your needs. Listed below are some of our planned enhancements as well as current limitations, to keep you abreast of the current state of our application.
 
@@ -430,12 +431,15 @@ Tether is always a Work-In-Progress as we are constantly refining our applicatio
    * A `tag` command and `t/` parameter to add and edit custom tags for persons/interviews.
    * `undo` and `redo` for commands.
    * Separate lists in the GUI for Applicants and Interviewers as opposed to displaying them together in one Persons list.
+   * Custom statuses for applicants.
+   * Delete multiple persons at once.
 <br>
 <br>
 3. Interviews
     * Delete interviews automatically once an applicant or interviewer is deleted.
+    * Schedule interview involving multiple applicants or interviewers.
 
-### Known Issues
+### Known Limitations
 1. User Display
     * In general, we focused on a clean interface with minimal moving parts. For this reason, there are many possible areas for improvement in our UI that we are ready and open to work on
     * Currently, adding multiple interviews may cause the interviewer's card to expand beyond its bounds.
