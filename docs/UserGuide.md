@@ -105,7 +105,7 @@ Before delving into the features, we want you to give you a brief tour on how to
     * Note that the Result Box may not necessarily refresh everytime a new command is executed. This may happen if, as an example, a command incurs a fatal error before it can generate a result.
 4. Person/Interview Card: Where the details of each person and interview you add are displayed
 5. Path to saved data: The location of the folder (`data`) in which your person/interview data file (`addressbook.json`) is saved. If you followed the instructions in the [Quick Start](#quick-start) closely, the data folder should exist in the **same** _tether_folder_ that you created to store the `tether.jar` file.
-    * **Note**: If you move the `data` folder or the enclosed `addressbook.json` file to some other location, the application will **not** load with your existing data. This is because the application searches for the data folder in the **same** location as your `tether.jar` file. The path to saved data will **not** update itself if you move the `data` folder.
+    * **Note**: If you move the `data` folder or the enclosed `addressbook.json` file to some other location, the application will **not** load with your existing data. This is because the application searches for the data folder in the **same** location as your `tether.jar` file. The path to saved data will **not** update itself if you move the `data` folder. To summarize, just do not touch the `data` folder or the `addressbook.json` file as doing so would cause issues with your existing data.
 
 ## Help yourself!
 
@@ -250,7 +250,7 @@ Simply execute `remark INDEX r/REMARK` where INDEX is the serial number of the p
 _Confident_ remark to the person at number 1.
 
 **Parameter Constraints**
-* The INDEX of the person to be removed has to be within the bounds of the number of people currently in the list. For example, executing `remark -2 r/Confident` when there can't be a negative amount of people, or `remark 100 r/Confident` when there's only 20 people, will both lead to errors.
+* The INDEX of the person to be removed has to be valid, meaning it should correspond to an existing person in the current list. For example, executing `remark -2 r/Confident` when there can't be a negative amount of people, or `remark 100 r/Confident` when there's only 20 people, will both lead to errors.
 
 **Notes**
 * If you only execute `remark INDEX` without any parameters, at all the remark of the person at that index will be removed.
@@ -280,17 +280,15 @@ The following example usage demonstrates the effect of adding an interview in th
 
 ### Listing all Persons:
 
-After adding multiple applicants/interviews into Tether, its often necessary to view all of them and their details together.
+When you've added several applicants or interviewers to Tether, it's helpful to see them all together with their details.
 
-Although the list of persons and their details are displayed on the left side of the GUI by default and is updated automatically
-whenever new persons are added, there are ```find``` and `filter` commands (explained below) that amend the list of persons displayed. If you have executed any of these commands and want to revert to the original unamended list of persons, just execute ```list_persons```. 
+The list of persons and their details is typically shown on the left side of the screen in the GUI, and it updates automatically whenever new persons are added. However, there are also commands like `find` and `filter` (explained below) that can change the list shown. If you've used any of these commands and want to go back to seeing the original, unfiltered list of persons, just use the command `list_persons`.
 
 ### Listing all Interviews:
 
-After adding multiple interviews into Tether, its often necessary to view all of them and their details together.
+Similar to persons, after adding several interviews to Tether, it's useful to see them all together with their details.
 
-Although the list of interviews and their details are displayed on the right side of the GUI by default and is updated automatically
-whenever new interviews are added, there is a ```filter``` commands (explained below) that amends the list of interviews displayed. If you have executed this command and want to revert to the original unamended list of interviews, just execute ```list_interviews```.
+The list of interviews and their details is usually displayed on the right side of the GUI, and it updates automatically when new interviews are added. However, there is a `filter` command (explained below) that can change the list displayed. If you've used this command and want to return to seeing the original, unfiltered list of interviews, simply use the command `list_interviews`.
 
 ### Finding Persons:
 
@@ -305,14 +303,15 @@ To find a person or persons, execute ```find_[email/name/phone] [parameter 1]...
 
 **Example Usage**:
 
-![img.png](images/find-command/base.png)
-
-Assume that the above list reflects the current data present in Tether for the upcoming example commands.
-
 **Multiple matching persons:**
 Executing ```find_name Alice``` will list all persons with the name ```Alice``` even if it is not a full name as stated earlier as seen below:
 
-![img.png](images/find-command/findnamesuccess.png)
+![img.png](images/find-command/base_to_success.png)
+
+**Multiple parameters:**
+Executing ```find_phone 123 456``` will list all persons with the phone number `123` or `456` as seen below:
+
+![img.png](images/find-command/base_to_multiplesuccess.png)
 
 **Notes**:
 * The ```find``` command queries the original unfiltered list of persons each time, meaning that sequentially executed ```find``` commands do not stack.
@@ -357,6 +356,7 @@ To view your full interview schedule again, simply use the `list_interviews` com
 
 **Notes**
 * If there are no interviews with the given date, Tether will simply inform you that there are no interviews found and the displayed list will remain unchanged.
+* If you want to apply filters one-after-the-other seamlessly, you will have to do this manually. For example, after applying `filter_interviews_by_date 2024-05-05`, and if there exists interviews on that date, you will need to `list_interviews` again before applying `filter_interviews_by_date 2024-06-06`.
 
 ### Deleting a Person:
 
