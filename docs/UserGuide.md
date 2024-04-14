@@ -60,9 +60,11 @@ This crucial section is where your journey with Tether starts. Here, you may lea
 
 Tether is not your typical application that you may download off an app-store and directly launch from your desktop. It is an offline application that launches from and runs entirely through your computer's [_Command Line Interface_ (CLI)](https://aws.amazon.com/what-is/cli/#:~:text=A%20command%20line%20interface%20operating%20system%20using%20your%20keyboard) **[1]** which is a medium through which you directly interact with your computer system.
 
-The way Tether works is, once you set up and launch the application from the CLI (as you will learn below in [Quick Start](#quick-start)), you type-in commands into a [_Graphical User Interface_ (GUI)](https://www.britannica.com/technology/graphical-user-interface) **[2]** to use the application. We employ this modus operandi to cut down on visual-noise such as buttons and click-away popups, and allow you to focus your hands only on the keyboard. 
+The way Tether works is, once you set up and launch the application from the CLI (as you will learn below in [Quick Start](#quick-start)), you type-in commands into a [_Graphical User Interface_ (GUI)](https://www.britannica.com/technology/graphical-user-interface) **[2]** to use the application. We employ this modus operandi to cut down on visual-noise such as buttons and click-away popups, and allow you to focus your hands only on the keyboard.
 
 In short, **if you can type fast**, Tether can get your hiring management tasks done faster than traditional GUI apps.
+
+Further, the data you create on Tether will not be saved in any online platform, but locally in your computer in a [json](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON) **[3]** file. You may even directly edit your data in this file if need be and the changes will be reflected when you (re)launch Tether. The benefit of this is that if you need a quicker way of fixing or updating your data than using commands on our application, the json file is at your disposal.
 
 Below you will see a listing and explanation of the exact commands you will need to use our available [features](#features).
 
@@ -106,7 +108,7 @@ Before delving into the features, we want you to give you a brief tour on how to
 2. Command Box: Where you enter commands (which are later forwarded to the CLI for execution).
 3. Result Box: Where success or error messages, if any, for executed commands are displayed
     * Note that the Result Box may not necessarily refresh everytime a new command is executed. This may happen if, as an example, a command incurs a fatal error before it can generate a result.
-4. Person/Interview Card: Where the details of each person **[3]** and interview you add are displayed
+4. Person/Interview Card: Where the details of each person **[4]** and interview you add are displayed
 5. Path to saved data: The location (i.e. the place you created the _tether_folder_ from earlier) of the folder _data_ in which your person/interview data file _addressbook.json_ is saved. If you followed the instructions in the [Quick Start](#quick-start) closely, when you first run and use the application using `java -jar`, the _data_ folder should be automatically created in the same _tether_folder_ that you created to store the `tether.jar` file.
     * **Note**: If you move the _data_ folder or the enclosed _addressbook.json_ file to some other location, the application will **not** load with your existing data. This is because the application searches for the data folder in the **same** location as your `tether.jar` file. The path to saved data will **not** update itself if you move the _data_ folder. To summarize, just do not touch the _data_ folder or the _addressbook.json_ file as doing so would cause issues with your existing data.
 
@@ -128,7 +130,7 @@ Now that we've gone over the basics, let's dive into how you may use Tether for 
 * Most commands are in the format `commandname [parameters]`.
 
 
-* Take note of parameters **[4]** that have special prefixes such as `n/` for name and `e/` for email.
+* Take note of parameters **[5]** that have special prefixes such as `n/` for name and `e/` for email.
 
 
 * Command names are case-sensitive.<br>
@@ -412,7 +414,7 @@ If you're clocking out for the day, either execute ```exit``` directly or press 
 
 ## Saving Your Data
 
-Tether's person and interview data are saved in the hard disk automatically after any command that changes the data.
+Tether's person and interview data are saved in the hard disk **[7]** automatically after any command that changes the data.
 
 There is **no need** to save manually.
 
@@ -448,10 +450,11 @@ Tether is always a Work-In-Progress as we are constantly refining our applicatio
 ## Glossary
 1. Command Line Interface (CLI) : It is a software mechanism you use to interact with your computer using your keyboard.
 2. Graphical User Interface (GUI) : It is a user interface that allows users to interact with graphical icons like buttons.
+3. JSON: A text-based format for representing structured data involving specific fields and their values.
 3. Person : Refers to an applicant or an interviewer.
 4. Parameter : Information to be supplied by the user into commands.
-5. Hard disk : The storage component of your computer.
 6. Alphanumeric : Alphabets `a-z` (both lower and uppercase) and numbers `0-9`.
+7. Hard disk : The storage component of your computer.
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
